@@ -1,0 +1,131 @@
+<html>
+	<head>
+		<title>project.ELS - Ein Softwareprojekt der Uni-Potsdam</title>
+		<link rel="stylesheet" type="text/css" media="screen" href="style.css">
+	</head>
+	<body bgcolor="#ffffff">
+		<table width="100%" cellpadding="0" cellspacing="0" border="0" bordercolor="#3a428c">
+			<tr>
+				<td width="30" bgcolor="#3a428c">
+				</td>
+				<td width="5" bgcolor="#3a428c">
+				</td>
+				<td bgcolor="#3a428c">
+					<font style="FONT-SIZE: 20pt; FONT-FAMILY: Verdana, sans-serif" color="#ffffff"><b>project.ELS</b></font>
+				</td>
+				<td width="600" height="95" bgcolor="#3a428c" align="right" valign="middle">
+					<img class="head" src="bilder/oben/01.jpg" width="80"> <img class="head" src="bilder/oben/02.jpg" width="80">
+					<img class="head" src="bilder/oben/03.jpg" width="80"> <img class="head" src="bilder/oben/04.jpg" width="80">
+					<img class="head" src="bilder/oben/05.jpg" width="80"> <img class="head" src="bilder/oben/unilogo.gif" width="80" height="80">
+				</td>
+				<td bgcolor="#3a428c" width="25">
+				</td>
+			</tr>
+			<tr>
+				<td width="30" bgcolor="#3a428c">
+				</td>
+				<td width="5" bgcolor="#ffffff">
+				</td>
+				<td colspan="4" bgcolor="#ffffff" cellpadding="5" cellspacing="5">
+					<table width="500" border="0">
+						<tr>
+							<td>
+								<p>
+								<a href="index.html">Zurück</a><br>
+										<h1><img src="bilder/screenshots/Server.jpg" valign="middle" border=0> pELS-Server</h1>
+									<span class="text">
+
+
+	   <br>
+	   <br>
+	   <h2>Erster Start des Servers</h2>
+	   <br>
+	   <br>
+	   <i>Hinweis: </i> Da die Daten auf einer Datenbank gespeichert werden, können Sie den Server erst nutzen, nachdem Sie <a href="http://www.postgresql.org/">PostgreSQL</a> installiert haben.
+			     <a href="http://www.postgresql.org/">PostgreSQL</a> ist ein OpenSource Datenbanksystem das Sie <a href="http://www.postgresql.org/download/">hier</a> beziehen können.
+
+	   <br><br>
+	   Beim ersten Starten müssen Sie die Verbindungdaten wie Host, Port des Datenbankservers eintragen.
+	   Zudem muss ein Benutzer (+Passwort) angegeben werden der auf dem Datenbankserver auch vorhanden ist. Sollte der Datenbank Server nicht von Ihnen administriert werden, wenden Sie sich an den zuständigen Administrator. Sie brauchen auf jeden Fall einen Benutzer-Account, der es ermöglicht Datenbanken anzulegen.
+	   Sollte noch keine Datenbank auf dem Datenbank-Server angelegt sein, können Sie sich bei PostgreSQL auf die Pseudo-Datenbank "template1" verbinden.
+	   <br>Sie können erst mit dem Starten des Servers fortfahren, wenn die Verbindung zur Datenbank korrekt ist.
+	   Solange Sie nicht mit einer gültigen Einsatzdatenbank verbunden sind, kann es beim Starten noch zu weiteren Fehlermeldungen kommen. Diese können jedoch ignoriert werden.
+	   <br><br>
+	   <i>Hinweis: </i> Arbeiten Sie erst weiter nachdem Sie einen neuen Einsatz auf dem Datenbanksystem angelegt haben.
+	   <br><br><br>
+	   <h2>Neuen Einsatz anlegen</h2>
+	   <br>Dieses Menü können Sie nur erreichen, wenn der pELS-Server bereits gestartet und somit auch mit einer Datenbank auf dem Datenbankserver verbunden ist.
+           <br><br>
+	   <center><img src="bilder/screenshots/Server-neuer-Einsatz.JPG" border="0"><br></center>
+	   <span class="bildunterschrift">neuen Einsatz anlegen</span>
+	   <br>Mit Hilfe der aktuellen Verbindungsdaten wird auf dem Datenbankserver eine neue Datenbank mit dem angegeben Namen erstellt. Alle für pELS relevanten Tabellen, Sequenzen, Constraints (etc.) werden mit Hilfe eines Skripts angelegt. Dieser Vorgang kann bis zu einer Minute dauern. Die neue Datenbank gehört dem Nutzer, der Sie erstellt hat.
+	   <br>
+	   <br>Folgende <b>typische Probleme</b> tauchen beim Anlegen einer neuen Datenbank auf:
+	   <br> <li>Der Nutzer hat nicht die Rechte um Datenbanken auf dem Datenbankserver zu erstellen.
+	   <br> <ul>-> Stellen Sie dies sicher. Wenden Sie sich ggf. an den Administrator der Datenbank.</ul></li>
+	   <br>
+	   <br> <li>Die Datenbank ist zur Zeit in Benutzung
+	   <br> <ul>-> Sollte eine Datenbank mit dem angegebenen Namen bereits existieren, wird diese gelöscht und eine neue mit diesem Namen angelegt. Wenn jedoch auch nur ein Nutzer im Netzwerk gerade eine Verbindung zu dieser Datenbank hält, z.B. durch ein Administrationstool oder einen anderen pELS-Server, verweigert PostgreSQL das Löschen.
+	   <br>    (Dies gilt auch und v.a. wenn <b>Sie</b> aktuell mit dieser Datenbank verbunden sind!)</ul></li>
+
+	   <br><br>
+	   <h2>Einsatzdaten bearbeiten</h2>
+	   <br>Zu jedem Einsatz existiert immer genau ein Datensatz 'Einsatzdaten'. Über den Menüpunkt 'Einsatz\aktuelle Einsatzdaten' können Sie als Administrator des pELS-Server den aktuellen Einsatz einsehen & editieren.
+           <br><br>
+	   <center><img src="bilder/screenshots/Server-Einsatzdaten.JPG" border="0"><br>
+	   <span class="bildunterschrift">aktueller Einsatz</span>
+	   </center>
+	   <br>  Sollten Sie das Fenster mit dem Button "Speichern & Schließen" verlassen, werden die Änderungen auf der Datenbank gespeichert.
+
+	   <h1>Datenbestand</h1>
+	   <h2>Datenbestand exportieren</h2>
+	   <br>Alle Daten des aktuellen Einsatzes können exportiert werden. Für den Reimport in pELS empfehlen wir das entsprechende Format.
+	   <br>Alternativ können die Daten auch als CSV-Dateien (Comma Seperated Values) exportiert werden. Somit ist es möglich die Einsatzdaten auch in andere Programme zu exportieren.
+
+	   <h2>Datenbestand importieren</h2>
+	   <br>Zum Importieren sollten nur Backups verwendet werden, die von pELS-Servern der gleichen Version erstellt wurden.
+	   <br>Ein Import ist immer eine Übernahme des gesamten Inhaltes. Somit gehen <b>ALLE</b> Einsatzdaten die zum aktuellen Einsatz gehören verloren.
+	   <br>Sollten Sie das nicht wollen, legen Sie vorher einen neuen Einsatz an /*hier linken zu kapitel*/.
+	   <br>Nach dem Import sollten Sie den Server manuell neu starten /*hier linken zu kapitel*/.
+
+	   <h1> Das Server-Fenster</h1>
+	   <center><img src="bilder/screenshots/Server-Hauptfenster.JPG" border="0"><br></center>
+	   <span class="bildunterschrift">Server Hauptfenster</span>
+	   <br> Alle Optionen im Hauptfenster finden sich auch als Untermenüfunktionen des Hauptmenüs wieder.
+
+	   <h2>neu starten</h2>
+	   <br>Prinzipiell sollte es nicht notwendig sein den Server manuell neu zu starten. Sollten Sie es als Administrator doch für notwendig halten, können Sie das unter dem Menüpunkt "Server\neu starten" tun ohne das Programm zu verlassen.
+	   <center><img src="bilder/screenshots/Server-neu-starten.JPG" border="0"><br>
+	   <span class="bildunterschrift">Server neu starten</span>		   </center>
+	   <br>Dabei wird die Verbindung zur Datenbank erneut initialisiert, sowie alle Remoting-Verbindungen.
+	   <br><i>Hinweis:</i>Alle angemeldeten Clients verlieren die Verbindung zum Server, wenn dieser neu startet!
+
+	    <br><br>
+	   <h2>Server/Oberfläche verstecken</h2>
+	   <center><img src="bilder/screenshots/Server-ContextMenue.JPG" border="0"><br>
+	    <span class="bildunterschrift">Server KontextMenü </span>		     </center>
+	    <br>Der Server verschwindet als Icon in der Taskbar. Dort können Sie Ihn über das Kontextmenü oder einen Doppelklick wieder hervorbringen.
+
+	   <br><br>
+	   <h2>Serverkonfiguration</h2>
+	   <center><img src="bilder/screenshots/Server-Konfiguration.JPG" border="0"><br>
+	   <span class="bildunterschrift">Server Konfiguration</span>			 </center>
+	   <br> Hier befinden sich Informationen die sich mit Verbindungen des Servers zu anderen Rechnern befassen.
+	   <br> Auf der linken Seite finden Sie eine Auflistung aller IPs auf der pELS-Clients den Server erreichen können.
+	   <br> Wieviele dies sind hängt von der Anzahl der Netzwerkschnittstellen ab, die auf dem Rechner zur Verfügung stehen. Sie können den Anmeldeport anpassen. Sollte dieser nicht frei sein, wird ausgehend von diesem der nächste freie Port gewählt.
+	   <br>
+	   <br> Auf der rechten Seite finden Sie die Verbindungsdaten zur Datenbank. Es ist nicht möglich dieses Fenster zu schließen ohne eine korrekte Verbindung zur Datenbank festgelegt zu haben.
+	    Über den Button "DB Anbindung testen" können Sie sich vergewissern, dass die Einstellungen 'korrekt' sind.
+	   Sollten Sie Änderungen speichern wird der Server <b>neu gestartet</b> um die Ports bzw. die Datenbankanbindung für alle neu zu initialisieren. Dabei wird auch der ODBC Treiber rekonfiguriert. Den Hinweis auf die Änderung der Registry können Sie daher beruhigt bestätigen.
+	   <br><br> <i>Hinweis: <b>'korrekt'</b></i> in diesem Zusammenhang bedeutet nur, dass Sie mit einer Datenbank auf dem Datenbankserver verbunden sind. Es ist keine Aussage über den konsistenten Zustand oder das erwartete Datenbankschema<b>!</b>
+
+	    <br><a href="index.html">Zurück</a>
+	    <br><p align="right"><b>project.ELS<b> version 1.0</p>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	 </body>
+</html>

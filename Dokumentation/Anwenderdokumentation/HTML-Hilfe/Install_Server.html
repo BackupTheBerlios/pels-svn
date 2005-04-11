@@ -1,0 +1,123 @@
+<html>
+
+<head>
+      <title>project.ELS - Installation des Servers</title>
+      <link rel="stylesheet" type="text/css" media="screen" href="style.css">
+</head>
+
+<body bgcolor="#FFFFFF">
+<table width="100%" cellpadding=0 cellspacing=0 border=0 bordercolor="#3a428c">
+       <tr>
+	   <td width="30" bgcolor="#3a428c">
+	   </td>
+	   <td width="5" bgcolor="#3a428c">
+	   </td>
+	   <td bgcolor="#3a428c">
+	       <font style="font-family: Verdana, sans-serif;font-size: 20pt;" color="#FFFFFF"><b>project.ELS</b></font>
+	   </td>
+	   <td width="600" height="95" bgcolor="#3a428c" align="right" valign="middle">
+	       <img class="head" src="bilder/oben/01.jpg" width="80">
+	       <img class="head" src="bilder/oben/02.jpg" width="80">
+	       <img class="head" src="bilder/oben/03.jpg" width="80">
+	       <img class="head" src="bilder/oben/04.jpg" width="80">
+	       <img class="head" src="bilder/oben/05.jpg" width="80">
+	       <img class="head" src="bilder/oben/unilogo.gif" width="80" height="80">
+	   </td>
+	   <td bgcolor="#3a428c" width="25">
+	   </td>
+       </tr>
+
+       <tr>
+	   <td width="30" bgcolor="#3a428c">
+	   </td>
+	   <td width="5" bgcolor="FFFFFF">
+	   </td>
+
+	   <td colspan="4" bgcolor="#FFFFFF" cellpadding=5 cellspacing=5>
+	   <table width="500" border="0">
+	   <tr><td>
+	   <p>
+	   <a href="index.html">Zurück</a><br>
+
+	   <h1><img src="bilder/screenshots/Server.jpg" valign="middle" border=0> Installation des Servers</h1>
+	   <span class="text">
+
+	   <h2>Installationsvoraussetzung</h2>
+	   <h3>Hardware</h3>
+	   <ul>
+	   <li>IBM-kompatible Hardware, welche die oben genannte Software in benutzerfreundlicher Geschwindigkeit ablaufen lässt</li>
+	   </ul>
+	   <h3>Software</h3>
+	   <ul>
+	   <li>Microsoft Windows 2000 und höher</li>
+	   <li>Microsoft .NET Framework (auf CD enthalen)</li>
+	   <li><a href="http://www.postgresql.org/ftp/binary/v8.0.1/win32/" target="_blank">PostgreSQL 8.0.1</a> (auf CD enthalen)</li>
+	   <li><a href="http://gborg.postgresql.org/project/psqlodbc/projdisplay.php" target="_blank">PostgreSQL ODBC Driver</a> (auf CD enthalten)</li>
+	   </ul>
+
+	   <h2>Installation Schritt für Schritt</h2>
+	   <ol>
+	   <li>Legen sie die project.ELS CD in ein beliebiges CD/DVD Laufwerk ein.</li>
+	   <li>Öffnen sie die project.ELS CD mit dem Windows Explorer</li>
+	   <li>Wechseln sie in den Ordner Installer</li>
+	   <li>Wechseln sie in den Unterordner Server</li>
+	   <li>Starten sie die Datei Setup.exe</li>
+	   <li>Haben sie bereits eine PostgreSQL 8.0.1 Datenbank installiert?
+	       <br />Falls nicht, öffnet sich das folgende Dialogfenster.
+	       <br /><br /><center><img src="bilder/screenshots/Install-Server-Bedingung1.jpg"><br>
+	       <span class="bildunterschrift">PostgreSQL Datenbank nicht gefunden</span></center>
+	       <br />Drücken sie auf Ja, um den PostgreSQL 8.0.1 Datenbank zu installieren. Falls sie Nein drücken, wird die project.ELS Installation abgebrochen.</li>
+	   <li>Wenn sie ja gedrückt haben, erscheint ein Installationsassistent für die PostgreSQL 8.0.1 Datenbank.
+	       <br />Folgen sie den Installationsanweisungen.</li>
+	   <li>Bitte nehmen sie im Fenster Werkzeuge und Schnittstellen nur Änderungen vor, wenn sie mit dem Umgang von PostgreSQL Erfahrung haben.
+	       <br /><br /><center><img src="bilder/screenshots/Install-Server-Postgres1.jpg"><br>
+	       <span class="bildunterschrift">PostgreSQL: Werkzeuge und Schnittstellen</span></center></li>
+	   <li>In folgenden Fenster können PostgreSQL als Dienst installieren. Für den project.ELS Server ist erforderlich, das PostgreSQL als Dienst installiert ist.
+	       <br />Der Benutzername und Passwort kann von ihnen frei gewählt werden, und wird zur Authentifizierung benötigt um spätere Administritive Aufgaben an PostgreSQL durchführen zu können.
+	       <br /><br /><center><img src="bilder/screenshots/Install-Server-Postgres2.jpg"><br>
+	       <span class="bildunterschrift">PostgreSQL: Dienstkonfiguration</span></center></li>
+	   <li>Im Fenster "Datenbank-Cluster initialisieren" müssen sie ihren gewünschten Benutzername und ihr Passwort eingeben mit welchem sie auf die Datenbank zugreifen wollen.
+	       <br /><strong>WICHTIG:</strong> Merken sie sich den Benutzername und das Passwort, da sie beide bei der Serverkonfiguration benötigen.
+	       <br /><br /><center><img src="bilder/screenshots/Install-Server-Postgres3.jpg"><br>
+	       <span class="bildunterschrift">PostgreSQL: Datenbank-Cluster aktualisieren</span></center></li>
+	   <li>Als nächstes können Sie zusätzliche Funktionalität in der Datenbank aktivieren. Der project.ELS Server benötigt aber keines der auswählbaren Module.
+	       <br /><br /><center><img src="bilder/screenshots/Install-Server-Postgres4.jpg"><br>
+	       <span class="bildunterschrift">PostgreSQL: Aktiviere Module</span></center></li>
+	   <li>Nachdem die PostgreSQL 8.0.1 Datenbank erfolgreich installiert wurde, startet der project.ELS Installationsassistent automatisch erneut.</li>
+	   <li>Haben sie bereits einen PostgreSQL ODBC Driver installiert?
+	       <br />Falls nicht, öffnet sich das folgende Dialogfenster.
+	       <br /><br /><center><img src="bilder/screenshots/Install-Server-Bedingung2.jpg"><br></center>
+	       <br />Drücken sie auf Ja, um den PostgreSQL ODBC Driver zu installieren. Falls sie Nein drücken, wird die project.ELS Installation abgebrochen.</li>
+	   <li>Nachdem der PostgreSQL ODBC Driver erfolgreich installiert wurde, startet der project.ELS Installationsassistent automatisch erneut.</li>
+	   <li>Lesen sie die Hinweise und folgen sie den Installationshinweisen.</li>
+	   <li>Wählen sie das Verzeichnis, in das der project.ELS Server installiert werden soll.
+	       <br />ACHTUNG: Wählen sie ein Verzeichnis, für das sie uneingeschränkte Schreibrechte besitzen.
+	       <br /><br /><center><img class="OhneRahmen" src="bilder/screenshots/Install-Server-pELS.jpg"><br></center></li>
+	   <li>Warten Sie bis der project.ELS Server vollständig installiert ist.</li>
+	   <li>Nach Abschluss der Installation, starten Sie ihren Rechner neu, damit Änderungen am System übernommen werden.</li>
+	   </ol>
+
+	   <h2>Starten des project.ELS Servers</h2>
+	   Um den Server zu starten, benutzen Sie die auf Ihrem Desktop erstellte Verknüpfung.
+	   <br />Viel Spaß bei der Verwendung unserer Software.
+
+	   <h2>Problembehandlung</h2>
+	   <ul>
+	       <li><strong>Problem:</strong> Während der Installation der PostgreSQL Datenbank öffnet sich nochmal das Fenster "Wollen sie die PostgreSQL Datenbank insallieren?".
+	       <br /><strong>Ursache:</strong> Das PostgreSQL Datenbankmanagement startet während der Insallation in einem anderen Prozess neu.
+	       <br /><strong>Lösung:</strong> Verneinen sie die Frage und starten sie den project.ELS Server Installationsassistenten neu, <strong>nachdem</strong> sie die PostgreSQL Installation abgeschlossen haben.</li>
+	   </ul>
+	   <br />Haben Sie ein hier nicht aufgelistetes Problem, mailen Sie es uns an <a href="mailto:els@sigmadelta.de">els@sigmadelta.de</a> und wir werden uns schnellst möglich für eine Lösung sorgen.
+
+	   </span>
+	   </p>
+
+
+	   </td></tr></table>
+	   </td>
+
+       </tr>
+</table>
+<br><br><br><br><br><p align="right"><b>project.ELS<b> version 1.0</p>
+</body>
+</html>

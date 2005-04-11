@@ -1,0 +1,102 @@
+<html>
+
+<head>
+      <title>project.ELS - Ein Softwareprojekt der Uni-Potsdam</title>
+      <link rel="stylesheet" type="text/css" media="screen" href="style.css">
+</head>
+
+<body bgcolor="#FFFFFF">
+<table width="100%" cellpadding=0 cellspacing=0 border=0 bordercolor="#3a428c">
+       <tr>
+           <td width="30" bgcolor="#3a428c">
+           </td>
+           <td width="5" bgcolor="#3a428c">
+           </td>
+           <td bgcolor="#3a428c">
+               <font style="font-family: Verdana, sans-serif;font-size: 20pt;" color="#FFFFFF"><b>project.ELS</b></font>
+           </td>
+           <td width="600" height="95" bgcolor="#3a428c" align="right" valign="middle">
+               <img class="head" src="bilder/oben/01.jpg" width="80">
+               <img class="head" src="bilder/oben/02.jpg" width="80">
+               <img class="head" src="bilder/oben/03.jpg" width="80">
+               <img class="head" src="bilder/oben/04.jpg" width="80">
+               <img class="head" src="bilder/oben/05.jpg" width="80">
+               <img class="head" src="bilder/oben/unilogo.gif" width="80" height="80">
+           </td>
+           <td bgcolor="#3a428c" width="25">
+           </td>
+       </tr>
+
+       <tr>
+           <td width="30" bgcolor="#3a428c">
+           </td>
+           <td width="5" bgcolor="FFFFFF">
+           </td>
+
+           <td colspan="4" bgcolor="#FFFFFF" cellpadding=5 cellspacing=5>
+           <table width="500" border="0">
+           <tr><td>
+           <p>
+           <a href="index.html">Zurück</a><br>
+
+           <h1><img src="bilder/screenshots/MAT.JPG" border="0">Aufträge</h1>
+           <span class="text">
+           <br>Dieses Portal erlaubt Meldungen, Aufträge & Termine in das System einzupflegen.
+           <br>
+
+
+           <h2>Meldung abfassen</h2>
+           <br>
+           <center><img src="bilder/screenshots/MAT-Meldung-abfassen.JPG" border="0"><br>
+           <span class="bildunterschrift">Meldung abfassen</span>
+           </center>  <br>
+           Bei <i>Meldung abfassen</i> können eingehende Meldungen ins System eingegeben werden. Dabei ist der aktuelle Benutzer der Autor.
+           Die Meldung kann an alle Kräfte gehen, die aktuell im System erfasst sind. Zusätzlich kann noch ein <i>interner Empfänger</i> angegeben werden. Der interne Empfänger ist Benutzer im System. Die Meldung wird in dessen ToDo-Liste angezeigt, bis sie zur Kenntnis genommen wurde.
+           <br>Neben Meldungen können auch Erkundungsergebnisse abgefasst werden. Sie unterscheiden sich im Vergleich zu Meldungen dadurch, dass Sie mehr geordnete Daten aufnehmen.
+           <br><br>
+           <center><img src="bilder/screenshots/MAT-Erkerg-abfassen.JPG" border="0"><br>
+           <span class="bildunterschrift">Eingabemaske Erkundungsergebnis</span></center>
+           <br> Zusätzlich ist es möglich einen Kommentar (ganz unten) zu einem Erkundungsergebnis zu erfassen.
+           <br>
+           Durch Drücken auf den Button <i>Speichern</i> wird die Meldung gespeichert. <i>Zurücksetzen</i> verwirft die aktuellen Eingaben. <i>Speichern & Drucken</i> speichert die Meldung und wechselt dann in das <a href="Portal_Report.html">Portal Report</a> zur Druckvorlage der aktuellen Meldung.
+
+
+            <h2>Meldung erfassen</h2>
+            <br>unterscheidet sich von dem oben beschriebenen <i>Meldung abfassen</i> dadurch, dass der Autor nicht der zwangsläufig der aktuelle Benutzer ist. So können also auch Meldungen & Erkundungsergebnisse von Dritten (nicht als Benutzer im System) erfassten Personen aufgenommen werden.
+            <br><i>Hinweis</i>: Nicht alle Rollen im System haben das Recht Meldungen Dritter zu erfassen.
+            <br>
+            <h2>Auftrag eingeben</h2>
+            <br>Hier können Aufträge eingegeben werden. Neben dem eigentlichen <i>Auftragstext</i> und den aus den anderen Reitern bekannten Informationen kann auch eine Befehlsart bestimmt werden, sollte es sich nicht um einen normalen Auftrag.
+            <br><br>
+            <center><img src="bilder/screenshots/MAT-Auftrag-eingeben.JPG" border="0"><br>
+            <span class="bildunterschrift">Aufträge eingeben</span></center>
+            <br>Sollten der Benutzer Aufträge <i>nachverfolgen</i> wollen, so kann er dass durch Markieren der Checkbox veranlassen.
+
+            <h2>Aufträge nachverfolgen</h2>
+            <center><img src="bilder/screenshots/MAT-Aufträge-nachverfolgen.JPG" border="0"><br>
+            <span class="bildunterschrift">Aufträge nachverfolgen</span></center>
+            <br> Alle Aufträge, die zur Nachverfolgung gekennzeichnet wurden erscheinen in diesem Reiter als Tabelle. Diese können eingesehen und ausgewählt werden.
+            <br> Ausgewählte Aufträge können durch Drücken auf den Button <i>Speichern</i> als ausgeführt gekennzeichnet werden. Sie werden danach nicht mehr nachverfolgt und erscheinen auch nicht mehr in der Tabelle. Dabei wird auch der Ausführungszeitpunkt gesetzt.
+
+            <h2>Termin erstellen</h2>
+            <center><img src="bilder/screenshots/MAT-Termin-erstellen.JPG" border="0"><br>
+            <span class="bildunterschrift">Termin erstellen</span></center>
+            <br>Hier können neue Termine für Nutzer erstellt werden. Durch Drücken auf <i>Zurücksetzen</i> werden die Eingaben verworfen, durch Drücken auf <i>Speichern</i> wird der Termin gespeichert.
+            <br>Gespeicherte Termine werdem beim angegebenen Empfänger in der ToDo-Liste angezeigt (falls das Flag gesetzt wurde),bis Sie zur Kenntnis genommen wurden.
+            <br>
+            <br><i>Hinweis</i>: Die Optionen <i>'ist wichtig'</i> und <i>'Erinnern am'</i> finden in der aktuellen Version noch keine Berücksichtigung.
+
+
+           </span>
+
+             <br><a href="index.html">Zurück</a>
+            <br><p align="right"><b>project.ELS<b> version 1.0</p>
+           </p>
+
+           </td></tr></table>
+           </td>
+
+       </tr>
+</table>
+</body>
+</html>

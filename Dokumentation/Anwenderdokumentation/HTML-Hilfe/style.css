@@ -1,0 +1,74 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Verdana, non-serif;
+	font-size: 8pt;
+	color: #000000;
+	background: #FFFFFF;
+
+}
+
+*.text{
+	font-size: 10pt;
+	color: #000000;
+
+}
+
+a {
+	text-decoration:underline;
+		color: #000000;
+
+}
+
+img.head {
+	border: none;
+}
+
+*.center {
+	 text-align:center;
+}
+
+img {
+	border: 1px solid #000000;
+	text-align:center;
+}
+
+img.OhneRahmen{
+	border: none;
+	text-align:center;
+}
+
+*.bildunterschrift{
+	font-size: 8pt;
+	font-weight:bold;
+	margin: 0 0 0 0;
+	font-style:italic;
+}
+
+h1 {
+	font-size: 16pt;
+	font-weight:bolder;
+	margin: 15 0 15 0;
+}
+
+h2 {
+	font-size: 14pt;
+	font-weight:bold;
+	margin: 10 0 10 0;
+}
+
+h3 {
+	font-size: 12pt;
+	font-weight:bold;
+	margin: 5 0 5 0;
+}
+
+ul {
+	margin: 0px 0 0 50px;
+}
+
+li {
+	font-family: Verdana, non-serif;
+	font-size: 10pt;
+	margin: 5 0 0 0;
+}

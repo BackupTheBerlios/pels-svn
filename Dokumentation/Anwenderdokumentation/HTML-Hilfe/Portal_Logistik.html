@@ -1,0 +1,107 @@
+<html>
+	<head>
+		<title>project.ELS - Ein Softwareprojekt der Uni-Potsdam</title>
+		<link rel="stylesheet" type="text/css" media="screen" href="style.css">
+	</head>
+	<body bgcolor="#ffffff">
+		<table width="100%" cellpadding="0" cellspacing="0" border="0" bordercolor="#3a428c">
+			<tr>
+				<td width="30" bgcolor="#3a428c">
+				</td>
+				<td width="5" bgcolor="#3a428c">
+				</td>
+				<td bgcolor="#3a428c">
+					<font style="FONT-SIZE: 20pt; FONT-FAMILY: Verdana, sans-serif" color="#ffffff"><b>project.ELS</b></font>
+				</td>
+				<td width="600" height="95" bgcolor="#3a428c" align="right" valign="middle">
+					<img class="head" src="bilder/oben/01.jpg" width="80"> <img class="head" src="bilder/oben/02.jpg" width="80">
+					<img class="head" src="bilder/oben/03.jpg" width="80"> <img class="head" src="bilder/oben/04.jpg" width="80">
+					<img class="head" src="bilder/oben/05.jpg" width="80"> <img class="head" src="bilder/oben/unilogo.gif" width="80" height="80">
+				</td>
+				<td bgcolor="#3a428c" width="25">
+				</td>
+			</tr>
+			<tr>
+				<td width="30" bgcolor="#3a428c">
+				</td>
+				<td width="5" bgcolor="#ffffff">
+				</td>
+				<td colspan="4" bgcolor="#ffffff" cellpadding="5" cellspacing="5">
+					<table width="500" border="0">
+						<tr>
+							<td>
+								<p>
+								<a href="index.html">Zurück</a><br>
+										<h1><img src="bilder/screenshots/Logistik.jpg" valign="middle" border=0>Logistik</h1>
+									<span class="text">
+				Das Logistik-Portal ermöglicht dem Nutzer das Erfassen von
+				Gutdaten, das Bearbeiten der Gütervorratsliste,
+				das Zuordnen von Material zu einer Einheit sowie die
+				Übergabe von Material einer Einheit an eine andere Einheit.
+	   <br>
+	   <br>
+	   <h2>Güter erfassen und bearbeiten</h2>
+	   <br>
+	   <center><img src="bilder/screenshots/Logistik-Guetererfassen.jpg" valign="middle" border="0"><br>
+		 <span class="bildunterschrift">Güter erfassen und bearbeiten</span>
+	  </center>
+	  <br>
+	  Bei <i>'Güter erfassen und bearbeiten'</i> hat der Nutzer die Möglichkeit ein Gut zu erstellen, zu
+	  löschen oder seine Daten zu ändern.
+	  <br><br>
+	  Im folgenden werden die Funktionen semantisch
+	  zusammengehörender Steuerelemente dieses Tabs erklärt:
+	 <br><br>
+
+	 <b>Typ</b>:
+	 <center><img src="bilder/screenshots/Logistik-Gueter-Typ.jpg" border="0"><br></center>
+	 <ul>
+	 Hier kann der Typ unterschieden werden. Es gibt nur Verbrauchsgüter und Materialien. Verbrauchsgüter werden aufgebraucht und haben daher einen <i>spätesten Wiederbeschaffungszeitpunkt</i>. Materialien können zwischen Kräften ausgeliehen werden.
+	 </ul>
+	 <br>
+	 <br>
+	 <b>Gütervorratsliste</b>:
+	 <center><img src="bilder/screenshots/Logistik-Gueter-Liste.jpg" border="0"><br></center>
+	 <ul>
+	      Die Gütervorratsliste beinhaltet alle zur Zeit im System erfassten Güter.
+	 <br> Durch Anklicken eines Guts werden alle dazu gehörenden Informationen angezeigt und können dann optional bearbeitet werden.
+	 </ul>
+	 <br><br>
+	 <b>Neu Erstellen</b>:
+	 <ul>
+	 <br>Die Eingabemaske wird durch Klicken auf den Button <i>'Neu Erstellen'</i> initialisiert und aktiviert. Nun können die Informationen eingegeben werden. Durch Klicken auf <i>'Speichern'</i> werden diese gespeichert. Durch Klicken auf <i>'Zurücksetzen'</i> werden die aktuellen Eingaben verworfen.
+	 <br>Bei Material muss der Eigentümer sowie der aktuelle Besitzer angegeben werden. Der Eigentümer ist derjenige, dem das Material gehört (unveräußerlich) der aktuelle Besitzer (normalerweise der Eigentümer) ist derjenige, der das Material gerade besitzt/benutzt.
+	 </ul>
+	 <br><br>
+	 <b>Lesen & Bearbeiten</b>:
+	 <ul>
+	 Die Daten des aktuell ausgewählten Eintrags in der
+	 Gütervorratsliste werden in der Eingabemaske oben angezeigt. Diese
+	 Eingabemaske besitzt zwei Modi, zum einen den Lesen-Modus und zum anderen den
+	 Bearbeiten-Modus. Im Lesen-Modus ist die Eingabemaske nicht aktiv, die Daten des
+	 Eintrags können daher nur gelesen werden, damit sie nicht aus Versehen
+	 verändert werden. Im Bearbeiten-Modus ist die Eingabemaske aktiv, die Daten des
+	 Eintrags können modifiziert werden.
+	 <br> Durch Klicken auf <i>'Speichern'</i> werden diese gespeichert. Durch Klicken auf <i>'Zurücksetzen'</i> werden die Änderungen verworfen.
+	 </ul>
+	 <br><br>
+
+	  <h2>Material zuordnen</h2>
+	  <center><img src="bilder/screenshots/Logistik-Materialzuordnung.jpg" border="0"><br></center>
+	  <br>Im Reiter <i>'Materialzuordnung'</i> kann Material von einer Kraft an eine andere übergeben werden. Dabei werden Leihübergabebelege erstellt, die über das <a href="Portal Report.html">Portal Report</a> eingesehen und gedruckt werden können.
+	  <br>Im Bereich <i>aktueller Besitzer</i> (links oben) werden alle im System vorhandenen Kräfte gelistet (als Kräfte zählen Einheiten, Helfer, KFZs). Beim Auswählen einer Kraft wird das zugeordnete Material im Bereich darunter angezeigt.
+	  <br>Nach dem Auswählen eines <i>neuen Besitzers</i> kann das Material übergeben werden. Sollte nicht der gesamte Bestand übergeben werden, so wird das Material gesplittet. Die <i>'übergebene Menge'</i> geht an den neuen Besitzer, der Rest verbleibt beim aktuellen Besitzer.
+	  <br>Zusätzlich kann dieser Vorgang vom Benutzer kommentiert werden.
+
+	
+	   </span>
+	    <br><a href="index.html">Zurück</a>
+	    <br><p align="right"><b>project.ELS<b> version 1.0</p>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

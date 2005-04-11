@@ -1,0 +1,84 @@
+<html>
+
+<head>
+      <title>project.ELS - Ein Softwareprojekt der Uni-Potsdam</title>
+      <link rel="stylesheet" type="text/css" media="screen" href="style.css">
+</head>
+
+<body bgcolor="#FFFFFF">
+<table width="100%" cellpadding=0 cellspacing=0 border=0 bordercolor="#3a428c">
+       <tr>
+	   <td width="30" bgcolor="#3a428c">
+	   </td>
+	   <td width="5" bgcolor="#3a428c">
+	   </td>
+	   <td bgcolor="#3a428c">
+	       <font style="font-family: Verdana, sans-serif;font-size: 20pt;" color="#FFFFFF"><b>project.ELS</b></font>
+	   </td>
+	   <td width="600" height="95" bgcolor="#3a428c" align="right" valign="middle">
+	       <img class="head" src="bilder/oben/01.jpg" width="80">
+	       <img class="head" src="bilder/oben/02.jpg" width="80">
+	       <img class="head" src="bilder/oben/03.jpg" width="80">
+	       <img class="head" src="bilder/oben/04.jpg" width="80">
+	       <img class="head" src="bilder/oben/05.jpg" width="80">
+	       <img class="head" src="bilder/oben/unilogo.gif" width="80" height="80">
+	   </td>
+	   <td bgcolor="#3a428c" width="25">
+	   </td>
+       </tr>
+
+       <tr>
+	   <td width="30" bgcolor="#3a428c">
+	   </td>
+	   <td width="5" bgcolor="FFFFFF">
+	   </td>
+
+	   <td colspan="4" bgcolor="#FFFFFF" cellpadding=5 cellspacing=5>
+	   <table width="500" border="0">
+	   <tr><td>
+	   <p>
+
+	   <h1><img src="bilder/screenshots/Server.jpg" valign="middle" border=0> Frequently Asked Questions</h1>
+	   <span class="text">
+
+
+	   <h2>Installation des Servers</h2>
+	   <ul>
+	       <li><strong>Problem:</strong> Die benötigte Registrierung konnte nicht durchgeführt werden.
+	       <br /><strong>Ursache:</strong> Der Verzeichnisname wurde Fehlerhaft eingelesen.
+	       <br /><strong>Lösung:</strong> Im Ordner project.ELS\Server\pgadmin befindet sich eine pELS_odbc.reg. Starten sie diese Datei per Hand (durch Doppelclick).
+	       <br /><br /><center><img src="bilder/screenshots/Faq-Server-Reg.jpg"><br>
+	       <span class="bildunterschrift">Fehler beim Registrieren</span></center></li></ul>
+
+	   <h2>Benutzung des Servers</h2>
+	   <ul>
+	       <li><strong>Problem:</strong> Während der Installation der PostgreSQL Datenbank öffnet sich nochmal das Fenster "Wollen sie die PostgreSQL Datenbank insallieren?".
+	       <br /><strong>Ursache:</strong> Das PostgreSQL Datenbankmanagement startet während der Insallation in einem anderen Prozess neu.
+	       <br /><strong>Lösung:</strong> Verneinen sie die Frage und starten sie den project.ELS Server Installationsassistenten neu, <strong>nachdem</strong> sie die PostgreSQL Installation abgeschlossen haben.</li>
+	   </ul>
+
+	   <h2>Benutzung des Clients</h2>
+	   <ul>
+	       <li><strong>Problem:</strong> Im Portal Reports können keine Dokumente angezeigt werden. Es erscheint immer eine Fehlermeldung.
+	       <br /><strong>Ursache:</strong> Auf dem Server wurde der ODBC Treiber nicht korrekt installiert, oder die Eintragung in die Registrierung ist Fehlerhaft.
+	       <br /><strong>Lösung:</strong> Überprüfen sie auf dem Server ob der ODBC Treiber und auch die Datenbank korrekt installiert sind.
+	       <br />Falls ja, überprüfen sie die Verbindungseinstellungen zur Datenbank auf dem Server.
+	       <br />Falls diese korrekt sind. Fügen sie die Datei pELS_ODBC.reg der Registrierung hinzu.</li>
+	       <br /><br /><center><img src="bilder/screenshots/Faq-Client-Odbc.jpg"><br>
+	       <span class="bildunterschrift">Fehler beim Drucken</span></center></li></ul>
+	   </ul>
+
+	   <br />Haben Sie ein hier nicht aufgelistetes Problem, mailen Sie es uns an <a href="mailto:els@sigmadelta.de">els@sigmadelta.de</a> und wir werden uns schnellst möglich für eine Lösung sorgen.
+
+	   </span>
+	   </p>
+
+
+	   </td></tr></table>
+	   </td>
+
+       </tr>
+</table>
+<br><br><br><br><br><p align="right"><b>project.ELS<b> version 1.0</p>
+</body>
+</html>

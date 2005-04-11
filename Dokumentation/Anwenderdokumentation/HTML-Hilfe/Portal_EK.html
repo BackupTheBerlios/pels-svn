@@ -1,0 +1,139 @@
+<html>
+	<head>
+		<title>project.ELS - Ein Softwareprojekt der Uni-Potsdam</title>
+		<link rel="stylesheet" type="text/css" media="screen" href="style.css">
+	</head>
+	<body bgcolor="#ffffff">
+		<table width="100%" cellpadding="0" cellspacing="0" border="0" bordercolor="#3a428c">
+			<tr>
+				<td width="30" bgcolor="#3a428c">
+				</td>
+				<td width="5" bgcolor="#3a428c">
+				</td>
+				<td bgcolor="#3a428c">
+					<font style="FONT-SIZE: 20pt; FONT-FAMILY: Verdana, sans-serif" color="#ffffff"><b>project.ELS</b></font>
+				</td>
+				<td width="600" height="95" bgcolor="#3a428c" align="right" valign="middle">
+					<img class="head" src="bilder/oben/01.jpg" width="80"> <img class="head" src="bilder/oben/02.jpg" width="80">
+					<img class="head" src="bilder/oben/03.jpg" width="80"> <img class="head" src="bilder/oben/04.jpg" width="80">
+					<img class="head" src="bilder/oben/05.jpg" width="80"> <img class="head" src="bilder/oben/unilogo.gif" width="80" height="80">
+				</td>
+				<td bgcolor="#3a428c" width="25">
+				</td>
+			</tr>
+			<tr>
+				<td width="30" bgcolor="#3a428c">
+				</td>
+				<td width="5" bgcolor="#ffffff">
+				</td>
+				<td colspan="4" bgcolor="#ffffff" cellpadding="5" cellspacing="5">
+					<table width="500" border="0">
+						<tr>
+							<td>
+								<p>
+								<a href="index.html">Zurück</a><br>
+										<h1><img src="bilder/screenshots/EK.jpg" valign="middle" border=0> Einsatz und Kräfte</h1>
+									<span class="text">
+	    Das Modul "Einsatzkräfte" beitet die Möglichkeit Kräfte, Einsatzschwerpunkte sowie Module und Ortsverbände anzulegen und zu verwalten.
+	    Als Kräfte zählen Helfer, Kraftfahrzeuge (KFZ) und Einheiten.
+	   <br>
+	   <h2>Der Einsatzmanager</h2>
+	   <br>
+	   <center>
+		   <img src="bilder/screenshots/EK-Manager.jpg" border="0" heigth="100"><br>
+		   <span class="bildunterschrift">Der Einsatzmanager</span>
+	   </center>
+	   <br>
+	   Im Einsatzmanager können Einsatzschwerpunkte, Module, Einheiten und Helfer eingesehen werden.
+	   Es besteht die Möglichkeit Helfer oder KFZs per Drag & Drop zwischen Einheiten zu verschieben. Einheiten per Drag & Drop Modulen zu zuordnen und Module an Einsatzschwerpunkte zu verlegen.
+	   Dazu fasst man den Helfer (analog für alle anderen) an und zieht ihn auf die Einheit zu der er zugeordnet werden soll.
+	   Per Doppelklick auf ein beliebiges Element wird dieser in dem ensprechenden Reiter angezeigt.
+	   <br><i>Hinweis</i> Das Doppelklicken funktioniert nicht mit Materiallien, diese werden über das <a href="Portal Logistik.html">Portal Logistik</a> verwaltet.
+
+           Der baumstrukturierte Einsatzmanager bietet zahlreiche Möglichkeiten.<br>
+           So konnen z.B. die Knoten durch Kontextmenüs oder Doppelklick bedient werden. Es stehen die folgendne Optionen zur Auswahl:<p>
+
+	   <i><b>Helfer</b></i><p>
+	   <i>Helfer als verpflegt kennzeichenen </i><br>Speichert die Aktuelle Urzeit als Verpflegungszeit des Helfers<p>
+	   <i>Helfer anlegen</i><br>Erstellt einen neues Helfer "Helfer Antonon"<p>
+	   <i>Daten bearbeiten (Doppelklick)</i><br>Öffnet die Einstellungen des Helfers im entsprechenden Reiter<p>
+
+	   <i><b>Einheiten/Module</b></i><p>
+	   <i>Neues Modul/Neue Einheit</i><br>Erstellt ein neues leeres Modul/eine leere Einehit dem Personen, Fahrzeuge und Geräte zugeordnet werden können.<p>
+	   <i>Verpflegung Erfolgt</i><br>Speichert die Aktuelle Urzeit als Verpflegungszeit der HElfer die aktueller der Einheit zugeordnet sind<p>
+	   <i>Konfiguration bearbeiten (Doppelklick)</i><br>Öffnet die Einstellungen der Einheit in der linken Programmhälfe<p>
+
+	   <i><b>Einsatzschwerpunkt</b></i><p>
+	   <i>Erstellen</i><br>Erstellt einen neuen Einsatzschwerpunkt "neuer Einsatzschwerpunkt". Dies Kann als Container für Einheitn/Module dienen.<p>
+	   <i>Bearbeiten (Doppelklick)</i><br>Öffnet die Angaben zum Einsatzschwerpunkt im entsprechenden Reiter<p>
+
+	   <p>
+	   <h2>Der Reiter "Helfer"</h2>
+	   <br>
+	   <center><img src="bilder/screenshots/EK-Helfer.jpg" border="0"><br>
+			<span class="bildunterschrift">Helfer</span>
+	   </center>
+	   <br>
+
+	   Hier können die Detaildaten des Helfer konfiguriert werden. Beim Klicken auf "Speichern" werden diese an den Server übermittelt.<br>
+	   Beim Klicken auf Zurücksetzen werden diese verworfen, und durch das erneute Füllen der Felder kann ein Neuer Helfer angelegt werden.
+           So ist ein zügiges Erstellen von Helfern möglich.<br>
+           Durch Klicken auf den jeweiligen Eintrag im Grid wird der angecklickte Helfer geladen, und kann editiert, und gespeichert werden.
+
+	   <p>
+	   <h2>Der Reiter "Einheit"</h2>
+	   <br>
+	   <center><img src="bilder/screenshots/EK-Einheit.jpg" border="0"><br>
+			<span class="bildunterschrift">Einheit</span>
+	   </center>
+	   <br>
+
+	   Hier können die Detaildaten der Einheit konfiguriert werden. Beim Klicken auf "Speichern" werden diese an den Server übermittelt.<br>
+	   Beim Klicken auf Zurücksetzen werden diese verworfen, und durch das erneute Füllen der Felder kann ein Neuer Helfer angelegt werden.
+           So ist ein zügiges Erstellen von Einheiten möglich.<br>
+           Führer und stellv. Führer einer Einheit dürfen nicht identisch sein.
+
+           <p>
+	   <h2>Der Reiter "Einsatzschwerpunkte"</h2>
+	   <br>
+	   <center><img src="bilder/screenshots/EK-Einsatzschwerpunkt.jpg" border="0"><br>
+	   <span class="bildunterschrift">Einsatzschwerpunkte</span>
+	   </center>
+	   <br>
+
+	   Hier können die Detaildaten des Einsatzschwerpunktes konfiguriert werden. Beim Klicken auf "Speichern" werden diese an den Server übermittelt.<br>
+	   Beim Klicken auf Zurücksetzen werden diese verworfen.
+           Wird in der Auswahlliste "Neuen Einsatzschwerpunkt anlegen" ausgwählt, so kann ein Neuer Einsatzschwerpunkt mit Daten gefüllt und anschließend gespeichtert werden.
+           So ist ein zügiges Erstellen von Einaptzschwerpunktern möglich.<br>
+
+	   <h2>Der Reiter "Modul"</h2>
+	   <br>
+	   <center><img src="bilder/screenshots/EK-Modul.jpg" border="0"><br>
+	   <span class="bildunterschrift">Modul</span>
+	   </center>
+	   <br>
+
+	   Ein Modul als Container für Einheiten zeichnet sich nur durch seinen Namen aus.
+	   Dieser kann hier erfasst und gespeichert werden.<br>
+
+	   <h2>Der Reiter "Ortsverbände"</h2>
+	   <br>
+	   <center><img src="bilder/screenshots/EK-Ortsverband.jpg" border="0"><br>
+	   <span class="bildunterschrift">Ortsverbände</span>
+	   </center>
+	   <br>
+
+	   Nach dem Klicken auf "Ortsverbände" kann nach de klicken auf "Zurücksetzen" ein neuer
+           Ortsverband eingegeben werden, oder durch klicken auf einen Eintrag im Datagrid ein bestehender Ortsverband verändert werden.<br>
+
+           <br><a href="index.html">Zurück</a>
+	   <br><p align="right"><b>project.ELS<b> version 1.0</p>
+
+							  </td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
