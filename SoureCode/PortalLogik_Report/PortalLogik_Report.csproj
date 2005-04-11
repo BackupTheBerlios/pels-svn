@@ -1,0 +1,370 @@
+<VisualStudioProject>
+    <CSHARP
+        ProjectType = "Local"
+        ProductVersion = "7.10.3077"
+        SchemaVersion = "2.0"
+        ProjectGuid = "{54A11E55-20B4-442B-9408-439ADF9B6210}"
+    >
+        <Build>
+            <Settings
+                ApplicationIcon = ""
+                AssemblyKeyContainerName = ""
+                AssemblyName = "PortalLogik_Report"
+                AssemblyOriginatorKeyFile = ""
+                DefaultClientScript = "JScript"
+                DefaultHTMLPageLayout = "Grid"
+                DefaultTargetSchema = "IE50"
+                DelaySign = "false"
+                OutputType = "Library"
+                PreBuildEvent = ""
+                PostBuildEvent = "copy PortalLogik_Report.dll ..\..\..\Server\bin\debug\PortalLogik&#xd;&#xa;copy ..\..\*.rpt ..\..\..\Server\bin\debug\ReportVorlagen&#xd;&#xa;del ..\..\..\Server\bin\debug\ReportVorlagen\{*}.rpt "
+                RootNamespace = "PortalLogik_Report"
+                RunPostBuildEvent = "OnBuildSuccess"
+                StartupObject = ""
+            >
+                <Config
+                    Name = "Debug"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "285212672"
+                    CheckForOverflowUnderflow = "false"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = "DEBUG;TRACE"
+                    DocumentationFile = ""
+                    DebugSymbols = "true"
+                    FileAlignment = "4096"
+                    IncrementalBuild = "false"
+                    NoStdLib = "false"
+                    NoWarn = ""
+                    Optimize = "false"
+                    OutputPath = "bin\Debug\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+                <Config
+                    Name = "Release"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "285212672"
+                    CheckForOverflowUnderflow = "false"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = "TRACE"
+                    DocumentationFile = ""
+                    DebugSymbols = "false"
+                    FileAlignment = "4096"
+                    IncrementalBuild = "false"
+                    NoStdLib = "false"
+                    NoWarn = ""
+                    Optimize = "true"
+                    OutputPath = "bin\Release\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+            </Settings>
+            <References>
+                <Reference
+                    Name = "System"
+                    AssemblyName = "System"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.dll"
+                />
+                <Reference
+                    Name = "System.Data"
+                    AssemblyName = "System.Data"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Data.dll"
+                />
+                <Reference
+                    Name = "System.XML"
+                    AssemblyName = "System.Xml"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
+                />
+                <Reference
+                    Name = "APS"
+                    Project = "{90985C59-80F3-4C65-ABFF-F55961E55EB6}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "Interface"
+                    Project = "{284B203C-BEDD-4EE7-B225-FC3FEB564E10}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "CrystalDecisions.CrystalReports.Engine"
+                    AssemblyName = "CrystalDecisions.CrystalReports.Engine"
+                    HintPath = "C:\Programme\Gemeinsame Dateien\Crystal Decisions\1.1\Managed\CrystalDecisions.CrystalReports.Engine.dll"
+                    AssemblyFolderKey = "hklm\crystal.net"
+                />
+                <Reference
+                    Name = "Interface_Portale"
+                    Project = "{9956986F-60A4-47E0-9B95-20159D3587CA}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "CrystalDecisions.Shared"
+                    AssemblyName = "CrystalDecisions.Shared"
+                    HintPath = "C:\Programme\Gemeinsame Dateien\Crystal Decisions\1.1\Managed\CrystalDecisions.Shared.dll"
+                    AssemblyFolderKey = "hklm\crystal.net"
+                />
+                <Reference
+                    Name = "CrystalDecisions.ReportSource"
+                    AssemblyName = "CrystalDecisions.ReportSource"
+                    HintPath = "C:\Programme\Gemeinsame Dateien\Crystal Decisions\1.1\Managed\CrystalDecisions.ReportSource.dll"
+                    AssemblyFolderKey = "hklm\crystal.net"
+                />
+                <Reference
+                    Name = "System.Drawing"
+                    AssemblyName = "System.Drawing"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Drawing.dll"
+                />
+                <Reference
+                    Name = "Tools"
+                    Project = "{B0BF38DD-4D9C-481D-AAF9-87BAE1BF3832}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "CrystalDecisions.Windows.Forms"
+                    AssemblyName = "CrystalDecisions.Windows.Forms"
+                    HintPath = "C:\Programme\Gemeinsame Dateien\Crystal Decisions\1.1\Managed\CrystalDecisions.Windows.Forms.dll"
+                    AssemblyFolderKey = "hklm\crystal.net"
+                />
+                <Reference
+                    Name = "ObjMgr"
+                    Project = "{787C8CBE-AC7F-4AA2-B4AD-802CD2620FC3}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "PelsObjekte"
+                    Project = "{2097E0D2-E63D-4C25-A2DC-5D869CD16C71}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+            </References>
+        </Build>
+        <Files>
+            <Include>
+                <File
+                    RelPath = "AssemblyInfo.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Auftrag.rpt"
+                    BuildAction = "EmbeddedResource"
+                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
+                    LastGenOutput = "Auftrag2.cs"
+                />
+                <File
+                    RelPath = "Auftrag.cs"
+                    DependentUpon = "Auftrag.rpt"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "Auftrag2.cs"
+                    DependentUpon = "Auftrag.rpt"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "Einheitenerfassungsbogen.rpt"
+                    BuildAction = "EmbeddedResource"
+                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
+                    LastGenOutput = "Einheitenerfassungsbogen2.cs"
+                />
+                <File
+                    RelPath = "Einheitenerfassungsbogen.cs"
+                    DependentUpon = "Einheitenerfassungsbogen.rpt"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "Einheitenerfassungsbogen2.cs"
+                    DependentUpon = "Einheitenerfassungsbogen.rpt"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "Einsatzschwerpunkte.rpt"
+                    BuildAction = "EmbeddedResource"
+                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
+                    LastGenOutput = "Einsatzschwerpunkte1.cs"
+                />
+                <File
+                    RelPath = "Einsatzschwerpunkte1.cs"
+                    DependentUpon = "Einsatzschwerpunkte.rpt"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "Erkundungsergebnis.rpt"
+                    BuildAction = "EmbeddedResource"
+                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
+                    LastGenOutput = "Erkundungsergebnis1.cs"
+                />
+                <File
+                    RelPath = "Erkundungsergebnis.cs"
+                    DependentUpon = "Erkundungsergebnis.rpt"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "Erkundungsergebnis1.cs"
+                    DependentUpon = "Erkundungsergebnis.rpt"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "ETB.rpt"
+                    BuildAction = "EmbeddedResource"
+                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
+                    LastGenOutput = "ETB1.cs"
+                />
+                <File
+                    RelPath = "ETB.cs"
+                    DependentUpon = "ETB.rpt"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "ETB1.cs"
+                    DependentUpon = "ETB.rpt"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "Funkplan.rpt"
+                    BuildAction = "EmbeddedResource"
+                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
+                    LastGenOutput = "Funkplan.cs"
+                />
+                <File
+                    RelPath = "Funkplan.cs"
+                    DependentUpon = "Funkplan.rpt"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "Gueteranforderungsliste.rpt"
+                    BuildAction = "EmbeddedResource"
+                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
+                    LastGenOutput = "Gueteranforderungsliste.cs"
+                />
+                <File
+                    RelPath = "Gueteranforderungsliste.cs"
+                    DependentUpon = "Gueteranforderungsliste.rpt"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "Guetervorratsliste.rpt"
+                    BuildAction = "EmbeddedResource"
+                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
+                    LastGenOutput = "Guetervorratsliste.cs"
+                />
+                <File
+                    RelPath = "Guetervorratsliste.cs"
+                    DependentUpon = "Guetervorratsliste.rpt"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "KraefteImEinsatz.rpt"
+                    BuildAction = "EmbeddedResource"
+                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
+                    LastGenOutput = "KraefteImEinsatz.cs"
+                />
+                <File
+                    RelPath = "KraefteImEinsatz.cs"
+                    DependentUpon = "KraefteImEinsatz.rpt"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "MaterialUebergabebeleg.rpt"
+                    BuildAction = "EmbeddedResource"
+                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
+                    LastGenOutput = "MaterialUebergabebeleg.cs"
+                />
+                <File
+                    RelPath = "MaterialUebergabebeleg.cs"
+                    DependentUpon = "MaterialUebergabebeleg.rpt"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "Meldung.rpt"
+                    BuildAction = "EmbeddedResource"
+                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
+                    LastGenOutput = "Meldung1.cs"
+                />
+                <File
+                    RelPath = "Meldung.cs"
+                    DependentUpon = "Meldung.rpt"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "Meldung1.cs"
+                    DependentUpon = "Meldung.rpt"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "PortalLogik_Report.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "VorblattEinsatzbericht.rpt"
+                    BuildAction = "EmbeddedResource"
+                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
+                    LastGenOutput = "VorblattEinsatzbericht1.cs"
+                />
+                <File
+                    RelPath = "VorblattEinsatzbericht1.cs"
+                    DependentUpon = "VorblattEinsatzbericht.rpt"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+            </Include>
+        </Files>
+        <StartupServices>
+            <Service ID = "{CF845C55-C321-4742-B673-E6212D061ED9}" />
+        </StartupServices>
+    </CSHARP>
+</VisualStudioProject>
+
