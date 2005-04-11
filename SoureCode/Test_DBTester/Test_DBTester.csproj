@@ -80,11 +80,6 @@
                     HintPath = "..\..\..\..\..\..\WINNT\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
                 <Reference
-                    Name = "DB_Anbindung"
-                    Project = "{E7B054BA-CDA4-443F-9455-7DA5844CD05C}"
-                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
-                />
-                <Reference
                     Name = "Interface"
                     Project = "{284B203C-BEDD-4EE7-B225-FC3FEB564E10}"
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
@@ -97,6 +92,11 @@
                 <Reference
                     Name = "ObjMgr"
                     Project = "{787C8CBE-AC7F-4AA2-B4AD-802CD2620FC3}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "DB_Anbindung"
+                    Project = "{E7B054BA-CDA4-443F-9455-7DA5844CD05C}"
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
             </References>

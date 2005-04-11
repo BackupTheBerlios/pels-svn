@@ -3,22 +3,22 @@
         ProjectType = "Local"
         ProductVersion = "7.10.3077"
         SchemaVersion = "2.0"
-        ProjectGuid = "{EAA210DC-38B7-43DB-A766-24100ED8890B}"
+        ProjectGuid = "{E7B054BA-CDA4-443F-9455-7DA5844CD05C}"
     >
         <Build>
             <Settings
-                ApplicationIcon = "App.ico"
+                ApplicationIcon = ""
                 AssemblyKeyContainerName = ""
-                AssemblyName = "TestingDB_Wrapper"
+                AssemblyName = "DB_Anbindung"
                 AssemblyOriginatorKeyFile = ""
                 DefaultClientScript = "JScript"
                 DefaultHTMLPageLayout = "Grid"
                 DefaultTargetSchema = "IE50"
                 DelaySign = "false"
-                OutputType = "Exe"
+                OutputType = "Library"
                 PreBuildEvent = ""
                 PostBuildEvent = ""
-                RootNamespace = "TestingDB_Wrapper"
+                RootNamespace = "DB_Anbindung"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
             >
@@ -80,45 +80,26 @@
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
                 <Reference
-                    Name = "Wrapper"
-                    Project = "{0934C927-2EC2-4A2F-8B9C-6BD9642BEF6D}"
-                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                    Name = "Npgsql"
+                    AssemblyName = "Npgsql"
+                    HintPath = "..\bin\Debug\PostgreSQLBibliotheken\Npgsql.dll"
                 />
                 <Reference
-                    Name = "PelsObjekte"
-                    Project = "{2097E0D2-E63D-4C25-A2DC-5D869CD16C71}"
-                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
-                />
-                <Reference
-                    Name = "ObjMgr"
-                    Project = "{787C8CBE-AC7F-4AA2-B4AD-802CD2620FC3}"
-                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
-                />
-                <Reference
-                    Name = "Interface"
-                    Project = "{284B203C-BEDD-4EE7-B225-FC3FEB564E10}"
-                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
-                />
-                <Reference
-                    Name = "DB_Anbindung"
-                    Project = "{E7B054BA-CDA4-443F-9455-7DA5844CD05C}"
-                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                    Name = "System.Windows.Forms"
+                    AssemblyName = "System.Windows.Forms"
+                    HintPath = "D:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.dll"
                 />
             </References>
         </Build>
         <Files>
             <Include>
                 <File
-                    RelPath = "App.ico"
-                    BuildAction = "Content"
-                />
-                <File
                     RelPath = "AssemblyInfo.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Class1.cs"
+                    RelPath = "Cdv_DB.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

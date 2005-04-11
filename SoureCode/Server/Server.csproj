@@ -3,22 +3,22 @@
         ProjectType = "Local"
         ProductVersion = "7.10.3077"
         SchemaVersion = "2.0"
-        ProjectGuid = "{0934C927-2EC2-4A2F-8B9C-6BD9642BEF6D}"
+        ProjectGuid = "{668D35B9-BD14-4B6A-8A2A-311C1BEC28D6}"
     >
         <Build>
             <Settings
-                ApplicationIcon = ""
+                ApplicationIcon = "App.ico"
                 AssemblyKeyContainerName = ""
-                AssemblyName = "Wrapper"
+                AssemblyName = "pELS-Server"
                 AssemblyOriginatorKeyFile = ""
                 DefaultClientScript = "JScript"
                 DefaultHTMLPageLayout = "Grid"
                 DefaultTargetSchema = "IE50"
                 DelaySign = "false"
-                OutputType = "Library"
+                OutputType = "WinExe"
                 PreBuildEvent = ""
                 PostBuildEvent = ""
-                RootNamespace = "Wrapper"
+                RootNamespace = "pELS.Server"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
             >
@@ -67,31 +67,61 @@
                 <Reference
                     Name = "System"
                     AssemblyName = "System"
-                    HintPath = "..\..\..\..\..\..\WINNT\Microsoft.NET\Framework\v1.1.4322\System.dll"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.dll"
                 />
                 <Reference
                     Name = "System.Data"
                     AssemblyName = "System.Data"
-                    HintPath = "..\..\..\..\..\..\WINNT\Microsoft.NET\Framework\v1.1.4322\System.Data.dll"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Data.dll"
+                />
+                <Reference
+                    Name = "System.Drawing"
+                    AssemblyName = "System.Drawing"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Drawing.dll"
+                />
+                <Reference
+                    Name = "System.Windows.Forms"
+                    AssemblyName = "System.Windows.Forms"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.dll"
                 />
                 <Reference
                     Name = "System.XML"
                     AssemblyName = "System.Xml"
-                    HintPath = "..\..\..\..\..\..\WINNT\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
                 <Reference
-                    Name = "PelsObjekte"
-                    Project = "{2097E0D2-E63D-4C25-A2DC-5D869CD16C71}"
-                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                    Name = "System.Runtime.Remoting"
+                    AssemblyName = "System.Runtime.Remoting"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Runtime.Remoting.dll"
                 />
                 <Reference
                     Name = "Npgsql"
                     AssemblyName = "Npgsql"
-                    HintPath = "..\..\Server\bin\Debug\PostgreSQLBibliotheken\Npgsql.dll"
+                    HintPath = "bin\Debug\PostgreSQLBibliotheken\Npgsql.dll"
                 />
                 <Reference
                     Name = "Interface"
                     Project = "{284B203C-BEDD-4EE7-B225-FC3FEB564E10}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "Tools"
+                    Project = "{B0BF38DD-4D9C-481D-AAF9-87BAE1BF3832}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "Interface_Portale"
+                    Project = "{9956986F-60A4-47E0-9B95-20159D3587CA}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "Server_PortalLader"
+                    Project = "{42452BF9-6249-4181-86D0-D84D96CE14DA}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "APS"
+                    Project = "{90985C59-80F3-4C65-ABFF-F55961E55EB6}"
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
                 <Reference
@@ -100,9 +130,29 @@
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
                 <Reference
-                    Name = "nunit.framework"
-                    AssemblyName = "nunit.framework"
-                    HintPath = "nunit.framework.dll"
+                    Name = "PortalLogik_ToDo"
+                    Project = "{CE0085F7-E298-4221-B320-8751B0D2D834}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "PopUp"
+                    Project = "{A8426C86-F79C-4FC0-8425-26D36841A3A9}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "PelsObjekte"
+                    Project = "{2097E0D2-E63D-4C25-A2DC-5D869CD16C71}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "ObjMgr"
+                    Project = "{787C8CBE-AC7F-4AA2-B4AD-802CD2620FC3}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "Wrapper"
+                    Project = "{0934C927-2EC2-4A2F-8B9C-6BD9642BEF6D}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
                 <Reference
                     Name = "DB_Anbindung"
@@ -114,107 +164,71 @@
         <Files>
             <Include>
                 <File
+                    RelPath = "App.ico"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "AssemblyInfo.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Cdv_AnforderungWrapper.cs"
+                    RelPath = "Cap_Server.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Cdv_AuftragWrapper.cs"
+                    RelPath = "Cap_Server.resx"
+                    DependentUpon = "Cap_Server.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Cpr_frm_Einsatzdaten.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Cpr_frm_Einsatzdaten.resx"
+                    DependentUpon = "Cpr_frm_Einsatzdaten.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Cpr_frm_neuerEinsatz.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Cpr_frm_neuerEinsatz.resx"
+                    DependentUpon = "Cpr_frm_neuerEinsatz.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Cpr_frm_Server.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Cpr_frm_Server.resx"
+                    DependentUpon = "Cpr_frm_Server.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Cpr_frm_ServerKonfiguration.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Cpr_frm_ServerKonfiguration.resx"
+                    DependentUpon = "Cpr_frm_ServerKonfiguration.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Cst_Server.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Cdv_BenutzerWrapper.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Cdv_EinheitWrapper.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Cdv_EinsatzschwerpunktWrapper.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Cdv_EinsatzWrapper.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Cdv_ErinnerungWrapper.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Cdv_EtbEintragKommentarWrapper.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Cdv_EtbEintragWrapper.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Cdv_HelferWrapper.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Cdv_KFZWrapper.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Cdv_MaterialuebergabeWrapper.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Cdv_MaterialWrapper.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Cdv_MeldungWrapper.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Cdv_ModulWrapper.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Cdv_OrtsverbandWrapper.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Cdv_TerminWrapper.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Cdv_VerbrauchsgutWrapper.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "NUnit.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Wrapper.cs"
+                    RelPath = "PortalWaechter.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
