@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
+using System.Text;
 using Npgsql;
 
 
@@ -69,18 +70,29 @@ namespace pELS.Server
 			// Wenn Verbindung nicht geschlossen (!0), dann schließen
 			if (_con_dBVerbindung.State != 0) SchliesseDBVerbindung();
 			// ConnectionString erstellen
-			String str_connectionString =	"User ID="	+ pin_str_userID	+ "; " + 
-				"Password=" + pin_str_password	+ "; " +
-				"Host="		+ pin_str_host		+ "; " + 
-				"Port="		+ pin_str_port		+ "; " + 
-				"Database=" + pin_str_database	+ "; " + 
-				"Lifetime=" + pin_str_lifetime	+ "; " + 
-				"encoding=UNICODE";
-
+			StringBuilder str_connectionString = new StringBuilder("User ID=", 45);
+			str_connectionString.Append(pin_str_userID);
+			str_connectionString.Append("; ");
+			str_connectionString.Append("Password=");
+			str_connectionString.Append(pin_str_password);
+			str_connectionString.Append("; ");
+			str_connectionString.Append("Host=");
+			str_connectionString.Append(pin_str_host);
+			str_connectionString.Append("; ");
+			str_connectionString.Append("Port=");
+			str_connectionString.Append(pin_str_port);
+			str_connectionString.Append("; ");
+			str_connectionString.Append("Database=");
+			str_connectionString.Append(pin_str_database);
+			str_connectionString.Append("; ");
+			str_connectionString.Append("Lifetime=");
+			str_connectionString.Append(pin_str_lifetime);
+			str_connectionString.Append("; ");
+			str_connectionString.Append("encoding=UNICODE");
 			try
 			{
 				// ConnectionString der Connection zuweisen, Connection öffnen
-				_con_dBVerbindung.ConnectionString = str_connectionString;
+				_con_dBVerbindung.ConnectionString = str_connectionString.ToString();
 				_con_dBVerbindung.Open();
 				return true;
 			}
@@ -113,18 +125,30 @@ namespace pELS.Server
 			String pin_str_lifetime		)
 		{
 			//Erstellen des Connection String
-			String str_connectionString =	"User ID="	+ pin_str_userID	+ "; " + 
-				"Password=" + pin_str_password	+ "; " +
-				"Host="		+ pin_str_host		+ "; " + 
-				"Port="		+ pin_str_port		+ "; " + 
-				"Database=" + pin_str_database	+ "; " + 
-				"Lifetime=" + pin_str_lifetime	+ "; " + 
-				"encoding=UNICODE";
-		
+			StringBuilder str_connectionString = new StringBuilder("User ID=", 45);
+			str_connectionString.Append(pin_str_userID);
+			str_connectionString.Append("; ");
+			str_connectionString.Append("Password=");
+			str_connectionString.Append(pin_str_password);
+			str_connectionString.Append("; ");
+			str_connectionString.Append("Host=");
+			str_connectionString.Append(pin_str_host);
+			str_connectionString.Append("; ");
+			str_connectionString.Append("Port=");
+			str_connectionString.Append(pin_str_port);
+			str_connectionString.Append("; ");
+			str_connectionString.Append("Database=");
+			str_connectionString.Append(pin_str_database);
+			str_connectionString.Append("; ");
+			str_connectionString.Append("Lifetime=");
+			str_connectionString.Append(pin_str_lifetime);
+			str_connectionString.Append("; ");
+			str_connectionString.Append("encoding=UNICODE");
+
 			NpgsqlConnection my_con_dBVerbindung = new NpgsqlConnection();
 			try
 			{
-				my_con_dBVerbindung.ConnectionString = str_connectionString;
+				my_con_dBVerbindung.ConnectionString = str_connectionString.ToString();
 				my_con_dBVerbindung.Open();
 				my_con_dBVerbindung.Close();
 			}

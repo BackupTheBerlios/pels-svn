@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using pELS.DV.Server.Interfaces;
 using pELS.DV;
 using pELS.Server;
@@ -48,35 +49,44 @@ namespace pELS.DV.Server.Wrapper
 			if(!(pin_ob is Cdv_EtbEintrag))
 				throw new ArgumentNullException("Falsches Objekt an Cdv_EtbEintragWrapper übergeben. Cdv_EtbEintrag wurde erwartet! Methode: Cdv_EtbEintragWrapper.NeuerEintrag");
 			Cdv_EtbEintrag etbE = pin_ob as Cdv_EtbEintrag;
-			String str_INSERTAnfrage;
+			StringBuilder strQuery;
 			
-			
-			//das entsprechende Query wird zusammengebaut:
-			str_INSERTAnfrage = "insert into \"EtbEintraege\"("
-				+ "\"Erstelldatum\", "
-				+ "\"Benutzername\", "
-				+ "\"Beschreibung\", "
-				//Da wird der Typ abgebildet
-				+ "\"IstSystemereignis\"";
+			strQuery = new StringBuilder("insert into \"EtbEintraege\"(", 300);
+			strQuery.Append( "\"Erstelldatum\", ");
+			strQuery.Append( "\"Benutzername\", ");
+			strQuery.Append( "\"Beschreibung\", ");
+			//Da wird der Typ abgebildet
+			strQuery.Append( "\"IstSystemereignis\"");
 			if(etbE is Cdv_Systemereignis)
 			{
-				str_INSERTAnfrage += ", \"Systemereignisart\", \"ErscheintInEtb\"";
+				strQuery.Append(", \"Systemereignisart\", \"ErscheintInEtb\"");
 			}
-			str_INSERTAnfrage +=") values("
-				+ "'" + CMethoden.KonvertiereDatumFuerDB(etbE.ErstellDatum) + "', "
-				+ "'" + CMethoden.KonvertiereStringFuerDB(etbE.Benutzername)+ "', "
-				+ "'" + CMethoden.KonvertiereStringFuerDB(etbE.Beschreibung)+ "', ";
+			strQuery.Append(") values('");
+			strQuery.Append( CMethoden.KonvertiereDatumFuerDB(etbE.ErstellDatum) );
+			strQuery.Append( "', '");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(etbE.Benutzername));
+			strQuery.Append( "', '");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(etbE.Beschreibung));
+			strQuery.Append( "', ");
 			if(etbE is Cdv_Systemereignis)
 			{
-				str_INSERTAnfrage +=  "'" + true + "', "
-					+"'" + (int) ((Cdv_Systemereignis)etbE).Systemereignisart + "', "
-					+ "'" + ((Cdv_Systemereignis) etbE).ErscheintInEtb + "');";
+				strQuery.Append("'" );
+				strQuery.Append( true );
+				strQuery.Append( "', '");
+				strQuery.Append( (int) ((Cdv_Systemereignis)etbE).Systemereignisart );
+				strQuery.Append( "', '");
+				strQuery.Append( ((Cdv_Systemereignis) etbE).ErscheintInEtb );
+				strQuery.Append( "');");
 
 			}
-			else
-				str_INSERTAnfrage += "'" + false + "');";
-			
-			return db.AusfuehrenInsertAnfrage(str_INSERTAnfrage);	
+			else 
+			{
+				strQuery.Append( "'" );
+				strQuery.Append( false );
+				strQuery.Append( "');");
+			}
+			//das entsprechende Query wird zusammengebaut:
+			return db.AusfuehrenInsertAnfrage(strQuery.ToString());	
 		}
 
 		public override bool AktualisiereEintrag(IPelsObject pin_ob)
@@ -90,8 +100,8 @@ namespace pELS.DV.Server.Wrapper
 				else
 				{// hier wird nur der Wert: 'erscheintInEtb' geschrieben, da andere Werte nicht verändert(updated) werden dürfen
 					string str_UpdateAnfrage = "update \"EtbEintraege\" set "
-											+"\"ErscheintInEtb\" = "+ ((Cdv_Systemereignis)pin_ob).ErscheintInEtb
-											+" WHERE \"ID\"="+pin_ob.ID+";";					
+						+"\"ErscheintInEtb\" = "+ ((Cdv_Systemereignis)pin_ob).ErscheintInEtb
+						+" WHERE \"ID\"="+pin_ob.ID+";";					
 					return (db.AusfuehrenUpdateAnfrage(str_UpdateAnfrage));
 				}
 			}

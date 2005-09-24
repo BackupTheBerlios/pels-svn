@@ -99,61 +99,6 @@ namespace pELS.DV.Server.ObjectManager.Verwaltung
 		}
 
 		/// <summary>
-		/// Wird vor dem Hinzufügen eines Elements aufgerufen, um die Prüfung des
-		/// Typs durchzuführen
-		/// </summary>
-		/// <param name="key">Schlüsselwert</param>
-		/// <param name="value">Obiekt, das hinzugefügt werden soll</param>
-		protected override void OnInsert(Object key, Object value)
-		{
-			int iKey;
-			Cdv_pELSObject cpoObject;
-			if((key is System.Int32) || (key is System.Int64))
-				iKey = (int) key;
-			else
-				throw new ArgumentException("Ungültiger Schlüsselwert");
-			if(value is Cdv_pELSObject)
-				cpoObject = (Cdv_pELSObject) value;
-			else
-				throw new ArgumentException("Ungültiger Objekttyp");
-		}
-		
-		/// <summary>
-		/// Wird vor dem Löschen eines Elements aufgerufen, um die Prüfung des
-		/// Typs durchzuführen
-		/// </summary>
-		/// <param name="key">Schlüsselwert</param>
-		/// <param name="value">Obiekt, das hinzugefügt werden soll</param>
-		protected override void OnRemove(Object key, Object value)
-		{
-			int iKey;
-			if((key is System.Int32) || (key is System.Int64))
-				iKey = (int) key;
-			else
-				throw new ArgumentException("Ungültiger Schlüsselwert");			
-		}
-		/// <summary>
-		/// Wird vor dem Aktualisieren eines Elements aufgerufen, um die Prüfung des
-		/// Typs durchzuführen
-		/// </summary>
-		/// <param name="key">Schlüsselwert</param>
-		/// <param name="newValue">Neue Werte der Variable</param>
-		/// <param name="oldValue">Alte Werte der Variable</param>
-		protected override void OnSet(Object key, Object oldValue, Object newValue)
-		{
-			int iKey;
-			Cdv_pELSObject cpoObject;
-			if((key is System.Int32) || (key is System.Int64))
-				iKey = (int) key;
-			else
-				throw new ArgumentException("Ungültiger Schlüsselwert");
-			if(newValue is Cdv_pELSObject)
-				cpoObject = (Cdv_pELSObject) newValue;
-			else
-				throw new ArgumentException("Ungültiger Objekttyp");
-		}
-
-		/// <summary>
 		/// Validiert das übergebene Objekt. Es wird geprüft, ob der Schlüssel
 		/// und das Objekt des entsprechenden Typs sind
 		/// </summary>

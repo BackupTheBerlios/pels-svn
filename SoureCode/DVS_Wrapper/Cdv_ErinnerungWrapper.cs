@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using pELS.DV.Server.Interfaces;
 using pELS.DV;
 using pELS.Server;
@@ -48,19 +49,19 @@ namespace pELS.DV.Server.Wrapper
 			if(!(pin_ob is Cdv_Erinnerung))
 				throw new ArgumentNullException("Falsches Objekt an Cdv_ErinnerungWrapper übergeben. Cdv_Erinnerung wurde erwartet! Methode:Cdv_ErinnerungWrapper.NeuerEintrag");
 			Cdv_Erinnerung Erinnerung = pin_ob as Cdv_Erinnerung;
-			String str_INSERTAnfrage;
-			
+			StringBuilder strQuery;
 			//das entsprechende Query wird zusammengebaut:
-			str_INSERTAnfrage = "insert into \"Erinnerungen\"("
-				+ "\"TerminID\", "
-				+ "\"Zeitpunkt\", "
-				//+ "\"istWarnmeldung\", "
-				+ "\"Text\") values("
-				+ "'" + Erinnerung.TerminID+ "', "
-				+ "'" + CMethoden.KonvertiereDatumFuerDB(Erinnerung.Zeitpunkt)+ "', "
-				//+ "'" + Erinnerung.IstWarnmeldung+ "', "
-				+ "'" + CMethoden.KonvertiereStringFuerDB(Erinnerung.Erinnerungstext)+ "')";
-			return(db.AusfuehrenInsertAnfrage(str_INSERTAnfrage));	
+			strQuery = new StringBuilder("insert into \"Erinnerungen\"(", 200);
+			strQuery.Append( "\"TerminID\", ");
+			strQuery.Append( "\"Zeitpunkt\", ");
+			strQuery.Append( "\"Text\") values('");
+			strQuery.Append( Erinnerung.TerminID);
+			strQuery.Append( "', '");
+			strQuery.Append( CMethoden.KonvertiereDatumFuerDB(Erinnerung.Zeitpunkt));
+			strQuery.Append( "', '");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(Erinnerung.Erinnerungstext));
+			strQuery.Append( "')");
+			return(db.AusfuehrenInsertAnfrage(strQuery.ToString()));	
 		}
 
 		public override bool AktualisiereEintrag(IPelsObject pin_ob)
@@ -70,14 +71,16 @@ namespace pELS.DV.Server.Wrapper
 			// Objekt umcasten nach Cdv_Erinnerung
 			Cdv_Erinnerung Erinnerung = pin_ob as Cdv_Erinnerung;
 			// Anfrage
-			string myQ = "update \"Erinnerungen\" set"
-				+ "\"TerminID\"='" + Erinnerung.TerminID+ "', "
-				+ "\"Zeitpunkt\"='" + CMethoden.KonvertiereDatumFuerDB(Erinnerung.Zeitpunkt)+ "', "
-				//+ "\"istWarnmeldung\"='" + Erinnerung.IstWarnmeldung+ "', "
-				+ "\"Text\"='" +CMethoden.KonvertiereStringFuerDB(Erinnerung.Erinnerungstext)+ "' "
-				+ "where \"ID\"=" + Erinnerung.ID;
-
-			return db.AusfuehrenUpdateAnfrage(myQ);
+			StringBuilder strQuery = new StringBuilder("update \"Erinnerungen\" set", 300);
+			strQuery.Append( "\"TerminID\"='");
+			strQuery.Append( Erinnerung.TerminID);
+			strQuery.Append( "', \"Zeitpunkt\"='" );
+			strQuery.Append( CMethoden.KonvertiereDatumFuerDB(Erinnerung.Zeitpunkt));
+			strQuery.Append( "', \"Text\"='" );
+			strQuery.Append(CMethoden.KonvertiereStringFuerDB(Erinnerung.Erinnerungstext));
+			strQuery.Append( "' where \"ID\"=" );
+			strQuery.Append( Erinnerung.ID);
+			return db.AusfuehrenUpdateAnfrage(strQuery.ToString());
 		}
 
 		public override IPelsObject[] LadeAusDerDB()

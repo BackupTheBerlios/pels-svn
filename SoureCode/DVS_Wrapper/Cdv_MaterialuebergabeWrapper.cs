@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using pELS.DV.Server.Interfaces;
 using pELS.DV;
 using pELS.Server;
@@ -46,24 +47,24 @@ namespace pELS.DV.Server.Wrapper
 			// Objekt umcasten nach Cdv_Materialuebergabe
 			Cdv_Materialuebergabe matu = pin_ob as Cdv_Materialuebergabe;
 			// Insertanfrage
-			String str_INSERTAnfrage = "insert into \"Materialuebergaben\"("
+			StringBuilder strQuery = new StringBuilder("insert into \"Materialuebergaben\"(", 200);
 			//Abbilden der Eigenschaften von Materialuebergabe
-				+ "\"Datum\", "
-				+ "\"AllgBemerkung_Autor\", "
-				+ "\"AllgBemerkung_Text\", "
-				+ "\"VerleiherID\", "
-				+ "\"EmpfaengerID\", "
-				+ "\"GutID\", "
-				+ "\"Menge\") values("
-			//Belegen der Eigenschaftswerte mit Inhalten
-				+ "'" + CMethoden.KonvertiereDatumFuerDB(matu.Datum)+ "', "
-				+ "'" + CMethoden.KonvertiereStringFuerDB(matu.AllgBemerkungen.Autor)+ "', "
-				+ "'" + CMethoden.KonvertiereStringFuerDB(matu.AllgBemerkungen.Text)+ "', "
-				+ "'" + matu.VerleiherKraftID + "', "
-				+ "'" + matu.EmpfaengerKraftID + "', "
-				+ "'" + matu.UebergabepostenGutID + "', "
-				+ "'" + matu.Menge + "');";
-			return db.AusfuehrenInsertAnfrage(str_INSERTAnfrage);
+			strQuery.Append( "\"Datum\", \"AllgBemerkung_Autor\", \"AllgBemerkung_Text\", \"VerleiherID\", \"EmpfaengerID\", \"GutID\", \"Menge\") values('"); 
+				strQuery.Append( CMethoden.KonvertiereDatumFuerDB(matu.Datum));
+			strQuery.Append( "', '" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(matu.AllgBemerkungen.Autor));
+			strQuery.Append( "', '" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(matu.AllgBemerkungen.Text));
+			strQuery.Append( "', '" );
+			strQuery.Append( matu.VerleiherKraftID );
+			strQuery.Append( "', '" );
+			strQuery.Append( matu.EmpfaengerKraftID );
+			strQuery.Append( "', '" );
+			strQuery.Append( matu.UebergabepostenGutID );
+			strQuery.Append( "', '" );
+			strQuery.Append( matu.Menge );
+			strQuery.Append( "');");
+			return db.AusfuehrenInsertAnfrage(strQuery.ToString());
 		}
 
 		public override bool AktualisiereEintrag(IPelsObject pin_ob)
@@ -73,16 +74,25 @@ namespace pELS.DV.Server.Wrapper
 			// Objekt umcasten nach Cdv_Materialuebergabe
 			Cdv_Materialuebergabe matu = pin_ob as Cdv_Materialuebergabe;
 			//UpdateAnfrage
-			string str_UpdateAnfrage = "update \"Materialuebergaben\" set "
-				+ "\"Datum\" ='"+ CMethoden.KonvertiereDatumFuerDB(matu.Datum)+ "', "
-				+ "\"AllgBemerkung_Autor\"='"+ CMethoden.KonvertiereStringFuerDB(matu.AllgBemerkungen.Autor)+ "', "
-				+ "\"AllgBemerkung_Text\"='" + CMethoden.KonvertiereStringFuerDB(matu.AllgBemerkungen.Text)+ "', "
-				+ "\"VerleiherID\"='" + matu.VerleiherKraftID + "', "
-				+ "\"EmpfaengerID\"='" + matu.EmpfaengerKraftID + "', "
-				+ "\"GutID\"='" + matu.UebergabepostenGutID + "', "
-				+ "\"Menge\"='" + matu.Menge + "'";
-			str_UpdateAnfrage += " WHERE \"ID\"='"+matu.ID+"';";
-			return db.AusfuehrenUpdateAnfrage(str_UpdateAnfrage);
+			StringBuilder strQuery = new StringBuilder("update \"Materialuebergaben\" set ", 300);
+				strQuery.Append( "\"Datum\" ='");
+					strQuery.Append( CMethoden.KonvertiereDatumFuerDB(matu.Datum));
+					strQuery.Append( "', \"AllgBemerkung_Autor\"='");
+					strQuery.Append( CMethoden.KonvertiereStringFuerDB(matu.AllgBemerkungen.Autor));
+					strQuery.Append( "', \"AllgBemerkung_Text\"='" );
+					strQuery.Append( CMethoden.KonvertiereStringFuerDB(matu.AllgBemerkungen.Text));
+					strQuery.Append( "', \"VerleiherID\"='" );
+					strQuery.Append( matu.VerleiherKraftID );
+					strQuery.Append( "', \"EmpfaengerID\"='" );
+					strQuery.Append( matu.EmpfaengerKraftID );
+					strQuery.Append( "', \"GutID\"='" );
+					strQuery.Append( matu.UebergabepostenGutID );
+					strQuery.Append( "', \"Menge\"='" );
+					strQuery.Append( matu.Menge );
+					strQuery.Append( "' WHERE \"ID\"='");
+					strQuery.Append(matu.ID);
+					strQuery.Append("';");
+			return db.AusfuehrenUpdateAnfrage(strQuery.ToString());
 		}
 
 		public override IPelsObject[] LadeAusDerDB()

@@ -59,8 +59,8 @@ namespace PortalLogik_Report
 				Report.Read(Buffer, 0, (int)Report.Length);
 				Report.Close();
 				// Versenden der Daten als MemoryStream
+				System.Windows.Forms.MessageBox.Show("Schicke Raus !!");
 				return new MemoryStream(Buffer, 0, Buffer.Length);
-	
 			}
 			else
 			{

@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using pELS.DV.Server.Interfaces;
 using pELS.DV;
 using pELS.Server;
@@ -49,42 +50,41 @@ namespace pELS.DV.Server.Wrapper
 			// Objekt umcasten nach Cdv_Einheit
 			Cdv_Einheit myEinheit = pin_ob as Cdv_Einheit;
 			// Insertanfrage
-			String str_INSERTAnfrage = "insert into \"Einheiten\"("
-				//Abbilden der von Kraft eingeerbten Attribute
-				+ "\"Kraeftestatus\", "
-				+ "\"EinsatzschwerpunktID\", "
-				+ "\"Kommentar_Autor\", "
-				+ "\"Kommentar_Text\", "
-				+ "\"ModulID\", "
-				//Abbilden der Eigenschaften von Einheiten
-				+ "\"Name\", "
-				+ "\"Funkrufname\", "
-				+ "\"Erreichbarkeit\", "
-				+ "\"Sollstaerke\", "
-				+ "\"Iststaerke\", "
-				+ "\"Geschaeftsstelle\", "
-				+ "\"OVID\", "
-				+ "\"EinheitsfuehrerID\", "
-				+ "\"StellvertreterID\", "
-				+ "\"Betriebsverbrauch\") values("
-				//Eigenschaftswerte der Kraft belegen:
-				+ "'" + (int) myEinheit.Kraeftestatus + "', "
-				+ "'" + myEinheit.EinsatzschwerpunktID + "', "
-				+ "'" + CMethoden.KonvertiereStringFuerDB(myEinheit.Kommentar.Autor) + "', "
-				+ "'" + CMethoden.KonvertiereStringFuerDB(myEinheit.Kommentar.Text) + "', "
-				+ "'" + myEinheit.ModulID + "', "
-				//Eigenschaftswerte von Einheit belegen
-				+ "'" + CMethoden.KonvertiereStringFuerDB(myEinheit.Name) + "', "
-				+ "'" + CMethoden.KonvertiereStringFuerDB(myEinheit.Funkrufname) + "', "
-				+ "'" + CMethoden.KonvertiereStringFuerDB(myEinheit.Erreichbarkeit) + "', "
-				+ "'" + myEinheit.SollStaerke + "', "
-				+ "'" + myEinheit.IstStaerke + "', "
-				+ "'" + CMethoden.KonvertiereStringFuerDB(myEinheit.GST) + "', "
-				+ "'" + myEinheit.OVID + "', "
-				+ "'" + myEinheit.EinheitenfuehrerHelferID + "', "
-				+ "'" + myEinheit.StellvertreterHelferID + "', "
-				+ "'" + myEinheit.Betriebsverbrauch + "')";
-			i_EinheitsID = db.AusfuehrenInsertAnfrage(str_INSERTAnfrage);
+
+			StringBuilder strQuery = new StringBuilder("insert into \"Einheiten\"(", 500);
+			//Abbilden der von Kraft eingeerbten Attribute
+			strQuery.Append("\"Kraeftestatus\", \"EinsatzschwerpunktID\", \"Kommentar_Autor\", \"Kommentar_Text\", \"ModulID\", \"Name\", \"Funkrufname\", \"Erreichbarkeit\", \"Sollstaerke\", \"Iststaerke\", \"Geschaeftsstelle\", \"OVID\", \"EinheitsfuehrerID\", \"StellvertreterID\", \"Betriebsverbrauch\") values('");
+			strQuery.Append( (int) myEinheit.Kraeftestatus );
+			strQuery.Append( "', '" );
+			strQuery.Append( myEinheit.EinsatzschwerpunktID );
+			strQuery.Append( "', '" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(myEinheit.Kommentar.Autor) );
+			strQuery.Append( "', '" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(myEinheit.Kommentar.Text) );
+			strQuery.Append( "', '" );
+			strQuery.Append( myEinheit.ModulID );
+			strQuery.Append( "', '" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(myEinheit.Name) );
+			strQuery.Append( "', '" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(myEinheit.Funkrufname) );
+			strQuery.Append( "', '" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(myEinheit.Erreichbarkeit) );
+			strQuery.Append( "', '" );
+			strQuery.Append( myEinheit.SollStaerke );
+			strQuery.Append( "', '" );
+			strQuery.Append( myEinheit.IstStaerke );
+			strQuery.Append( "', '" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(myEinheit.GST) );
+			strQuery.Append( "', '" );
+			strQuery.Append( myEinheit.OVID );
+			strQuery.Append( "', '" );
+			strQuery.Append( myEinheit.EinheitenfuehrerHelferID );
+			strQuery.Append( "', '" );
+			strQuery.Append( myEinheit.StellvertreterHelferID );
+			strQuery.Append( "', '" );
+			strQuery.Append( myEinheit.Betriebsverbrauch );
+			strQuery.Append( "')");
+			i_EinheitsID = db.AusfuehrenInsertAnfrage(strQuery.ToString());
 			//einheit ist eingefügt
 
 			#region Mengen abbilden
@@ -122,27 +122,42 @@ namespace pELS.DV.Server.Wrapper
 			// Objekt umcasten nach Cdv_Anforderung
 			Cdv_Einheit myEinheit = pin_ob as Cdv_Einheit;
 			// Update
-			string myQ = "update \"Einheiten\" set"
-				//Abbilden der von Kraft eingeerbten Attribute
-				+ " \"Kraeftestatus\"='"+ (int) myEinheit.Kraeftestatus
-				+ "', \"EinsatzschwerpunktID\"='"+ myEinheit.EinsatzschwerpunktID
-				+ "', \"Kommentar_Autor\"='"+ CMethoden.KonvertiereStringFuerDB(myEinheit.Kommentar.Autor)
-				+ "', \"Kommentar_Text\"='"+ CMethoden.KonvertiereStringFuerDB(myEinheit.Kommentar.Text)
-				+ "', \"ModulID\"='"+ myEinheit.ModulID
-				//Abbilden der Eigenschaften von Einheiten
-				+ "', \"Name\"='"+ CMethoden.KonvertiereStringFuerDB(myEinheit.Name)
-				+ "', \"Funkrufname\"='"+ CMethoden.KonvertiereStringFuerDB(myEinheit.Funkrufname)
-				+ "', \"Erreichbarkeit\"='"+ CMethoden.KonvertiereStringFuerDB(myEinheit.Erreichbarkeit)
-				+ "', \"Sollstaerke\"='"+ myEinheit.SollStaerke
-				+ "', \"Iststaerke\"='"+ myEinheit.IstStaerke
-				+ "', \"Geschaeftsstelle\"='"+ CMethoden.KonvertiereStringFuerDB(myEinheit.GST)
-				+ "', \"OVID\"='"+ myEinheit.OVID
-				+ "', \"EinheitsfuehrerID\"='"+ myEinheit.EinheitenfuehrerHelferID
-				+ "', \"StellvertreterID\"='"+ myEinheit.StellvertreterHelferID
-				+ "', \"Betriebsverbrauch\"='"+ myEinheit.Betriebsverbrauch+"' ";
-				myQ += "where \"ID\"= '"+myEinheit.ID+"';";
 
-			if (db.AusfuehrenUpdateAnfrage(myQ))
+			StringBuilder strQuery = new StringBuilder("update \"Einheiten\" set", 300);
+			strQuery.Append( " \"Kraeftestatus\"='");
+			strQuery.Append( (int) myEinheit.Kraeftestatus);
+			strQuery.Append( "', \"EinsatzschwerpunktID\"='");
+			strQuery.Append( myEinheit.EinsatzschwerpunktID);
+			strQuery.Append( "', \"Kommentar_Autor\"='");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(myEinheit.Kommentar.Autor));
+			strQuery.Append( "', \"Kommentar_Text\"='");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(myEinheit.Kommentar.Text));
+			strQuery.Append( "', \"ModulID\"='");
+			strQuery.Append( myEinheit.ModulID);
+			strQuery.Append( "', \"Name\"='");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(myEinheit.Name));
+			strQuery.Append( "', \"Funkrufname\"='");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(myEinheit.Funkrufname));
+			strQuery.Append( "', \"Erreichbarkeit\"='");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(myEinheit.Erreichbarkeit));
+			strQuery.Append( "', \"Sollstaerke\"='");
+			strQuery.Append( myEinheit.SollStaerke);
+			strQuery.Append( "', \"Iststaerke\"='");
+			strQuery.Append( myEinheit.IstStaerke);
+			strQuery.Append( "', \"Geschaeftsstelle\"='");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(myEinheit.GST));
+			strQuery.Append( "', \"OVID\"='");
+			strQuery.Append( myEinheit.OVID);
+			strQuery.Append( "', \"EinheitsfuehrerID\"='");
+			strQuery.Append( myEinheit.EinheitenfuehrerHelferID);
+			strQuery.Append( "', \"StellvertreterID\"='");
+			strQuery.Append( myEinheit.StellvertreterHelferID);
+			strQuery.Append( "', \"Betriebsverbrauch\"='");
+			strQuery.Append( myEinheit.Betriebsverbrauch);
+			strQuery.Append("' where \"ID\"= '");
+			strQuery.Append(myEinheit.ID);
+			strQuery.Append("';");
+			if (db.AusfuehrenUpdateAnfrage(strQuery.ToString()))
 			{ 
 				//Erstmal alle verbindlichkeiten in den Entsprechenden Tabellen löschen:
 				string str_DeleteHelferEinheit = "Delete from \"Helfer_Einheit\" where \"EinheitID\"='"+myEinheit.ID+"';";

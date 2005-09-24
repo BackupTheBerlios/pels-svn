@@ -1,0 +1,4 @@
+die Prüfung des Datentyps bei Operationen wie Speichern und Aktualisieren auf ein oder zwei Ebenen beschränken
+Testframework integrieren
+Implementierung eines Clientseitigen Caches
+	- Zeitgebundene Haltung von Daten (wenn seit einer Zeit x nicht mehr auf ein Datum zugegriffen wurde, wird dieses Datum aus dem Cache entfernt)

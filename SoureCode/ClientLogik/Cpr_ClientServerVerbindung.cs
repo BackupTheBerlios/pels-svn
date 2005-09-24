@@ -87,7 +87,7 @@ namespace pELS.Client
 			this.grp_ClientAnmeldung_Serverinfos.Size = new System.Drawing.Size(310, 70);
 			this.grp_ClientAnmeldung_Serverinfos.TabIndex = 19;
 			this.grp_ClientAnmeldung_Serverinfos.TabStop = false;
-			this.grp_ClientAnmeldung_Serverinfos.Text = "Server Informationen";
+			this.grp_ClientAnmeldung_Serverinfos.Text = "Serverinformationen";
 			// 
 			// lbl_Serverport
 			// 

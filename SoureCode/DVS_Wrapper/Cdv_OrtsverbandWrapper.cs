@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using pELS.DV.Server.Interfaces;
 using pELS.Server;
 using pELS.DV;
@@ -49,36 +50,37 @@ namespace pELS.DV.Server.Wrapper
 				throw new ArgumentNullException("Falsches Objekt an Cdv_OrtsverbandWrapper übergeben. Cdv_Ortsverband wurde erwartet! Methode:Cdv_OrtsverbandWrapper.NeuerEintrag");
 			int pout_i_neueID = -1;						
 			// Anfrage zusammenstellen
-			String str_INSERTAnfrage = "insert into \"Ortsverbaende\"("
-				+ "\"Name\", " 
-				+ "\"Ortsbeauftragter\", "
-				+ "\"Erreichbarkeit\", "
-				+ "\"Landesverband\", "
-				+ "\"PLZ\", "
-				+ "\"Ort\", "
-				+ "\"Strasse\", "
-				+ "\"Hausnummer\", "
-				+ "\"GF_Bereich\", "
-				+ "\"GF_PLZ\", "
-				+ "\"GF_Ort\", "
-				+ "\"GF_Strasse\", "
-				+ "\"GF_Hausnummer\") values("
-				+ "'" + ((Cdv_Ortsverband)pin_ob).OVName + "', "
-				+ "'" + ((Cdv_Ortsverband)pin_ob).Ortsbeauftragter + "', "
-				+ "'" + ((Cdv_Ortsverband)pin_ob).OVErreichbarkeit + "', "
-				+ "'" + ((Cdv_Ortsverband)pin_ob).Landesverband + "', "
-				+ "'" + ((Cdv_Ortsverband)pin_ob).OVAnschrift.PLZ + "', "
-				+ "'" + ((Cdv_Ortsverband)pin_ob).OVAnschrift.Ort + "', "
-				+ "'" + ((Cdv_Ortsverband)pin_ob).OVAnschrift.Strasse + "', "
-				+ "'" + ((Cdv_Ortsverband)pin_ob).OVAnschrift.Hausnummer + "', "
-				+ "'" + ((Cdv_Ortsverband)pin_ob).Geschaeftsfuehrerbereich + "', "
-				+ "'" + ((Cdv_Ortsverband)pin_ob).Geschaeftsfuehreranschrift.PLZ + "', "
-				+ "'" + ((Cdv_Ortsverband)pin_ob).Geschaeftsfuehreranschrift.Ort + "', "
-				+ "'" + ((Cdv_Ortsverband)pin_ob).Geschaeftsfuehreranschrift.Strasse + "', "
-				+ "'" + ((Cdv_Ortsverband)pin_ob).Geschaeftsfuehreranschrift.Hausnummer + "')";
+			StringBuilder strQuery = new StringBuilder("insert into \"Ortsverbaende\"(", 500);
+			strQuery.Append( "\"Name\", \"Ortsbeauftragter\", \"Erreichbarkeit\", \"Landesverband\", \"PLZ\", \"Ort\", \"Strasse\", \"Hausnummer\", \"GF_Bereich\", \"GF_PLZ\", \"GF_Ort\", \"GF_Strasse\", \"GF_Hausnummer\") values('" );
+			strQuery.Append( ((Cdv_Ortsverband)pin_ob).OVName );
+			strQuery.Append( "', '" );
+			strQuery.Append( ((Cdv_Ortsverband)pin_ob).Ortsbeauftragter );
+			strQuery.Append( "', '" );
+			strQuery.Append( ((Cdv_Ortsverband)pin_ob).OVErreichbarkeit );
+			strQuery.Append( "', '" );
+			strQuery.Append( ((Cdv_Ortsverband)pin_ob).Landesverband );
+			strQuery.Append( "', '" );
+			strQuery.Append( ((Cdv_Ortsverband)pin_ob).OVAnschrift.PLZ );
+			strQuery.Append( "', '" );
+			strQuery.Append( ((Cdv_Ortsverband)pin_ob).OVAnschrift.Ort );
+			strQuery.Append( "', '" );
+			strQuery.Append( ((Cdv_Ortsverband)pin_ob).OVAnschrift.Strasse );
+			strQuery.Append( "', '" );
+			strQuery.Append( ((Cdv_Ortsverband)pin_ob).OVAnschrift.Hausnummer );
+			strQuery.Append( "', '" );
+			strQuery.Append( ((Cdv_Ortsverband)pin_ob).Geschaeftsfuehrerbereich );
+			strQuery.Append( "', '" );
+			strQuery.Append( ((Cdv_Ortsverband)pin_ob).Geschaeftsfuehreranschrift.PLZ );
+			strQuery.Append( "', '" );
+			strQuery.Append( ((Cdv_Ortsverband)pin_ob).Geschaeftsfuehreranschrift.Ort );
+			strQuery.Append( "', '" );
+			strQuery.Append( ((Cdv_Ortsverband)pin_ob).Geschaeftsfuehreranschrift.Strasse );
+			strQuery.Append( "', '" );
+			strQuery.Append( ((Cdv_Ortsverband)pin_ob).Geschaeftsfuehreranschrift.Hausnummer );
+			strQuery.Append( "')");
 
 			// Anfrage an Cdv_DB übermitteln
-			pout_i_neueID = db.AusfuehrenInsertAnfrage(str_INSERTAnfrage);					
+			pout_i_neueID = db.AusfuehrenInsertAnfrage(strQuery.ToString());
 			return pout_i_neueID;
 		}
 
@@ -87,23 +89,37 @@ namespace pELS.DV.Server.Wrapper
 			if(!(pin_ob is Cdv_Ortsverband))
 				throw new ArgumentNullException("Falsches Objekt an Cdv_OrtsverbandWrapper übergeben. Cdv_Ortsverband wurde erwartet! Methode:Cdv_OrtsverbandWrapper.AktualisiereEintrag");
 			// Anfrage zusammenstellen
-			String str_UPDATEAnfrage = "update \"Ortsverbaende\" set "
-				+ "\"Name\"=' " + ((Cdv_Ortsverband)pin_ob).OVName + "', "
-				+ "\"Ortsbeauftragter\"=' " + ((Cdv_Ortsverband)pin_ob).Ortsbeauftragter + "', "
-				+ "\"Erreichbarkeit\"=' " + ((Cdv_Ortsverband)pin_ob).OVErreichbarkeit + "', "
-				+ "\"Landesverband\"=' " + ((Cdv_Ortsverband)pin_ob).Landesverband + "', "
-				+ "\"PLZ\"=' " + ((Cdv_Ortsverband)pin_ob).OVAnschrift.PLZ + "', "
-				+ "\"Ort\"=' " + ((Cdv_Ortsverband)pin_ob).OVAnschrift.Ort + "', "
-				+ "\"Strasse\"=' " + ((Cdv_Ortsverband)pin_ob).OVAnschrift.Strasse + "', "
-				+ "\"Hausnummer\"=' " + ((Cdv_Ortsverband)pin_ob).OVAnschrift.Hausnummer + "', "
-				+ "\"GF_Bereich\"=' " + ((Cdv_Ortsverband)pin_ob).Geschaeftsfuehrerbereich + "', "
-				+ "\"GF_PLZ\"=' " + ((Cdv_Ortsverband)pin_ob).Geschaeftsfuehreranschrift.PLZ + "', "
-				+ "\"GF_Ort\"=' " + ((Cdv_Ortsverband)pin_ob).Geschaeftsfuehreranschrift.Ort + "', "
-				+ "\"GF_Strasse\"=' " + ((Cdv_Ortsverband)pin_ob).Geschaeftsfuehreranschrift.Strasse + "', "
-				+ "\"GF_Hausnummer\"=' " + ((Cdv_Ortsverband)pin_ob).Geschaeftsfuehreranschrift.Hausnummer + "' "
-				+ "where \"ID\"=" + ((Cdv_Ortsverband)pin_ob).ID.ToString();
+			StringBuilder strQuery = new StringBuilder("update \"Ortsverbaende\" set ", 500);
+				strQuery.Append( "\"Name\"=' " );
+					strQuery.Append( ((Cdv_Ortsverband)pin_ob).OVName );
+					strQuery.Append( "', \"Ortsbeauftragter\"=' " );
+					strQuery.Append( ((Cdv_Ortsverband)pin_ob).Ortsbeauftragter );
+					strQuery.Append( "', \"Erreichbarkeit\"=' " );
+					strQuery.Append( ((Cdv_Ortsverband)pin_ob).OVErreichbarkeit );
+					strQuery.Append( "', \"Landesverband\"=' " );
+					strQuery.Append( ((Cdv_Ortsverband)pin_ob).Landesverband );
+					strQuery.Append( "', \"PLZ\"=' " );
+					strQuery.Append( ((Cdv_Ortsverband)pin_ob).OVAnschrift.PLZ );
+					strQuery.Append( "', \"Ort\"=' " );
+					strQuery.Append( ((Cdv_Ortsverband)pin_ob).OVAnschrift.Ort );
+					strQuery.Append( "', \"Strasse\"=' " );
+					strQuery.Append( ((Cdv_Ortsverband)pin_ob).OVAnschrift.Strasse );
+					strQuery.Append( "', \"Hausnummer\"=' " );
+					strQuery.Append( ((Cdv_Ortsverband)pin_ob).OVAnschrift.Hausnummer );
+					strQuery.Append( "', \"GF_Bereich\"=' " );
+					strQuery.Append( ((Cdv_Ortsverband)pin_ob).Geschaeftsfuehrerbereich );
+					strQuery.Append( "', \"GF_PLZ\"=' " );
+					strQuery.Append( ((Cdv_Ortsverband)pin_ob).Geschaeftsfuehreranschrift.PLZ );
+					strQuery.Append( "', \"GF_Ort\"=' " );
+					strQuery.Append( ((Cdv_Ortsverband)pin_ob).Geschaeftsfuehreranschrift.Ort );
+					strQuery.Append( "', \"GF_Strasse\"=' " );
+					strQuery.Append( ((Cdv_Ortsverband)pin_ob).Geschaeftsfuehreranschrift.Strasse );
+					strQuery.Append( "', \"GF_Hausnummer\"=' " );
+					strQuery.Append( ((Cdv_Ortsverband)pin_ob).Geschaeftsfuehreranschrift.Hausnummer );
+					strQuery.Append( "' where \"ID\"=" );
+					strQuery.Append( ((Cdv_Ortsverband)pin_ob).ID.ToString());
 
-			return db.AusfuehrenUpdateAnfrage(str_UPDATEAnfrage);
+			return db.AusfuehrenUpdateAnfrage(strQuery.ToString());
 		}
 	
 		public override pELS.DV.Server.Interfaces.IPelsObject[] LadeAusDerDB()

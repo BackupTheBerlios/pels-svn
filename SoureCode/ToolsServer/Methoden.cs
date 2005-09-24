@@ -31,19 +31,22 @@ namespace pELS.Tools.Server
 		/// <returns>String, der das Datum in DB-konformen Format enthält</returns>
 		public static String KonvertiereDatumFuerDB(DateTime pin_date_datum)
 		{
-			String pout_str_konvertiertesDatum;
+			StringBuilder pout_str_konvertiertesDatum;
 			//Es soll unbedingt das Datum 4stellig gespeichert werden:				
 			string str_year = pin_date_datum.Year.ToString();
 			//Darum wird der String hier vorne künstlich auf 4 Stellen verlängert
 			while(str_year.Length <= 3)
 			{	str_year= "0"+ str_year; }			
 
-			pout_str_konvertiertesDatum = str_year+ "-"
-				+ pin_date_datum.Month.ToString() + "-"
-				+ pin_date_datum.Day.ToString() + " "
-				+ pin_date_datum.ToLongTimeString();
+			pout_str_konvertiertesDatum = new StringBuilder(str_year, 150);
+			pout_str_konvertiertesDatum.Append( "-");
+				pout_str_konvertiertesDatum.Append( pin_date_datum.Month.ToString() );
+				pout_str_konvertiertesDatum.Append( "-");
+				pout_str_konvertiertesDatum.Append( pin_date_datum.Day.ToString() );
+				pout_str_konvertiertesDatum.Append( " ");
+				pout_str_konvertiertesDatum.Append( pin_date_datum.ToLongTimeString());
 
-			return pout_str_konvertiertesDatum;
+			return pout_str_konvertiertesDatum.ToString();
 		}
 
 		/// <summary>

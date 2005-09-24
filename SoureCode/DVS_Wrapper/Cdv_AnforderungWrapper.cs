@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using pELS.DV.Server.Interfaces;
 using pELS.DV;
 using pELS.Server;
@@ -45,29 +46,29 @@ namespace pELS.DV.Server.Wrapper
 			// Objekt umcasten nach Cdv_Anforderung
 			Cdv_Anforderung myAnf = pin_ob as Cdv_Anforderung;
 			// Insertanfrage
-			String str_INSERTAnfrage = "insert into \"Anforderungen\"("
-				+ "\"GutID\", "
-				+ "\"Menge\", "
-				+ "\"Status\", "
-				+ "\"AnforderndeKraftID\", "
-				+ "\"Anforderungsdatum\", "
-				+ "\"Zufuehrungsdatum\", "
-				+ "\"Zweck\", "
-				+ "\"Kommentar_Autor\", "
-				+ "\"Kommentar_Text\", "
-				+ "\"TGA\") values("
-				+ "'" + myAnf.GutID + "', "
-				+ "'" + CMethoden.KonvertiereRealFuerDB(myAnf.Menge) + "', "
-				+ "'" + (int) myAnf.AnforderungsStatus + "', "
-				+ "'" + myAnf.AnforderndeKraftID + "', "
-				+ "'" + CMethoden.KonvertiereDatumFuerDB(myAnf.Anforderungsdatum)+ "', "
-				+ "'" + CMethoden.KonvertiereDatumFuerDB(myAnf.Zufuehrungsdatum)+ "', "
-				+ "'" + CMethoden.KonvertiereStringFuerDB(myAnf.Zweck)+ "', "
-				+ "'" + CMethoden.KonvertiereStringFuerDB(myAnf.Kommentar.Autor)+ "', "
-				+ "'" + CMethoden.KonvertiereStringFuerDB(myAnf.Kommentar.Text)+ "', "
-				+ "'" + myAnf.IstTeilgueteranforderung + "')";
-			
-			return db.AusfuehrenInsertAnfrage(str_INSERTAnfrage);
+			StringBuilder strQuery = new StringBuilder("insert into \"Anforderungen\"(", 300);
+			strQuery.Append("\"GutID\", \"Menge\", \"Status\", \"AnforderndeKraftID\", \"Anforderungsdatum\", \"Zufuehrungsdatum\", \"Zweck\", \"Kommentar_Autor\", \"Kommentar_Text\", \"TGA\") values('" );
+			strQuery.Append(myAnf.GutID );
+			strQuery.Append("', '" );
+			strQuery.Append(CMethoden.KonvertiereRealFuerDB(myAnf.Menge) );
+			strQuery.Append("', '" );
+			strQuery.Append((int) myAnf.AnforderungsStatus );
+			strQuery.Append("', '" );
+			strQuery.Append(myAnf.AnforderndeKraftID );
+			strQuery.Append("', '" );
+			strQuery.Append(CMethoden.KonvertiereDatumFuerDB(myAnf.Anforderungsdatum));
+			strQuery.Append("', '" );
+			strQuery.Append(CMethoden.KonvertiereDatumFuerDB(myAnf.Zufuehrungsdatum));
+			strQuery.Append("', '" );
+			strQuery.Append(CMethoden.KonvertiereStringFuerDB(myAnf.Zweck));
+			strQuery.Append("', '" );
+			strQuery.Append(CMethoden.KonvertiereStringFuerDB(myAnf.Kommentar.Autor));
+			strQuery.Append("', '" );
+			strQuery.Append(CMethoden.KonvertiereStringFuerDB(myAnf.Kommentar.Text));
+			strQuery.Append("', '" );
+			strQuery.Append(myAnf.IstTeilgueteranforderung );
+			strQuery.Append("')");
+			return db.AusfuehrenInsertAnfrage(strQuery.ToString());
 		}
 
 		public override bool AktualisiereEintrag(IPelsObject pin_ob)
@@ -77,20 +78,31 @@ namespace pELS.DV.Server.Wrapper
 			// Objekt umcasten nach Cdv_Anforderung
 			Cdv_Anforderung myAnf = pin_ob as Cdv_Anforderung;
 			// Anfrage
-			string myQ = "update \"Anforderungen\" set"
-				+ "\"GutID\"='" + myAnf.GutID + "', "
-				+ "\"Menge\"= '" + CMethoden.KonvertiereRealFuerDB(myAnf.Menge) + "', "
-				+ "\"Status\"= '" + (int) myAnf.AnforderungsStatus + "', "
-				+ "\"AnforderndeKraftID\"='" + myAnf.AnforderndeKraftID + "', "
-				+ "\"Anforderungsdatum\"='" + CMethoden.KonvertiereDatumFuerDB(myAnf.Anforderungsdatum)+ "', "
-				+ "\"Zufuehrungsdatum\"='" + CMethoden.KonvertiereDatumFuerDB(myAnf.Zufuehrungsdatum)+ "', "
-				+ "\"Zweck\"='" + CMethoden.KonvertiereStringFuerDB(myAnf.Zweck)+ "', "
-				+ "\"Kommentar_Autor\"='" + CMethoden.KonvertiereStringFuerDB(myAnf.Kommentar.Autor)+ "', "
-				+ "\"Kommentar_Text\"='" + CMethoden.KonvertiereStringFuerDB(myAnf.Kommentar.Text)+ "', "
-				+ "\"TGA\"= '" + myAnf.IstTeilgueteranforderung + "' "
-				+ "where \"ID\"=" + myAnf.ID;
 
-			return db.AusfuehrenUpdateAnfrage(myQ);
+			StringBuilder strQuery = new StringBuilder("update \"Anforderungen\" set", 300);
+			strQuery.Append("\"GutID\"='");
+			strQuery.Append(myAnf.GutID);
+			strQuery.Append("', \"Menge\"= '");
+			strQuery.Append(CMethoden.KonvertiereRealFuerDB(myAnf.Menge));
+			strQuery.Append("', \"Status\"= '");
+			strQuery.Append((int) myAnf.AnforderungsStatus);
+			strQuery.Append("', \"AnforderndeKraftID\"='");
+			strQuery.Append(myAnf.AnforderndeKraftID);
+			strQuery.Append("', \"Anforderungsdatum\"='");
+			strQuery.Append(CMethoden.KonvertiereDatumFuerDB(myAnf.Anforderungsdatum));
+			strQuery.Append("', \"Zufuehrungsdatum\"='");
+			strQuery.Append(CMethoden.KonvertiereDatumFuerDB(myAnf.Zufuehrungsdatum));
+			strQuery.Append("', \"Zweck\"='");
+			strQuery.Append(CMethoden.KonvertiereStringFuerDB(myAnf.Zweck));
+			strQuery.Append("', \"Kommentar_Autor\"='");
+			strQuery.Append(CMethoden.KonvertiereStringFuerDB(myAnf.Kommentar.Autor));
+			strQuery.Append("', \"Kommentar_Text\"='");
+			strQuery.Append(CMethoden.KonvertiereStringFuerDB(myAnf.Kommentar.Text));
+			strQuery.Append("', \"TGA\"= '");
+			strQuery.Append(myAnf.IstTeilgueteranforderung);
+			strQuery.Append("' where \"ID\"=");
+			strQuery.Append(myAnf.ID);
+			return db.AusfuehrenUpdateAnfrage(strQuery.ToString());
 		}
 
 		public override IPelsObject[] LadeAusDerDB()
@@ -125,6 +137,7 @@ namespace pELS.DV.Server.Wrapper
 			}
 			return anforderung_anfrageergebnisse;	
 		}
+
 		#endregion
 	}
 }

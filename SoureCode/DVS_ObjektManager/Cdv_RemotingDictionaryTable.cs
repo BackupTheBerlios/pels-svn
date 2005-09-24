@@ -161,12 +161,13 @@ namespace pELS.DV.Server.ObjectManager.Verwaltung
          protected virtual void OnRemoveComplete(object key, object value) { 
          }
 
+		 #endregion
+
 		 public override object InitializeLifetimeService()
 		 {
 			 return(null);
 		 }
 
-		 #endregion
-     }
+	 }
 
 }

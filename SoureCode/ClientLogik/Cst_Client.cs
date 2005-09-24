@@ -156,7 +156,7 @@ namespace pELS.Client
 
 			//this.ShowDialog();
 
-			Application.DoEvents();
+			//Application.DoEvents();
 			//_prClientAnmeldung.ShowMe(this);
 			_prClientAnmeldung.ShowDialog();	
 

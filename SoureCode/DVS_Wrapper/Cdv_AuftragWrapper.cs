@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using pELS.DV.Server.Interfaces;
 using pELS.DV;
 using pELS.Server;
@@ -51,81 +52,75 @@ namespace pELS.DV.Server.Wrapper
 			Cdv_Auftrag auftrag = pin_ob as Cdv_Auftrag;
 			Cdv_Erkundungsbefehl erkundungsbefehl = pin_ob as Cdv_Erkundungsbefehl;
 
-			String str_INSERTAnfrage;
-			
+			StringBuilder strQuery = new StringBuilder("insert into \"Auftraege\"(", 300);
+
 			//das entsprechende Query wird zusammengebaut:
-			str_INSERTAnfrage = "insert into \"Auftraege\"("
-				+"\"Text\", "
-				+"\"Abfassungsdatum\", "
-				+"\"Uebermittlungsdatum\", "
-				+"\"Absender\", "
-				+"\"Uebermittlungsart\", "
-				+"\"IstUebermittelt\", "
-				+"\"BearbeiterID\", "
-				+"\"LaufendeNummer\", "
-				+"\"Ausfuehrungszeitpunkt\", "
-				+"\"SpaetesterEZP\", "
-				+"\"IstBefehl\", "
-				+"\"WirdNachverfolgt\", "
-				+ "\"EmpfaengerBenutzerID\", "
-				+ "\"IstInToDoListe\", ";
+			strQuery.Append("\"Text\", \"Abfassungsdatum\", \"Uebermittlungsdatum\", \"Absender\", \"Uebermittlungsart\", \"IstUebermittelt\", \"BearbeiterID\", \"LaufendeNummer\", \"Ausfuehrungszeitpunkt\", \"SpaetesterEZP\", \"IstBefehl\", \"WirdNachverfolgt\", \"EmpfaengerBenutzerID\", \"IstInToDoListe\", ");
 			if (pin_ob is Cdv_Erkundungsbefehl) 
 			{
-				str_INSERTAnfrage=str_INSERTAnfrage					
-					+"\"EB_Befehlsart\", "
-					+"";
+				strQuery.Append("\"EB_Befehlsart\", ");
+				//				str_INSERTAnfrage.Append("");
 			}
 			//Muss immer gesetzt werden: erlaubt auf der DB-Tabelle die Unterscheidung des Typs
-			str_INSERTAnfrage += "\"IstErkundungsbefehl\"";
-			
-			str_INSERTAnfrage=str_INSERTAnfrage
-			+") values("
-				+"'"+CMethoden.KonvertiereStringFuerDB(auftrag.Text)+"', "
-				+"'"+CMethoden.KonvertiereDatumFuerDB(auftrag.Abfassungsdatum)+"', "
-				+"'"+CMethoden.KonvertiereDatumFuerDB(auftrag.Uebermittlungsdatum)+"', "
-				+"'"+CMethoden.KonvertiereStringFuerDB(auftrag.Absender)+"', "
-				+"'"+(int)auftrag.Uebermittlungsart+"',"
-				+"'"+auftrag.IstUebermittelt+"',"
-				+"'"+auftrag.BearbeiterBenutzerID+"',"
-				+"'"+auftrag.LaufendeNummer+"',"
-				+"'"+CMethoden.KonvertiereDatumFuerDB(auftrag.Ausfuehrungszeitpunkt)+"',"
-				+"'"+CMethoden.KonvertiereDatumFuerDB(auftrag.SpaetesterErfuellungszeitpunkt)+"',"
-				+"'"+auftrag.IstBefehl+"',"
-				+"'"+auftrag.WirdNachverfolgt+"',"
-				+"'"+auftrag.EmpfaengerBenutzerID+"',"
-				+"'"+auftrag.IstInToDoListe+"',";	
-
+			strQuery.Append("\"IstErkundungsbefehl\") values('");
+			strQuery.Append(CMethoden.KonvertiereStringFuerDB(auftrag.Text));
+			strQuery.Append("', '");
+			strQuery.Append(CMethoden.KonvertiereDatumFuerDB(auftrag.Abfassungsdatum));
+			strQuery.Append("', '");
+			strQuery.Append(CMethoden.KonvertiereDatumFuerDB(auftrag.Uebermittlungsdatum));
+			strQuery.Append("', '");
+			strQuery.Append(CMethoden.KonvertiereStringFuerDB(auftrag.Absender));
+			strQuery.Append("', '");
+			strQuery.Append((int)auftrag.Uebermittlungsart);
+			strQuery.Append("','");
+			strQuery.Append(auftrag.IstUebermittelt);
+			strQuery.Append("','");
+			strQuery.Append(auftrag.BearbeiterBenutzerID);
+			strQuery.Append("','");
+			strQuery.Append(auftrag.LaufendeNummer);
+			strQuery.Append("','");
+			strQuery.Append(CMethoden.KonvertiereDatumFuerDB(auftrag.Ausfuehrungszeitpunkt));
+			strQuery.Append("','");
+			strQuery.Append(CMethoden.KonvertiereDatumFuerDB(auftrag.SpaetesterErfuellungszeitpunkt));
+			strQuery.Append("','");
+			strQuery.Append(auftrag.IstBefehl);
+			strQuery.Append("','");
+			strQuery.Append(auftrag.WirdNachverfolgt);
+			strQuery.Append("','");
+			strQuery.Append(auftrag.EmpfaengerBenutzerID);
+			strQuery.Append("','");
+			strQuery.Append(auftrag.IstInToDoListe);
+			strQuery.Append("',");
 			if (pin_ob is Cdv_Erkundungsbefehl) 
 			{
-				str_INSERTAnfrage=str_INSERTAnfrage
-					+"'"+(int) erkundungsbefehl.BefehlsArt+"',"
-					//Hier wird auf die Datenbank der typ geschrieben -> IstErkundungsbefehl
-					+"'"+true+"'"
-					+"";
+				strQuery.Append("'");
+				strQuery.Append((int) erkundungsbefehl.BefehlsArt);
+				//Hier wird auf die Datenbank der typ geschrieben -> IstErkundungsbefehl
+				strQuery.Append("','");
+				strQuery.Append(true);
+				strQuery.Append("'");
 			}
 			else			
 			{	//Hier wird auf die Datenbank der typ geschrieben -> IstErkundungsbefehl = false
-				str_INSERTAnfrage += "'"+false+"'";
+				strQuery.Append("'");
+				strQuery.Append(false);
+				strQuery.Append("'");
 			}
 			//schlieﬂende Klammer der Anfrage
-			str_INSERTAnfrage += ");";
+			strQuery.Append(");");
 
-			i_IDdesAuftrages=(db.AusfuehrenInsertAnfrage(str_INSERTAnfrage));
+			i_IDdesAuftrages=(db.AusfuehrenInsertAnfrage(strQuery.ToString()));
 			if(auftrag.EmpfaengerMengeKraftID != null)
 			{ //getestet
-				string str_INSERTAnfrageEmpfaenger="";
+				StringBuilder str_INSERTAnfrageEmpfaenger = new StringBuilder("");
 				for (Int32 i_tmp1=0; i_tmp1<auftrag.EmpfaengerMengeKraftID.Length; i_tmp1++)
 				{
-					str_INSERTAnfrageEmpfaenger="insert into \"Empfaenger_Auftrag\""+ 
-						"("+
-						"\"AuftragsID\","+
-						"\"KraftID\"" +
-						") values ("
-						+"'"+ i_IDdesAuftrages +"'"
-						+"," 
-						+"'"+ auftrag.EmpfaengerMengeKraftID[i_tmp1] +"'"
-						+");";
-					db.AusfuehrenInsertAnfrage(str_INSERTAnfrageEmpfaenger);
+					strQuery.Append("insert into \"Empfaenger_Auftrag\"(\"AuftragsID\",\"KraftID\") values ('");
+					strQuery.Append( i_IDdesAuftrages );
+					strQuery.Append("', '");
+					strQuery.Append(auftrag.EmpfaengerMengeKraftID[i_tmp1]);
+					strQuery.Append("');");
+					db.AusfuehrenInsertAnfrage(str_INSERTAnfrageEmpfaenger.ToString());
 				}
 			}
 			return i_IDdesAuftrages;
@@ -138,34 +133,65 @@ namespace pELS.DV.Server.Wrapper
 			if (!((pin_ob is Cdv_Auftrag)||(pin_ob is Cdv_Erkundungsbefehl))) throw(new ArgumentNullException("Falsches Objekt an Cdv_AuftragWrapper ¸bergeben. Cdv_Auftrag oder Cdv_Erkundungsbefehl wurde erwartet! Methode:Cdv_AuftragWrapper.AktualisiereEintrag")); 
 			Cdv_Auftrag auftrag = pin_ob as Cdv_Auftrag;
 			Cdv_Erkundungsbefehl erkundungsbefehl = pin_ob as Cdv_Erkundungsbefehl;
-			string str_UPDATEAnfrage;			//AnfrageQuery zum Update des Objekts auf der DB
-			string str_INSERTAnfrageEmpfaenger; //AnfrageQuery zur Verkn¸pfung von Anfragen und Empf‰ngern auf der DB
-
+			StringBuilder strQuery;			//AnfrageQuery zum Update des Objekts auf der DB
+			StringBuilder str_INSERTAnfrageEmpfaenger; //AnfrageQuery zur Verkn¸pfung von Anfragen und Empf‰ngern auf der DB
 			//Anfrage 
-			str_UPDATEAnfrage = "update \"Auftraege\" set "
-				+"\"Text\"='"+CMethoden.KonvertiereStringFuerDB(auftrag.Text)+"', "
-				+"\"Abfassungsdatum\"='"+CMethoden.KonvertiereDatumFuerDB(auftrag.Abfassungsdatum)+"', "
-				+"\"Uebermittlungsdatum\"='"+CMethoden.KonvertiereDatumFuerDB(auftrag.Uebermittlungsdatum)+"', "
-				+"\"Absender\"='"+CMethoden.KonvertiereStringFuerDB(auftrag.Absender)+"', "
-				+"\"Uebermittlungsart\"='"+(int)auftrag.Uebermittlungsart+"',"
-				+"\"IstUebermittelt\"='"+auftrag.IstUebermittelt+"',"
-				+"\"BearbeiterID\"='"+auftrag.BearbeiterBenutzerID+"',"
-				+"\"LaufendeNummer\"='"+auftrag.LaufendeNummer+"',"
-				+"\"Ausfuehrungszeitpunkt\"='"+CMethoden.KonvertiereDatumFuerDB(auftrag.Ausfuehrungszeitpunkt)+"',"
-				+"\"SpaetesterEZP\"='"+CMethoden.KonvertiereDatumFuerDB(auftrag.SpaetesterErfuellungszeitpunkt)+"',"
-				+"\"IstBefehl\"='"+auftrag.IstBefehl+"',"
-				+"\"WirdNachverfolgt\"='"+ auftrag.WirdNachverfolgt+"', "
-				+ "\"EmpfaengerBenutzerID\"='" + Convert.ToInt32(auftrag.EmpfaengerBenutzerID)+ "', "
-				+ "\"IstInToDoListe\"='" + auftrag.IstInToDoListe+ "'";	
+			strQuery = new StringBuilder("update \"Auftraege\" set ", 300);
+			strQuery.Append("\"Text\"='");
+			strQuery.Append(CMethoden.KonvertiereStringFuerDB(auftrag.Text));
+			strQuery.Append("', ");
+			strQuery.Append("\"Abfassungsdatum\"='");
+			strQuery.Append(CMethoden.KonvertiereDatumFuerDB(auftrag.Abfassungsdatum));
+			strQuery.Append("', ");
+			strQuery.Append("\"Uebermittlungsdatum\"='");
+			strQuery.Append(CMethoden.KonvertiereDatumFuerDB(auftrag.Uebermittlungsdatum));
+			strQuery.Append("', ");
+			strQuery.Append("\"Absender\"='");
+			strQuery.Append(CMethoden.KonvertiereStringFuerDB(auftrag.Absender));
+			strQuery.Append("', ");
+			strQuery.Append("\"Uebermittlungsart\"='");
+			strQuery.Append((int)auftrag.Uebermittlungsart);
+			strQuery.Append("',");
+			strQuery.Append("\"IstUebermittelt\"='");
+			strQuery.Append(auftrag.IstUebermittelt);
+			strQuery.Append("',");
+			strQuery.Append("\"BearbeiterID\"='");
+			strQuery.Append(auftrag.BearbeiterBenutzerID);
+			strQuery.Append("',");
+			strQuery.Append("\"LaufendeNummer\"='");
+			strQuery.Append(auftrag.LaufendeNummer);
+			strQuery.Append("',");
+			strQuery.Append("\"Ausfuehrungszeitpunkt\"='");
+			strQuery.Append(CMethoden.KonvertiereDatumFuerDB(auftrag.Ausfuehrungszeitpunkt));
+			strQuery.Append("',");
+			strQuery.Append("\"SpaetesterEZP\"='");
+			strQuery.Append(CMethoden.KonvertiereDatumFuerDB(auftrag.SpaetesterErfuellungszeitpunkt));
+			strQuery.Append("',");
+			strQuery.Append("\"IstBefehl\"='");
+			strQuery.Append(auftrag.IstBefehl);
+			strQuery.Append("',");
+			strQuery.Append("\"WirdNachverfolgt\"='");
+			strQuery.Append( auftrag.WirdNachverfolgt);
+			strQuery.Append("', ");
+			strQuery.Append( "\"EmpfaengerBenutzerID\"='" );
+			strQuery.Append( Convert.ToInt32(auftrag.EmpfaengerBenutzerID));
+			strQuery.Append( "', ");
+			strQuery.Append( "\"IstInToDoListe\"='" );
+			strQuery.Append( auftrag.IstInToDoListe);
+			strQuery.Append( "'");
 			if (pin_ob is Cdv_Erkundungsbefehl) 
 			{
-				str_UPDATEAnfrage=str_UPDATEAnfrage
-					+", "
-					+"\"IstErkundungsbefehl\"='"+true+"',"
-					+"\"EB_Befehlsart\"='"+(int)erkundungsbefehl.BefehlsArt+"'"
-					+"";
+				strQuery.Append(", ");
+				strQuery.Append("\"IstErkundungsbefehl\"='");
+				strQuery.Append(true);
+				strQuery.Append("',");
+				strQuery.Append("\"EB_Befehlsart\"='");
+				strQuery.Append((int)erkundungsbefehl.BefehlsArt);
+				strQuery.Append("'");
+				strQuery.Append("");
 			}
-			str_UPDATEAnfrage += " where \"ID\"="+auftrag.ID;					
+			strQuery.Append(" where \"ID\"=");
+			strQuery.Append(auftrag.ID);
 			
 			
 			if (auftrag.EmpfaengerMengeKraftID != null)
@@ -177,21 +203,24 @@ namespace pELS.DV.Server.Wrapper
 				//nun reinschreiben aller neuen Informationen
 				for (Int32 i_tmp1=0; i_tmp1<auftrag.EmpfaengerMengeKraftID.Length; i_tmp1++)
 				{
-					str_INSERTAnfrageEmpfaenger="insert into \"Empfaenger_Auftrag\""+ 
-						"("+
-						"\"AuftragsID\","+
-						"\"KraftID\"" +
-						") values ("
-						+"'"+ auftrag.ID +"'"
-						+"," 
-						+"'"+ auftrag.EmpfaengerMengeKraftID[i_tmp1] +"')";
-
-					db.AusfuehrenInsertAnfrage(str_INSERTAnfrageEmpfaenger);
+					str_INSERTAnfrageEmpfaenger = new StringBuilder("insert into \"Empfaenger_Auftrag\"", 100); 
+					str_INSERTAnfrageEmpfaenger.Append("(");
+					str_INSERTAnfrageEmpfaenger.Append("\"AuftragsID\",");
+					str_INSERTAnfrageEmpfaenger.Append("\"KraftID\"");
+					str_INSERTAnfrageEmpfaenger.Append(") values (");
+					str_INSERTAnfrageEmpfaenger.Append("'");
+					str_INSERTAnfrageEmpfaenger.Append( auftrag.ID );
+					str_INSERTAnfrageEmpfaenger.Append("'");
+					str_INSERTAnfrageEmpfaenger.Append("," );
+					str_INSERTAnfrageEmpfaenger.Append("'");
+					str_INSERTAnfrageEmpfaenger.Append( auftrag.EmpfaengerMengeKraftID[i_tmp1] );
+					str_INSERTAnfrageEmpfaenger.Append("')");
+					db.AusfuehrenInsertAnfrage(str_INSERTAnfrageEmpfaenger.ToString());
 				}
 			}
 			//Abschlieﬂen des UpdateAbfrageString
-			str_UPDATEAnfrage += ";";
-			return db.AusfuehrenUpdateAnfrage(str_UPDATEAnfrage);
+			strQuery.Append( ";");
+			return db.AusfuehrenUpdateAnfrage(strQuery.ToString());
 		}
 
 		

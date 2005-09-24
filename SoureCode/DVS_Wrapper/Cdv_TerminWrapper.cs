@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using pELS.DV.Server.Interfaces;
 using pELS.DV;
 using pELS.Server;
@@ -52,40 +53,76 @@ namespace pELS.DV.Server.Wrapper
 				throw new ArgumentNullException("Falsches Objekt an Cdv_TerminWrapper übergeben. Cdv_Termin wurde erwartet! Methode:Cdv_TerminWrapper.NeuerEintrag");
 			Cdv_Termin termin = pin_ob as Cdv_Termin;
 			int iRetVal = 0;
-			String str_INSERTAnfrage;
-			
+			StringBuilder strQuery;
+
 			//das entsprechende Query wird zusammengebaut:
-			str_INSERTAnfrage = "insert into \"Termine\"("
-				+ "\"Betreff\", "
-				+ "\"ZeitVon\", "
-				+ "\"ZeitBis\", "
-				+ "\"FuerID\", "
-				+ "\"VonID\", "
-				+ "\"WirdErinnert\", "
-				+ "\"IstInToDoListe\","
-				+ "\"IstWichtig\") values("
-				+ "'" + CMethoden.KonvertiereStringFuerDB(termin.Betreff)+ "', "
-				+ "'" + CMethoden.KonvertiereDatumFuerDB(termin.ZeitVon)+ "', "
-				+ "'" + CMethoden.KonvertiereDatumFuerDB(termin.ZeitBis)+ "', "
-				+ "'" + termin.ErstelltFuerBenutzerID+ "', "
-				+ "'" + termin.ErstelltVonBenutzerID+ "', "
-				+ "'" + termin.WirdErinnert + "', "
-				+ "'" + termin.IstInToDoListe + "', "
-				+ "'" + termin.IstWichtig+ "')"				;
-			iRetVal = db.AusfuehrenInsertAnfrage(str_INSERTAnfrage);
+			strQuery = new StringBuilder("insert into \"Termine\"(", 300);
+				strQuery.Append( "\"Betreff\", \"ZeitVon\", \"ZeitBis\", \"FuerID\", \"VonID\", \"WirdErinnert\", \"IstInToDoListe\", \"IstWichtig\") values('");
+						strQuery.Append( CMethoden.KonvertiereStringFuerDB(termin.Betreff));
+							strQuery.Append( "', '" );
+							strQuery.Append( CMethoden.KonvertiereDatumFuerDB(termin.ZeitVon));
+							strQuery.Append( "', '" );
+							strQuery.Append( CMethoden.KonvertiereDatumFuerDB(termin.ZeitBis));
+							strQuery.Append( "', '" );
+							strQuery.Append( termin.ErstelltFuerBenutzerID);
+							strQuery.Append( "', '" );
+							strQuery.Append( termin.ErstelltVonBenutzerID);
+							strQuery.Append( "', '" );
+							strQuery.Append( termin.WirdErinnert );
+							strQuery.Append( "', '" );
+							strQuery.Append( termin.IstInToDoListe );
+							strQuery.Append( "', '" );
+							strQuery.Append( termin.IstWichtig);
+							strQuery.Append( "')");
+			iRetVal = db.AusfuehrenInsertAnfrage(strQuery.ToString());
 			termin.ID = iRetVal;
 			if(termin.WirdErinnert)
 			{
-				String str_INSERTTerminAnfrage = "insert into \"Erinnerungen\"("
-					+ "\"TerminID\", "
-					+ "\"Zeitpunkt\", "
-					+ "\"Text\") values("
-					+"'" + termin.ID + "', "
-					+"'" + CMethoden.KonvertiereDatumFuerDB(termin.Erinnerung.Zeitpunkt) + "', "
-					+"'" + CMethoden.KonvertiereStringFuerDB(termin.Erinnerung.Erinnerungstext) + "')";
-				iRetVal = db.AusfuehrenInsertAnfrage(str_INSERTTerminAnfrage);
+				strQuery.Remove(0, strQuery.Length - 1);
+				strQuery.Append("insert into \"Erinnerungen\"(\"TerminID\", \"Zeitpunkt\", \"Text\") values('" );
+					strQuery.Append( termin.ID );
+					strQuery.Append( "', '" );
+					strQuery.Append( CMethoden.KonvertiereDatumFuerDB(termin.Erinnerung.Zeitpunkt) );
+					strQuery.Append( "', '" );
+					strQuery.Append( CMethoden.KonvertiereStringFuerDB(termin.Erinnerung.Erinnerungstext) );
+					strQuery.Append( "')");
+				iRetVal = db.AusfuehrenInsertAnfrage(strQuery.ToString());
 				termin.Erinnerung.ID = iRetVal;
 			}
+
+			//			//das entsprechende Query wird zusammengebaut:
+			//			str_INSERTAnfrage = "insert into \"Termine\"("
+			//				+ "\"Betreff\", "
+			//				+ "\"ZeitVon\", "
+			//				+ "\"ZeitBis\", "
+			//				+ "\"FuerID\", "
+			//				+ "\"VonID\", "
+			//				+ "\"WirdErinnert\", "
+			//				+ "\"IstInToDoListe\","
+			//				+ "\"IstWichtig\") values("
+			//				+ "'" + CMethoden.KonvertiereStringFuerDB(termin.Betreff)+ "', "
+			//				+ "'" + CMethoden.KonvertiereDatumFuerDB(termin.ZeitVon)+ "', "
+			//				+ "'" + CMethoden.KonvertiereDatumFuerDB(termin.ZeitBis)+ "', "
+			//				+ "'" + termin.ErstelltFuerBenutzerID+ "', "
+			//				+ "'" + termin.ErstelltVonBenutzerID+ "', "
+			//				+ "'" + termin.WirdErinnert + "', "
+			//				+ "'" + termin.IstInToDoListe + "', "
+			//				+ "'" + termin.IstWichtig+ "')"				;
+			//			iRetVal = db.AusfuehrenInsertAnfrage(str_INSERTAnfrage);
+			//			termin.ID = iRetVal;
+			//			if(termin.WirdErinnert)
+			//			{
+			//				String str_INSERTTerminAnfrage = "insert into \"Erinnerungen\"("
+			//					+ "\"TerminID\", "
+			//					+ "\"Zeitpunkt\", "
+			//					+ "\"Text\") values("
+			//					+"'" + termin.ID + "', "
+			//					+"'" + CMethoden.KonvertiereDatumFuerDB(termin.Erinnerung.Zeitpunkt) + "', "
+			//					+"'" + CMethoden.KonvertiereStringFuerDB(termin.Erinnerung.Erinnerungstext) + "')";
+			//				iRetVal = db.AusfuehrenInsertAnfrage(str_INSERTTerminAnfrage);
+			//				termin.Erinnerung.ID = iRetVal;
+			//			}
+
 			return(iRetVal);
 		}
 
@@ -97,26 +134,38 @@ namespace pELS.DV.Server.Wrapper
 			Cdv_Termin termin = pin_ob as Cdv_Termin;
 			bool bRetVal = false;
 			// Anfrage
-			string myQ = "update \"Termine\" set"
-				+ "\"Betreff\"='" + CMethoden.KonvertiereStringFuerDB(termin.Betreff) + "', "
-				+ "\"ZeitVon\"='" + CMethoden.KonvertiereDatumFuerDB(termin.ZeitVon)+ "', "
-				+ "\"ZeitBis\"='" + CMethoden.KonvertiereDatumFuerDB(termin.ZeitBis)+ "', "
-				+ "\"FuerID\"='" +termin.ErstelltFuerBenutzerID+ "', "
-				+ "\"VonID\"='" + termin.ErstelltVonBenutzerID+ "', "
-				+ "\"IstWichtig\"='" + termin.IstWichtig+ "', "		
-				+ "\"WirdErinnert\"='" + termin.WirdErinnert + "', "
-				+ "\"IstInToDoListe\"='" + termin.IstInToDoListe+ "' "
-				+ "where \"ID\"=" + termin.ID;
+			StringBuilder strQuery = new StringBuilder("update \"Termine\" set", 300);
+				strQuery.Append( "\"Betreff\"='" );
+					strQuery.Append( CMethoden.KonvertiereStringFuerDB(termin.Betreff) );
+					strQuery.Append( "', \"ZeitVon\"='" );
+					strQuery.Append( CMethoden.KonvertiereDatumFuerDB(termin.ZeitVon));
+					strQuery.Append( "', \"ZeitBis\"='" );
+					strQuery.Append( CMethoden.KonvertiereDatumFuerDB(termin.ZeitBis));
+					strQuery.Append( "', \"FuerID\"='" );
+					strQuery.Append(termin.ErstelltFuerBenutzerID);
+					strQuery.Append( "', \"VonID\"='" );
+					strQuery.Append( termin.ErstelltVonBenutzerID);
+					strQuery.Append( "', \"IstWichtig\"='" );
+					strQuery.Append( termin.IstWichtig);
+					strQuery.Append( "', \"WirdErinnert\"='" );
+					strQuery.Append( termin.WirdErinnert );
+					strQuery.Append( "', \"IstInToDoListe\"='" );
+					strQuery.Append( termin.IstInToDoListe);
+					strQuery.Append( "' where \"ID\"=" );
+					strQuery.Append( termin.ID);
 
-			bRetVal = db.AusfuehrenUpdateAnfrage(myQ);
+			bRetVal = db.AusfuehrenUpdateAnfrage(strQuery.ToString());
 			if(termin.WirdErinnert && bRetVal)
 			{
-				string str_ErinnerungUpdate = "update \"Erinnerungen\" set"
-					+ "\"Zeitpunkt\"='" + CMethoden.KonvertiereDatumFuerDB(termin.Erinnerung.Zeitpunkt) + "', "
-					+ "\"Text\"='" + CMethoden.KonvertiereStringFuerDB(termin.Erinnerung.Erinnerungstext) + "' "
-					+ "where \"TerminID\"=" + termin.ID;
+				strQuery.Remove(0, strQuery.Length - 1);
+				strQuery.Append("update \"Erinnerungen\" set \"Zeitpunkt\"='" );
+					strQuery.Append( CMethoden.KonvertiereDatumFuerDB(termin.Erinnerung.Zeitpunkt) );
+					strQuery.Append( "', \"Text\"='" );
+					strQuery.Append( CMethoden.KonvertiereStringFuerDB(termin.Erinnerung.Erinnerungstext) );
+					strQuery.Append( "' where \"TerminID\"=" );
+					strQuery.Append( termin.ID);
 
-				bRetVal = db.AusfuehrenUpdateAnfrage(str_ErinnerungUpdate);
+				bRetVal = db.AusfuehrenUpdateAnfrage(strQuery.ToString());
 			}
 			return(bRetVal);
 		}

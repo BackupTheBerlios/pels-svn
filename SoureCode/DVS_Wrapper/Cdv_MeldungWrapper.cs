@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using pELS.DV.Server.Interfaces;
 using pELS.DV;
 using pELS.Server;
@@ -55,86 +56,80 @@ namespace pELS.DV.Server.Wrapper
 			Cdv_Meldung meldg = pin_ob as Cdv_Meldung;
 			Cdv_Erkundungsergebnis erkerg = pin_ob as Cdv_Erkundungsergebnis;
 			
-			String str_INSERTAnfrage;
+			StringBuilder strQuery;
 			
 			//das entsprechende Query wird zusammengebaut:
-				str_INSERTAnfrage = "insert into \"Meldungen\"("
-					+ "\"Text\", "
-					+ "\"Abfassungsdatum\", "
-					+ "\"Uebermittlungsdatum\", "
-					+ "\"Absender\", "
-					+ "\"Uebermittlungsart\", "
-					+ "\"IstUebermittelt\", "
-					+ "\"BearbeiterID\", "	
-					+ "\"LaufendeNummer\", "					
-					+ "\"Kategorie\", "
-					+ "\"EmpfaengerBenutzerID\", "
-					+ "\"IstInToDoListe\"";
-					//Wenn die Meldung ein Erkundungsergebnis ist
-					if(meldg is Cdv_Erkundungsergebnis)
-					{
-						str_INSERTAnfrage +=  ", \"EE_Erkunder\", "
-										+ "\"EE_EinsatzschwerpunktID\", "				
-										//Hier wird der Inhalt des Erkundungsobjektes abgebildet
-										+ "\"EO_Bezeichnung\", "
-										+ "\"EO_Erkundungsdatum\", "
-										+ "\"EO_Haustyp\", "
-										+ "\"EO_Bauart\", "
-										+ "\"EO_Heizung\", "
-										+ "\"EO_Wasserversorgung\", "
-										+ "\"EO_Elektroversorgung\", "
-										+ "\"EO_Abwasserentsorgung\", "
-										//Hier wird der Keller abgebildet
-										+ "\"EO_Keller_Vorhanden\", "
-										+ "\"EO_Keller_Prozentsatz\", "
-										//Hier wird die Anschrift abgebildet
-										+ "\"EO_Anschrift_Strasse\", "
-										+ "\"EO_Anschrift_Hausnummer\", "
-										+ "\"EO_Anschrift_PLZ\", "
-										+ "\"EO_Anschrift_Ort\", "
-										//Hier wird das Wissen kodiert, ob es sich um eine Meldung oder ein Erkundungsergebnis handelt
-										+ "\"IstErkundungsergebnis\"";
-					}				
-			str_INSERTAnfrage += ") values("
-					+ "'" + CMethoden.KonvertiereStringFuerDB(meldg.Text)+ "', "
-					+ "'" + CMethoden.KonvertiereDatumFuerDB(meldg.Abfassungsdatum)+ "', "
-					+ "'" + CMethoden.KonvertiereDatumFuerDB(meldg.Uebermittlungsdatum)+ "', "
-					+ "'" + CMethoden.KonvertiereStringFuerDB(meldg.Absender)+ "', "
-					+ "'" + Convert.ToInt32(meldg.Uebermittlungsart)+ "', "
-					+ "'" + meldg.IstUebermittelt+ "', "
-					+ "'" + meldg.BearbeiterBenutzerID+ "', "	
-					+ "'" + meldg.LaufendeNummer+ "', "	
-					+ "'" + Convert.ToInt32(meldg.Kategorie)+"', "
-					+ "'" + Convert.ToInt32(meldg.EmpfaengerBenutzerID)+"', "
-					+ "'" + meldg.IstInToDoListe+"'";
+			strQuery = new StringBuilder("insert into \"Meldungen\"(", 600);
+			strQuery.Append( "\"Text\", \"Abfassungsdatum\", \"Uebermittlungsdatum\", \"Absender\", \"Uebermittlungsart\", \"IstUebermittelt\", \"BearbeiterID\", \"LaufendeNummer\", \"Kategorie\", \"EmpfaengerBenutzerID\", \"IstInToDoListe\"");
+			//Wenn die Meldung ein Erkundungsergebnis ist
+			if(meldg is Cdv_Erkundungsergebnis)
+			{
+				strQuery.Append(", \"EE_Erkunder\", \"EE_EinsatzschwerpunktID\", \"EO_Bezeichnung\", \"EO_Erkundungsdatum\", \"EO_Haustyp\", \"EO_Bauart\", \"EO_Heizung\", \"EO_Wasserversorgung\", \"EO_Elektroversorgung\", \"EO_Abwasserentsorgung\", \"EO_Keller_Vorhanden\", \"EO_Keller_Prozentsatz\", \"EO_Anschrift_Strasse\", \"EO_Anschrift_Hausnummer\", \"EO_Anschrift_PLZ\", \"EO_Anschrift_Ort\", \"IstErkundungsergebnis\"");
+			}				
+			strQuery.Append(") values('" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(meldg.Text));
+			strQuery.Append( "', '" );
+			strQuery.Append( CMethoden.KonvertiereDatumFuerDB(meldg.Abfassungsdatum));
+			strQuery.Append( "', '" );
+			strQuery.Append( CMethoden.KonvertiereDatumFuerDB(meldg.Uebermittlungsdatum));
+			strQuery.Append( "', '" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(meldg.Absender));
+			strQuery.Append( "', '" );
+			strQuery.Append( Convert.ToInt32(meldg.Uebermittlungsart));
+			strQuery.Append( "', '" );
+			strQuery.Append( meldg.IstUebermittelt);
+			strQuery.Append( "', '" );
+			strQuery.Append( meldg.BearbeiterBenutzerID);
+			strQuery.Append( "', '" );
+			strQuery.Append( meldg.LaufendeNummer);
+			strQuery.Append( "', '" );
+			strQuery.Append( Convert.ToInt32(meldg.Kategorie));
+			strQuery.Append("', '" );
+			strQuery.Append( Convert.ToInt32(meldg.EmpfaengerBenutzerID));
+			strQuery.Append("', '" );
+			strQuery.Append( meldg.IstInToDoListe);
+			strQuery.Append("'");
 			//Wenn die Meldung ein Erkundungsergebnis ist werden hier die Werte belegt
 			if(meldg is Cdv_Erkundungsergebnis)
 			{
-				str_INSERTAnfrage += ", '" + CMethoden.KonvertiereStringFuerDB(erkerg.Erkunder)+ "', "
-					+ "'" + erkerg.EinsatzschwerpunkID+ "', "				
-					//Hier wird der Inhalt des Erkundungsobjektes abgebildet
-					+ "'" + CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Bezeichnung)+ "', "
-					+ "'" + CMethoden.KonvertiereDatumFuerDB(erkerg.Erkundungsobjekt.Erkundungsdatum)+ "', "
-					+ "'" + CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Haustyp)+ "', "
-					+ "'" + (int) erkerg.Erkundungsobjekt.Bauart+ "', "
-					+ "'" + CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Heizung)+ "', "
-					+ "'" + erkerg.Erkundungsobjekt.Wasserversorgung+ "', "
-					+ "'" + erkerg.Erkundungsobjekt.Elektroversorgung+ "', "
-					+ "'" + erkerg.Erkundungsobjekt.Abwasserentsorgung+ "', "
-					//Hier wird der Keller eines Erkundungsobjektes abgebildet
-					+ "'" + erkerg.Erkundungsobjekt.Keller.Vorhanden+ "', "
-					+ "'" + erkerg.Erkundungsobjekt.Keller.Prozentsatz+ "', "
-					//Hier wird der Anschrift des Erkundungsobjektes abgebildet
-					+ "'" + CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Anschrift.Strasse)+ "', "
-					+ "'" + CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Anschrift.Hausnummer)+ "', "
-					+ "'" + CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Anschrift.PLZ)+ "', "
-					+ "'" + CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Anschrift.Ort)+ "', "
-					//Hier wird das wissen abgebildet, dass es sich um einen Erkundungsergebnis handelt
-					+ "'" + true + "'";
-			
+				strQuery.Append( ", '"); 
+				strQuery.Append( CMethoden.KonvertiereStringFuerDB(erkerg.Erkunder));
+				strQuery.Append( "', '" );
+				strQuery.Append( erkerg.EinsatzschwerpunkID);
+				strQuery.Append( "', '" );
+				strQuery.Append( CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Bezeichnung));
+				strQuery.Append( "', '" );
+				strQuery.Append( CMethoden.KonvertiereDatumFuerDB(erkerg.Erkundungsobjekt.Erkundungsdatum));
+				strQuery.Append( "', '" );
+				strQuery.Append( CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Haustyp));
+				strQuery.Append( "', '" );
+				strQuery.Append( (int) erkerg.Erkundungsobjekt.Bauart);
+				strQuery.Append( "', '" );
+				strQuery.Append( CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Heizung));
+				strQuery.Append( "', '" );
+				strQuery.Append( erkerg.Erkundungsobjekt.Wasserversorgung);
+				strQuery.Append( "', '" );
+				strQuery.Append( erkerg.Erkundungsobjekt.Elektroversorgung);
+				strQuery.Append( "', '" );
+				strQuery.Append( erkerg.Erkundungsobjekt.Abwasserentsorgung);
+				strQuery.Append( "', '" );
+				strQuery.Append( erkerg.Erkundungsobjekt.Keller.Vorhanden);
+				strQuery.Append( "', '" );
+				strQuery.Append( erkerg.Erkundungsobjekt.Keller.Prozentsatz );
+				strQuery.Append( "', '" );
+				strQuery.Append( CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Anschrift.Strasse));
+				strQuery.Append( "', '" );
+				strQuery.Append( CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Anschrift.Hausnummer));
+				strQuery.Append( "', '" );
+				strQuery.Append( CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Anschrift.PLZ));
+				strQuery.Append( "', '" );
+				strQuery.Append( CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Anschrift.Ort));
+				strQuery.Append( "', '" );
+				strQuery.Append( true );
+				strQuery.Append( "'");
 			}
-			str_INSERTAnfrage +=");";
-			i_IDderMeldung = db.AusfuehrenInsertAnfrage(str_INSERTAnfrage);
+			strQuery.Append(");");
+			i_IDderMeldung = db.AusfuehrenInsertAnfrage(strQuery.ToString());
 			
 			//Nun das Eintragen in die Tabelle Empfaenger_Meldung
 			if(meldg.EmpfaengerMengeKraftID !=null)
@@ -159,46 +154,75 @@ namespace pELS.DV.Server.Wrapper
 			Cdv_Erkundungsergebnis erkerg = pin_ob as Cdv_Erkundungsergebnis;			
 
 			// Anfrage
-			string myQ = "update \"Meldungen\" set "
-				+ "\"Text\"='" +CMethoden.KonvertiereStringFuerDB(meldg.Text) + "', "
-				+ "\"Abfassungsdatum\"='" + CMethoden.KonvertiereDatumFuerDB(meldg.Abfassungsdatum)+ "', "
-				+ "\"Uebermittlungsdatum\"='" + CMethoden.KonvertiereDatumFuerDB(meldg.Uebermittlungsdatum)+ "', "
-				+ "\"Absender\"='" +CMethoden.KonvertiereStringFuerDB(meldg.Absender)+ "', "
-				+ "\"Uebermittlungsart\"='" + Convert.ToInt32(meldg.Uebermittlungsart)+ "', "
-				+ "\"IstUebermittelt\"='" + meldg.IstUebermittelt+ "', "
-				+ "\"BearbeiterID\"='" + meldg.BearbeiterBenutzerID+ "', "
-				+ "\"LaufendeNummer\"='" + meldg.LaufendeNummer+ "', "
-				+ "\"Kategorie\"='" + Convert.ToInt32(meldg.Kategorie)+ "', "
-				+ "\"EmpfaengerBenutzerID\"='" + Convert.ToInt32(meldg.EmpfaengerBenutzerID)+ "', "
-				+ "\"IstInToDoListe\"='" + meldg.IstInToDoListe+ "'";
+			StringBuilder strQuery = new StringBuilder("update \"Meldungen\" set ", 500);
+				strQuery.Append( "\"Text\"='" );
+					strQuery.Append( CMethoden.KonvertiereStringFuerDB(meldg.Text) );
+					strQuery.Append( "', \"Abfassungsdatum\"='" );
+					strQuery.Append( CMethoden.KonvertiereDatumFuerDB(meldg.Abfassungsdatum));
+					strQuery.Append( "', \"Uebermittlungsdatum\"='" );
+					strQuery.Append( CMethoden.KonvertiereDatumFuerDB(meldg.Uebermittlungsdatum));
+					strQuery.Append( "', \"Absender\"='" );
+					strQuery.Append(CMethoden.KonvertiereStringFuerDB(meldg.Absender));
+					strQuery.Append( "', \"Uebermittlungsart\"='" );
+					strQuery.Append( Convert.ToInt32(meldg.Uebermittlungsart));
+					strQuery.Append( "', \"IstUebermittelt\"='" );
+					strQuery.Append( meldg.IstUebermittelt);
+					strQuery.Append( "', \"BearbeiterID\"='"); 
+					strQuery.Append( meldg.BearbeiterBenutzerID);
+					strQuery.Append( "', \"LaufendeNummer\"='" );
+					strQuery.Append( meldg.LaufendeNummer);
+					strQuery.Append( "', \"Kategorie\"='" );
+					strQuery.Append( Convert.ToInt32(meldg.Kategorie));
+					strQuery.Append( "', \"EmpfaengerBenutzerID\"='" );
+					strQuery.Append( Convert.ToInt32(meldg.EmpfaengerBenutzerID));
+					strQuery.Append( "', \"IstInToDoListe\"='" );
+					strQuery.Append( meldg.IstInToDoListe);
+					strQuery.Append( "'");
 
 			//Hier wird zusätzlich codiert, falls die meldung ein Erkundungergebnis ist
 			if(meldg is Cdv_Erkundungsergebnis)
 			{								
-				myQ += ", \"EE_Erkunder\"='" + CMethoden.KonvertiereStringFuerDB(erkerg.Erkunder)+ "', "
-					+ "\"EE_EinsatzschwerpunktID\"='" + erkerg.EinsatzschwerpunkID+ "', "
-					//Hier wird der Inhalt des Erkundungsobjektes abgebildet
-					+ "\"EO_Bezeichnung\"='" + CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Bezeichnung)+ "', "
-					+ "\"EO_Erkundungsdatum\"='" + CMethoden.KonvertiereDatumFuerDB(erkerg.Erkundungsobjekt.Erkundungsdatum)+ "', "
-					+ "\"EO_Haustyp\"='" + CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Haustyp)+ "', "
-					+ "\"EO_Bauart\"='" + (int) erkerg.Erkundungsobjekt.Bauart+ "', "
-					+ "\"EO_Heizung\"='" + CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Heizung)+ "', "
-					+ "\"EO_Wasserversorgung\"='" + erkerg.Erkundungsobjekt.Wasserversorgung+ "', "
-					+ "\"EO_Elektroversorgung\"='" + erkerg.Erkundungsobjekt.Elektroversorgung+ "', "
-					+ "\"EO_Abwasserentsorgung\"='" + erkerg.Erkundungsobjekt.Abwasserentsorgung+ "', "
-					//Hier wird der Keller abgebildet
-					+ "\"EO_Keller_Vorhanden\"='" + erkerg.Erkundungsobjekt.Keller.Vorhanden+ "', "
-					+ "\"EO_Keller_Prozentsatz\"='" + erkerg.Erkundungsobjekt.Keller.Prozentsatz+ "', "
-					//Hier wird die Anschrift abgebildet
-					+ "\"EO_Anschrift_Strasse\"='" + CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Anschrift.Strasse)+ "', "
-					+ "\"EO_Anschrift_Hausnummer\"='" + CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Anschrift.Hausnummer)+ "', "
-					+ "\"EO_Anschrift_PLZ\"='" + CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Anschrift.PLZ)+ "', "
-					+ "\"EO_Anschrift_Ort\"='" + CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Anschrift.Ort)+ "', "
-					+ "\"IstErkundungsergebnis\"='" + true + "'";
+				strQuery.Append( ", \"EE_Erkunder\"='" );
+					strQuery.Append( CMethoden.KonvertiereStringFuerDB(erkerg.Erkunder));
+					strQuery.Append( "', \"EE_EinsatzschwerpunktID\"='" );
+					strQuery.Append( erkerg.EinsatzschwerpunkID);
+					strQuery.Append( "', \"EO_Bezeichnung\"='" );
+					strQuery.Append( CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Bezeichnung));
+					strQuery.Append( "', \"EO_Erkundungsdatum\"='" );
+					strQuery.Append( CMethoden.KonvertiereDatumFuerDB(erkerg.Erkundungsobjekt.Erkundungsdatum));
+					strQuery.Append( "', \"EO_Haustyp\"='" );
+					strQuery.Append( CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Haustyp));
+					strQuery.Append( "', \"EO_Bauart\"='" );
+					strQuery.Append( (int) erkerg.Erkundungsobjekt.Bauart);
+					strQuery.Append( "', \"EO_Heizung\"='" );
+					strQuery.Append( CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Heizung));
+					strQuery.Append( "', \"EO_Wasserversorgung\"='" );
+					strQuery.Append( erkerg.Erkundungsobjekt.Wasserversorgung);
+					strQuery.Append( "', \"EO_Elektroversorgung\"='" );
+					strQuery.Append( erkerg.Erkundungsobjekt.Elektroversorgung);
+					strQuery.Append( "', \"EO_Abwasserentsorgung\"='" );
+					strQuery.Append( erkerg.Erkundungsobjekt.Abwasserentsorgung);
+					strQuery.Append( "', \"EO_Keller_Vorhanden\"='" );
+					strQuery.Append( erkerg.Erkundungsobjekt.Keller.Vorhanden);
+					strQuery.Append( "', \"EO_Keller_Prozentsatz\"='" );
+					strQuery.Append( erkerg.Erkundungsobjekt.Keller.Prozentsatz);
+					strQuery.Append( "', \"EO_Anschrift_Strasse\"='" );
+					strQuery.Append( CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Anschrift.Strasse));
+					strQuery.Append( "', \"EO_Anschrift_Hausnummer\"='" );
+					strQuery.Append( CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Anschrift.Hausnummer));
+					strQuery.Append( "', \"EO_Anschrift_PLZ\"='" );
+					strQuery.Append( CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Anschrift.PLZ));
+					strQuery.Append( "', \"EO_Anschrift_Ort\"='" );
+					strQuery.Append( CMethoden.KonvertiereStringFuerDB(erkerg.Erkundungsobjekt.Anschrift.Ort));
+					strQuery.Append( "', \"IstErkundungsergebnis\"='" );
+					strQuery.Append( true );
+					strQuery.Append( "'");
 			}			
-			myQ +=" where \"ID\"=" + meldg.ID+";";
+			strQuery.Append(" where \"ID\"=" );
+				strQuery.Append( meldg.ID);
+				strQuery.Append(";");
 			
-			if(db.AusfuehrenUpdateAnfrage(myQ))
+			if(db.AusfuehrenUpdateAnfrage(strQuery.ToString()))
 			{	
 				//Erstmal löschen aller evtl noch vorhandenen Eintragungen
 				db.AusfuehrenDeleteAnfrage("delete from \"Empfaenger_Meldung\" where \"MeldungsID\"='"+meldg.ID+"';");

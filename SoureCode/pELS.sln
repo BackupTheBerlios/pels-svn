@@ -139,6 +139,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DB_Anbindung", "DB_Anbindun
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_NUnit", "Test_NUnit\Test_NUnit.csproj", "{8D57025B-379F-4691-B48E-CDE78642536D}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -497,6 +501,21 @@ Global
 		{E7B054BA-CDA4-443F-9455-7DA5844CD05C}.Server.Build.0 = Release|.NET
 		{E7B054BA-CDA4-443F-9455-7DA5844CD05C}.Start-both.ActiveCfg = Release|.NET
 		{E7B054BA-CDA4-443F-9455-7DA5844CD05C}.Start-both.Build.0 = Release|.NET
+		{8D57025B-379F-4691-B48E-CDE78642536D}.Debug.ActiveCfg = Debug|.NET
+		{8D57025B-379F-4691-B48E-CDE78642536D}.Debug.Build.0 = Debug|.NET
+		{8D57025B-379F-4691-B48E-CDE78642536D}.Debug - Client.ActiveCfg = Debug|.NET
+		{8D57025B-379F-4691-B48E-CDE78642536D}.Debug - Client.Build.0 = Debug|.NET
+		{8D57025B-379F-4691-B48E-CDE78642536D}.Debug - Server.ActiveCfg = Debug|.NET
+		{8D57025B-379F-4691-B48E-CDE78642536D}.Debug - Server.Build.0 = Debug|.NET
+		{8D57025B-379F-4691-B48E-CDE78642536D}.Release.ActiveCfg = Release|.NET
+		{8D57025B-379F-4691-B48E-CDE78642536D}.Release.Build.0 = Release|.NET
+		{8D57025B-379F-4691-B48E-CDE78642536D}.Server.ActiveCfg = Release|.NET
+		{8D57025B-379F-4691-B48E-CDE78642536D}.Server.Build.0 = Release|.NET
+		{8D57025B-379F-4691-B48E-CDE78642536D}.Start-both.ActiveCfg = Release|.NET
+		{8D57025B-379F-4691-B48E-CDE78642536D}.Start-both.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(SolutionItems) = postSolution
+		ToDo.txt = ToDo.txt
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

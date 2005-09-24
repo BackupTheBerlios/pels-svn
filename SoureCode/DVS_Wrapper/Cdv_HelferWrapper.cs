@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using pELS.DV.Server.Interfaces;
 using pELS.DV;
 using pELS.Server;
@@ -50,53 +51,52 @@ namespace pELS.DV.Server.Wrapper
 			if(!(pin_ob is Cdv_Helfer))
 				throw new ArgumentNullException("Falsches Objekt an Cdv_HelferWrapper übergeben. Cdv_Helfer wurde erwartet! Methode:Cdv_HelferWrapper.NeuerEintrag");
 			Cdv_Helfer Helfer = pin_ob as Cdv_Helfer;
-			String str_INSERTAnfrage;			
+			StringBuilder strQuery;			
 			//das entsprechende Query wird zusammengebaut:
-			str_INSERTAnfrage = "insert into \"Helfer\"("
-				+ "\"Name\", "
-				+ "\"Vorname\", "
-				+ "\"GebDatum\", "
-				+ "\"Zusatzinfo\", "
-				+ "\"Erreichbarkeit\", "
-				+ "\"Kommentar_Autor\", "
-				+ "\"Kommentar_Text\", "
-				+ "\"Kraeftestatus\", "
-				+ "\"ModulID\", "
-				+ "\"PLZ\", "
-				+ "\"Ort\", "
-				+ "\"Strasse\", "
-				+ "\"Hausnummer\", "
-				+ "\"Position\", "
-				+ "\"OVID\", "
-				+ "\"LetzteVerpflegung\", "
-				+ "\"Faehigkeiten\", "
-				+ "\"Helferstatus\", "
-				+ "\"IstFuehrungskraftVonModul\", "
-				+ "\"EinsatzschwerpunkID\""
-				+") values("
-				+"'"+ CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.Name) +"',"
-				+"'"+ CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.Vorname) +"',"
-				+"'"+ CMethoden.KonvertiereDatumFuerDB(Helfer.Personendaten.GebDatum) +"',"
-				+"'"+ CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.ZusatzInfo) +"',"
-				+"'"+ CMethoden.KonvertiereStringFuerDB(Helfer.Erreichbarkeit) +"',"
-				+"'"+ CMethoden.KonvertiereStringFuerDB(Helfer.Kommentar.Autor) +"',"
-				+"'"+ CMethoden.KonvertiereStringFuerDB(Helfer.Kommentar.Text) +"',"
-				+"'"+ (int) Helfer.Kraeftestatus +"',"
-				+"'"+ Helfer.ModulID +"',"
-				+"'"+ CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.Anschrift.PLZ) +"',"
-				+"'"+ CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.Anschrift.Ort) +"',"
-				+"'"+ CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.Anschrift.Strasse) +"',"
-				+"'"+ CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.Anschrift.Hausnummer) +"',"
-				+"'"+ (int)Helfer.Position +"',"
-				+"'"+ Helfer.OVID +"',"
-				+"'"+ CMethoden.KonvertiereDatumFuerDB(Helfer.LetzteVerfplegung) +"',"
-				+"'"+ CMethoden.KonvertiereStringFuerDB(Helfer.Faehigkeiten) +"',"
-				+"'"+ (int)Helfer.Helferstatus +"',"
-				+"'"+ Helfer.istFuehrungskraftVonModul +"',"
-				+"'"+ Helfer.EinsatzschwerpunktID +"'"
-				+");";
+			strQuery = new StringBuilder("insert into \"Helfer\"(", 500);
+			strQuery.Append( "\"Name\", \"Vorname\", \"GebDatum\", \"Zusatzinfo\", \"Erreichbarkeit\", \"Kommentar_Autor\", \"Kommentar_Text\", \"Kraeftestatus\", \"ModulID\", \"PLZ\", \"Ort\", \"Strasse\", \"Hausnummer\", \"Position\", \"OVID\", \"LetzteVerpflegung\", \"Faehigkeiten\", \"Helferstatus\", \"IstFuehrungskraftVonModul\", \"EinsatzschwerpunkID\") values('");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.Name) );
+			strQuery.Append("','");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.Vorname) );
+			strQuery.Append("','");
+			strQuery.Append( CMethoden.KonvertiereDatumFuerDB(Helfer.Personendaten.GebDatum) );
+			strQuery.Append("','");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.ZusatzInfo) );
+			strQuery.Append("','");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(Helfer.Erreichbarkeit) );
+			strQuery.Append("','");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(Helfer.Kommentar.Autor) );
+			strQuery.Append("','");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(Helfer.Kommentar.Text) );
+			strQuery.Append("','");
+			strQuery.Append( (int) Helfer.Kraeftestatus );
+			strQuery.Append("','");
+			strQuery.Append( Helfer.ModulID );
+			strQuery.Append("','");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.Anschrift.PLZ) );
+			strQuery.Append("','");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.Anschrift.Ort) );
+			strQuery.Append("','");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.Anschrift.Strasse) );
+			strQuery.Append("','");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.Anschrift.Hausnummer) );
+			strQuery.Append("','");
+			strQuery.Append( (int)Helfer.Position );
+			strQuery.Append("','");
+			strQuery.Append( Helfer.OVID );
+			strQuery.Append("','");
+			strQuery.Append( CMethoden.KonvertiereDatumFuerDB(Helfer.LetzteVerfplegung) );
+			strQuery.Append("','");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(Helfer.Faehigkeiten) );
+			strQuery.Append("','");
+			strQuery.Append( (int)Helfer.Helferstatus );
+			strQuery.Append("','");
+			strQuery.Append( Helfer.istFuehrungskraftVonModul );
+			strQuery.Append("','");
+			strQuery.Append( Helfer.EinsatzschwerpunktID );
+			strQuery.Append("');");
 
-			return(db.AusfuehrenInsertAnfrage(str_INSERTAnfrage));
+			return(db.AusfuehrenInsertAnfrage(strQuery.ToString()));
 		}
 
 		public override bool AktualisiereEintrag(IPelsObject pin_ob)
@@ -104,53 +104,53 @@ namespace pELS.DV.Server.Wrapper
 			if(!(pin_ob is Cdv_Helfer))
 				throw new ArgumentNullException("Falsches Objekt an Cdv_HelferWrapper übergeben. Cdv_Helfer wurde erwartet! Methode:Cdv_HelferWrapper.AktualisiereEintrag");
 			Cdv_Helfer Helfer = pin_ob as Cdv_Helfer;
-			string myQ;
+			StringBuilder strQuery;
 			
 			//das entsprechende Query wird zusammengebaut:
-			myQ = "update \"Helfer\" set "
-				+ "\"Name\"="
-				+ "'"+ CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.Name) +"', "
-				+ "\"Vorname\"="
-				+ "'"+ CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.Vorname) +"', "
-				+ "\"GebDatum\"="
-				+ "'"+ CMethoden.KonvertiereDatumFuerDB(Helfer.Personendaten.GebDatum) +"', "
-				+ "\"Zusatzinfo\"="
-				+ "'"+ CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.ZusatzInfo) +"', "
-				+ "\"Erreichbarkeit\"="
-				+ "'"+ CMethoden.KonvertiereStringFuerDB(Helfer.Erreichbarkeit) +"', "
-				+ "\"Kommentar_Autor\"="
-				+ "'"+ CMethoden.KonvertiereStringFuerDB(Helfer.Kommentar.Autor) +"', "
-				+ "\"Kommentar_Text\"="
-				+ "'"+ CMethoden.KonvertiereStringFuerDB(Helfer.Kommentar.Text) +"', "
-				+ "\"Kraeftestatus\"="
-				+ "'"+(int) Helfer.Kraeftestatus +"', "
-				+ "\"ModulID\"="
-				+ "'"+ Helfer.ModulID +"', "
-				+ "\"PLZ\"="
-				+ "'"+ CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.Anschrift.PLZ) +"', "
-				+ "\"Ort\"="
-				+ "'"+ CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.Anschrift.Ort) +"', "
-				+ "\"Strasse\"="
-				+ "'"+ CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.Anschrift.Strasse) +"', "
-				+ "\"Hausnummer\"="
-				+ "'"+ CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.Anschrift.Hausnummer) +"', "
-				+ "\"Position\"="
-				+ "'"+ (int)Helfer.Position +"', "
-				+ "\"OVID\"="
-				+ "'"+ Helfer.OVID +"', "
-				+ "\"LetzteVerpflegung\"="
-				+ "'"+ CMethoden.KonvertiereDatumFuerDB(Helfer.LetzteVerfplegung) +"', "
-				+ "\"Faehigkeiten\"="
-				+ "'"+ CMethoden.KonvertiereStringFuerDB(Helfer.Faehigkeiten) +"', "
-				+ "\"Helferstatus\"="
-				+ "'"+(int) Helfer.Helferstatus +"', "
-				+ "\"IstFuehrungskraftVonModul\"="
-				+ "'"+ Helfer.istFuehrungskraftVonModul +"', "
-				+ "\"EinsatzschwerpunkID\"="
-				+ "'"+ Helfer.EinsatzschwerpunktID +"'"
-				+ " where \"ID\"="+ Helfer.ID;
-
-			return db.AusfuehrenUpdateAnfrage(myQ);
+			strQuery = new StringBuilder("update \"Helfer\" set ", 500);
+			strQuery.Append( "\"Name\"='");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.Name) );
+			strQuery.Append("', \"Vorname\"='");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.Vorname) );
+			strQuery.Append("', \"GebDatum\"='");
+			strQuery.Append( CMethoden.KonvertiereDatumFuerDB(Helfer.Personendaten.GebDatum) );
+			strQuery.Append("', \"Zusatzinfo\"='");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.ZusatzInfo) );
+			strQuery.Append("', \"Erreichbarkeit\"='");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(Helfer.Erreichbarkeit) );
+			strQuery.Append("', \"Kommentar_Autor\"='");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(Helfer.Kommentar.Autor) );
+			strQuery.Append("', \"Kommentar_Text\"='");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(Helfer.Kommentar.Text) );
+			strQuery.Append("', \"Kraeftestatus\"='");
+			strQuery.Append((int) Helfer.Kraeftestatus); 
+			strQuery.Append("', \"ModulID\"='");
+			strQuery.Append( Helfer.ModulID );
+			strQuery.Append("', \"PLZ\"='");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.Anschrift.PLZ) );
+			strQuery.Append("', \"Ort\"='");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.Anschrift.Ort) );
+			strQuery.Append("', \"Strasse\"='");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.Anschrift.Strasse) );
+			strQuery.Append("', \"Hausnummer\"='");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(Helfer.Personendaten.Anschrift.Hausnummer) );
+			strQuery.Append("', \"Position\"='");
+			strQuery.Append( (int)Helfer.Position); 
+			strQuery.Append("', \"OVID\"='");
+			strQuery.Append( Helfer.OVID );
+			strQuery.Append("', \"LetzteVerpflegung\"='");
+			strQuery.Append( CMethoden.KonvertiereDatumFuerDB(Helfer.LetzteVerfplegung) );
+			strQuery.Append("', \"Faehigkeiten\"='");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(Helfer.Faehigkeiten) );
+			strQuery.Append("', \"Helferstatus\"='");
+			strQuery.Append((int) Helfer.Helferstatus); 
+			strQuery.Append("', \"IstFuehrungskraftVonModul\"='");
+			strQuery.Append( Helfer.istFuehrungskraftVonModul );
+			strQuery.Append("', \"EinsatzschwerpunkID\"='");
+			strQuery.Append( Helfer.EinsatzschwerpunktID );
+			strQuery.Append("' where \"ID\"=");
+			strQuery.Append( Helfer.ID);
+			return db.AusfuehrenUpdateAnfrage(strQuery.ToString());
 		}
 
 		public override IPelsObject[] LadeAusDerDB()

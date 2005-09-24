@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using pELS.DV.Server.Interfaces;
 using pELS.DV;
 using pELS.Server;
@@ -45,22 +46,27 @@ namespace pELS.DV.Server.Wrapper
 			if(!(pin_ob is Cdv_EtbEintragKommentar))
 				throw new ArgumentNullException("Falsches Objekt an Cdv_EtbEintragKommentarWrapper übergeben. Cdv_EtbEintragKommentar wurde erwartet! Methode: Cdv_EtbEintragKommentarWrapper.NeuerEintrag");
 			Cdv_EtbEintragKommentar etbK = pin_ob as Cdv_EtbEintragKommentar;
-			String str_INSERTAnfrage;
+			StringBuilder strQuery;
 						
 			//das entsprechende Query wird zusammengebaut:
-			str_INSERTAnfrage = "insert into \"EtbEintragsKommentare\"("
-				+ "\"Erstelldatum\", "
-				+ "\"EtbEintragID\", "
-				+ "\"ErscheintInEtb\", "
-				+ "\"Kommentar_Autor\", "
-				+ "\"Kommentar_Text\") values("
-				+ "'" + CMethoden.KonvertiereDatumFuerDB(etbK.ErstellDatum) + "', "
-				+ "'" + etbK.EtbEintragID+ "', "
-				+ "'" + etbK.ErscheintInEtb + "', "
-				+ "'" + CMethoden.KonvertiereStringFuerDB(etbK.Kommentar.Autor)+ "', "
-				+ "'" + CMethoden.KonvertiereStringFuerDB(etbK.Kommentar.Text)+ "');";
-	
-			return db.AusfuehrenInsertAnfrage(str_INSERTAnfrage);	
+			strQuery = new StringBuilder("insert into \"EtbEintragsKommentare\"(", 300);
+			strQuery.Append( "\"Erstelldatum\", ");
+			strQuery.Append( "\"EtbEintragID\", ");
+			strQuery.Append( "\"ErscheintInEtb\", ");
+			strQuery.Append( "\"Kommentar_Autor\", ");
+			strQuery.Append( "\"Kommentar_Text\") values(");
+			strQuery.Append( "'" ); 
+			strQuery.Append( CMethoden.KonvertiereDatumFuerDB(etbK.ErstellDatum) );
+			strQuery.Append( "', '");
+			strQuery.Append( etbK.EtbEintragID);
+			strQuery.Append( "', '");
+			strQuery.Append( etbK.ErscheintInEtb );
+			strQuery.Append( "', '");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(etbK.Kommentar.Autor));
+			strQuery.Append( "', ´'");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(etbK.Kommentar.Text));
+			strQuery.Append( "');");
+			return db.AusfuehrenInsertAnfrage(strQuery.ToString());	
 		}
 		/// <summary>
 		/// Hier wird nur der Wert, 'erscheintInEtb' neu gesetzt,
@@ -77,8 +83,8 @@ namespace pELS.DV.Server.Wrapper
 			Cdv_EtbEintragKommentar etbK = pin_ob as Cdv_EtbEintragKommentar;
 			
 			string str_UpdateAnfrage = "update \"EtbEintragsKommentare\" set"
-									+" \"ErscheintInEtb\"='"+etbK.ErscheintInEtb+"'"
-									+" WHERE \"ID\"='"+etbK.ID+"';";
+				+" \"ErscheintInEtb\"='"+etbK.ErscheintInEtb+"'"
+				+" WHERE \"ID\"='"+etbK.ID+"';";
 			
 			return(db.AusfuehrenUpdateAnfrage(str_UpdateAnfrage));			 
 		}

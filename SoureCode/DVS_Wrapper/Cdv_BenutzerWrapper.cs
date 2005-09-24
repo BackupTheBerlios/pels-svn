@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using pELS.DV.Server.Interfaces;
 using pELS.Server;
 using pELS.DV;
@@ -31,6 +32,7 @@ namespace pELS.DV.Server.Wrapper
 		#region Statische Methoden
 		public static Cdv_WrapperBase HoleInstanz()
 		{
+			
 			// Instanz erstellen, wenn noch nicht vorhanden
 			if (_obj_instanzVonCdv_WrapperBase == null)
 				_obj_instanzVonCdv_WrapperBase = new Cdv_BenutzerWrapper();
@@ -46,27 +48,32 @@ namespace pELS.DV.Server.Wrapper
 		{
 			if(!(pin_ob is Cdv_Benutzer))
 				throw new ArgumentNullException("Falsches Objekt an Cdv_BenutzerWrapper übergeben. Cdv_Benutzer wurde erwartet! Methode:Cdv_BenutzerWrapper.NeuerEintrag");
-			String str_INSERTAnfrage = "insert into \"Benutzer\"("
-				+ "\"Benutzername\", "
-				+ "\"Systemrolle\") values("
-				+ "'" + CMethoden.KonvertiereStringFuerDB(((Cdv_Benutzer) pin_ob).Benutzername) + "'" +", "
-				+ "'" + Convert.ToInt32(((Cdv_Benutzer) pin_ob).Systemrolle) + "'" + ")";
 
+			StringBuilder strQuery = new StringBuilder("insert into \"Benutzer\"(", 300);
+			strQuery.Append( "\"Benutzername\", \"Systemrolle\") values('" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(((Cdv_Benutzer) pin_ob).Benutzername) );
+			strQuery.Append( "', '" );
+			strQuery.Append( Convert.ToInt32(((Cdv_Benutzer) pin_ob).Systemrolle) );
+			strQuery.Append( "')");
 			// Anfrage an Cdv_DB übermitteln
-			return(db.AusfuehrenInsertAnfrage(str_INSERTAnfrage));	
+			return(db.AusfuehrenInsertAnfrage(strQuery.ToString()));	
 		}
 
 		public override bool AktualisiereEintrag(IPelsObject pin_ob)
 		{
 			if(!(pin_ob is Cdv_Benutzer))
 				throw new ArgumentNullException("Falsches Objekt an Cdv_BenutzerWrapper übergeben. Cdv_Benutzer wurde erwartet! Methode:Cdv_BenutzerWrapper.NeuerEintrag");
-			String str_UPDATEAnfrage = "update \"Benutzer\" set "
-				+ "\"Benutzername\"= " + "'" + CMethoden.KonvertiereStringFuerDB(((Cdv_Benutzer) pin_ob).Benutzername) + "'" + ", "
-				+ "\"Systemrolle\"= " + "'" + Convert.ToInt32(((Cdv_Benutzer) pin_ob).Systemrolle) + "' "
-				+ "where \"ID\"=" + ((Cdv_Benutzer)pin_ob).ID.ToString();
-
+			StringBuilder strQuery = new StringBuilder("update \"Benutzer\" set ", 200);
+			strQuery.Append( "\"Benutzername\"= '" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(((Cdv_Benutzer) pin_ob).Benutzername) );
+			strQuery.Append( "', ");
+			strQuery.Append( "\"Systemrolle\"= " );
+			strQuery.Append( "'" );
+			strQuery.Append( Convert.ToInt32(((Cdv_Benutzer) pin_ob).Systemrolle) );
+			strQuery.Append( "' where \"ID\"=" );
+			strQuery.Append( ((Cdv_Benutzer)pin_ob).ID.ToString());
 			// Anfrage an Cdv_DB weiterleiten
-			return(db.AusfuehrenUpdateAnfrage(str_UPDATEAnfrage));
+			return(db.AusfuehrenUpdateAnfrage(strQuery.ToString()));
 		}
 
 		public override IPelsObject[] LadeAusDerDB()
@@ -94,11 +101,41 @@ namespace pELS.DV.Server.Wrapper
 			return(Benutzer_anfrageergebnisse);
 		}
 		
-		
-		
-		
-		
-			#endregion
+		public Cdv_Benutzer LoadObject(int pin_ID)
+		{
+			Cdv_Benutzer pout = null; 
+			// Reader, der Daten aufnimmt
+			NpgsqlDataReader reader;
+			// Zum initialisieren des Pels-Objekt-Arrays
+			int i_anzahlZeilen;
+			// Select anfrage			
+			String strQuery = "select * from \"Benutzer\" where \"ID\" = " + pin_ID + ";";
+			reader = db.AusfuehrenSelectAnfrage(strQuery, out i_anzahlZeilen);
+			if ((i_anzahlZeilen == 1)  && reader.Read())
+			{
+				pout = new Cdv_Benutzer();
+				pout.ID = reader.GetInt32(reader.GetOrdinal("ID"));
+				pout.Benutzername = CMethoden.KonvertiereStringAusDB(reader.GetString(reader.GetOrdinal("Benutzername")));
+				pout.Systemrolle = (Tdv_Systemrolle) reader.GetInt32(reader.GetOrdinal("Systemrolle"));
+			}
+
+			return pout;
 		}
+		
+		public bool RemoveObject(int pin_ID)
+		{
+			bool pout;
+			String strQuery = "delete from \"Benutzer\" where \"ID\" = " + pin_ID + ";";
+			pout = db.AusfuehrenUpdateAnfrage(strQuery);
+			return pout;
+		}
+		
+				
+				
+		
+		
+		
+		#endregion
+	}
 
 }

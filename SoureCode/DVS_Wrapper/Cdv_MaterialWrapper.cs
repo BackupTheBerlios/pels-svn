@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using pELS.DV.Server.Interfaces;
 using pELS.DV;
 using pELS.Server;
@@ -49,28 +50,27 @@ namespace pELS.DV.Server.Wrapper
 			if(!(pin_ob is Cdv_Material))
 				throw new ArgumentNullException("Falsches Objekt an Cdv_MaterialWrapper übergeben. Cdv_Material wurde erwartet! Methode:Cdv_MaterialWrapper.NeuerEintrag");
 			Cdv_Material material = pin_ob as Cdv_Material;
-			String str_INSERTAnfrage;
+			StringBuilder strQuery;
 			
 			//das entsprechende Query wird zusammengebaut:
-			str_INSERTAnfrage = "insert into \"Gueter\"("
-				+ "\"Bezeichnung\", "
-				+ "\"Menge\", "
-				+ "\"Lagerort\", "
-				+ "\"Art\", "
-				+ "\"IstMaterial\", "
-				+ "\"AktuellerBesitzerID\", "
-				+ "\"EigentuemerID\" "
-				+") values("
-				+"'"+ CMethoden.KonvertiereStringFuerDB(material.Bezeichnung) +"',"
-				+"'"+ material.Menge +"',"
-				+"'"+ CMethoden.KonvertiereStringFuerDB(material.Lagerort) +"',"
-				+"'"+ CMethoden.KonvertiereStringFuerDB(material.Art) +"',"
-				+"'"+ true +"',"
-				+"'"+ material.AktuellerBesitzerKraftID +"',"
-				+"'"+ material.EigentuemerKraftID +"'"
-				+");";
+			strQuery = new StringBuilder("insert into \"Gueter\"(", 300);
+			strQuery.Append( "\"Bezeichnung\", \"Menge\", \"Lagerort\", \"Art\", \"IstMaterial\", \"AktuellerBesitzerID\", \"EigentuemerID\" ) values('");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(material.Bezeichnung) );
+			strQuery.Append("', '");
+			strQuery.Append( material.Menge );
+			strQuery.Append("', '");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(material.Lagerort) );
+			strQuery.Append("', '");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(material.Art) );
+			strQuery.Append("', '");
+			strQuery.Append( true );
+			strQuery.Append("', '");
+			strQuery.Append( material.AktuellerBesitzerKraftID );
+			strQuery.Append("', '");
+			strQuery.Append( material.EigentuemerKraftID );
+			strQuery.Append("');");
 
-			return(db.AusfuehrenInsertAnfrage(str_INSERTAnfrage));
+			return(db.AusfuehrenInsertAnfrage(strQuery.ToString()));
 		}
 
 		public override bool AktualisiereEintrag(IPelsObject pin_ob)
@@ -78,27 +78,27 @@ namespace pELS.DV.Server.Wrapper
 			if(!(pin_ob is Cdv_Material))
 				throw new ArgumentNullException("Falsches Objekt an Cdv_MaterialWrapper übergeben. Cdv_Material wurde erwartet! Methode:Cdv_MaterialWrapper.AktualisiereEintrag");
 			Cdv_Material material = pin_ob as Cdv_Material;
-			string myQ;
+			StringBuilder strQuery;
 			
 			//das entsprechende Query wird zusammengebaut:
-			myQ = "update \"Gueter\" set "
-				+ "\"Bezeichnung\"="
-				+"'"+ material.Bezeichnung +"', "
-				+ "\"Menge\"="
-				+""+ material.Menge +", "
-				+ "\"Lagerort\"="
-				+"'"+CMethoden.KonvertiereStringFuerDB(material.Lagerort) +"', "
-				+ "\"Art\"="
-				+"'"+ CMethoden.KonvertiereStringFuerDB(material.Art) +"', "
-				+ "\"AktuellerBesitzerID\"="
-				+""+ material.AktuellerBesitzerKraftID+", "
-				+ "\"EigentuemerID\"="
-				+""+ material.EigentuemerKraftID+" "
-				+"where \"ID\"="
-				+""+ material.ID+" "
-				+";";
+			strQuery = new StringBuilder("update \"Gueter\" set ", 300);
+			strQuery.Append( "\"Bezeichnung\"='");
+			strQuery.Append( material.Bezeichnung );
+			strQuery.Append("', \"Menge\"=");
+			strQuery.Append( material.Menge );
+			strQuery.Append(", \"Lagerort\"='");
+			strQuery.Append(CMethoden.KonvertiereStringFuerDB(material.Lagerort) );
+			strQuery.Append("', \"Art\"='");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(material.Art) );
+			strQuery.Append("', \"AktuellerBesitzerID\"=");
+			strQuery.Append(material.AktuellerBesitzerKraftID);
+			strQuery.Append(", \"EigentuemerID\"=");
+			strQuery.Append( material.EigentuemerKraftID);
+			strQuery.Append(" where \"ID\"=");
+			strQuery.Append( material.ID);
+			strQuery.Append(" ;");
 			
-			return db.AusfuehrenUpdateAnfrage(myQ);
+			return db.AusfuehrenUpdateAnfrage(strQuery.ToString());
 		}
 
 		public override IPelsObject[] LadeAusDerDB()

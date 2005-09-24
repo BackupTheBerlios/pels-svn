@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using pELS.DV.Server.Interfaces;
 using pELS.DV;
 using pELS.Server;
@@ -51,21 +52,23 @@ namespace pELS.DV.Server.Wrapper
 			int i_ESP_ID;
 			
 			// Insertanfrage
-			String str_INSERTAnfrage = "insert into \"Einsatzschwerpunkte\"("
-				+ "\"Bezeichnung\", "
-				+ "\"Lage_Autor\", "
-				+ "\"Lage_Text\", "
-				+ "\"Prioritaet\", "
-				+ "\"EinsatzID\", "
-				+ "\"EinsatzleiterHelferID\") values("
-				//Belegen der Werte
-				+ "'" + CMethoden.KonvertiereStringFuerDB(myESP.Bezeichnung) + "', "
-				+ "'" + CMethoden.KonvertiereStringFuerDB(myESP.Lage.Autor)+ "', "
-				+ "'" + CMethoden.KonvertiereStringFuerDB(myESP.Lage.Text) + "', "
-				+ "'" + (int) myESP.Prioritaet + "', "
-				+ "'" + myESP.EinsatzID + "', "
-				+ "'" + myESP.EinsatzleiterHelferID + "');";
-			i_ESP_ID = db.AusfuehrenInsertAnfrage(str_INSERTAnfrage);			
+			StringBuilder strQuery = new StringBuilder("insert into \"Einsatzschwerpunkte\"(", 300);
+			strQuery.Append("\"Bezeichnung\", \"Lage_Autor\", \"Lage_Text\", \"Prioritaet\", \"EinsatzID\", \"EinsatzleiterHelferID\") values(");
+			//Belegen der Werte
+			strQuery.Append( "'" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(myESP.Bezeichnung) );
+			strQuery.Append( "', '" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(myESP.Lage.Autor));
+			strQuery.Append( "', '" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(myESP.Lage.Text) );
+			strQuery.Append( "', '" );
+			strQuery.Append( (int) myESP.Prioritaet );
+			strQuery.Append( "', '" );
+			strQuery.Append( myESP.EinsatzID );
+			strQuery.Append( "', '" );
+			strQuery.Append( myESP.EinsatzleiterHelferID );
+			strQuery.Append( "');");
+			i_ESP_ID = db.AusfuehrenInsertAnfrage(strQuery.ToString());			
 
 			return i_ESP_ID;
 		}
@@ -76,19 +79,25 @@ namespace pELS.DV.Server.Wrapper
 				throw new ArgumentNullException("Falsches Objekt an Cdv_EinsatzschwerpunktWrapper übergeben. Cdv_Einsatzschwerpunkt wurde erwartet! Methode:Cdv_EinsatzschwerpunktWrapper.AktualisiereEintrag");
 			// Objekt umcasten nach Cdv_Einsatzschwerpunkt
 			Cdv_Einsatzschwerpunkt myESP = pin_ob as Cdv_Einsatzschwerpunkt;			
-			
-			// Update auf Einsatzschwerpunkte
-			String str_UPDATEAnfrage = "update\"Einsatzschwerpunkte\" set "
-				+ "\"Bezeichnung\" ='"+CMethoden.KonvertiereStringFuerDB(myESP.Bezeichnung)+"', "
-				+ "\"Lage_Autor\" ='"+CMethoden.KonvertiereStringFuerDB(myESP.Lage.Autor)+"', "
-				+ "\"Lage_Text\" ='" + CMethoden.KonvertiereStringFuerDB(myESP.Lage.Text)+"', "
-				+ "\"Prioritaet\"= '" + (int) myESP.Prioritaet + "', "
-				+ "\"EinsatzID\" = '" + myESP.EinsatzID + "', "
-				+ "\"EinsatzleiterHelferID\" ='" + myESP.EinsatzleiterHelferID + "' ";
-				
-			str_UPDATEAnfrage += " where \"ID\"='"+myESP.ID+"';";
 
-			return(db.AusfuehrenUpdateAnfrage(str_UPDATEAnfrage));
+			// Update auf Einsatzschwerpunkte
+			StringBuilder strQuery = new StringBuilder("update\"Einsatzschwerpunkte\" set ", 300);
+			strQuery.Append( "\"Bezeichnung\" ='");
+			strQuery.Append(CMethoden.KonvertiereStringFuerDB(myESP.Bezeichnung));
+			strQuery.Append("', \"Lage_Autor\" ='");
+			strQuery.Append(CMethoden.KonvertiereStringFuerDB(myESP.Lage.Autor));
+			strQuery.Append("', \"Lage_Text\" ='" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(myESP.Lage.Text));
+			strQuery.Append("', \"Prioritaet\"= '" );
+			strQuery.Append( (int) myESP.Prioritaet );
+			strQuery.Append( "', \"EinsatzID\" = '" );
+			strQuery.Append( myESP.EinsatzID );
+			strQuery.Append( "', \"EinsatzleiterHelferID\" ='" );
+			strQuery.Append( myESP.EinsatzleiterHelferID );
+			strQuery.Append( "' where \"ID\"='");
+			strQuery.Append(myESP.ID);
+			strQuery.Append("';");
+			return(db.AusfuehrenUpdateAnfrage(strQuery.ToString()));
 		}
 
 		public override IPelsObject[] LadeAusDerDB()

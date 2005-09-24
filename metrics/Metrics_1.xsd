@@ -1,0 +1,170 @@
+<?xml version="1.0"?>
+<xs:schema id="Metrics" targetNamespace="http://www.xtreme-simplicity.net/Metrics_1" elementFormDefault="qualified" xmlns="http://www.xtreme-simplicity.net/Metrics_1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:NS="http://www.xtreme-simplicity.net/Metrics_1">
+    <xs:element name="metrics">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element name="solution">
+                    <xs:complexType>
+                        <xs:attribute name="name" form="unqualified" type="xs:string" />
+                        <xs:attribute name="id" form="unqualified" type="xs:long" />
+                        <xs:attribute name="parentId" form="unqualified" type="xs:long" />
+                        <xs:attribute name="Projects" form="unqualified" type="xs:long" />
+                        <xs:attribute name="Files" form="unqualified" type="xs:long" />
+                        <xs:attribute name="Classes" form="unqualified" type="xs:long" />
+                        <xs:attribute name="NTLC" form="unqualified" type="xs:long" />
+                        <xs:attribute name="NOM" form="unqualified" type="xs:long" />
+                        <xs:attribute name="TCC" form="unqualified" type="xs:long" />
+                        <xs:attribute name="LOCM" form="unqualified" type="xs:decimal" />
+                        <xs:attribute name="LOCC" form="unqualified" type="xs:decimal" />
+                        <xs:attribute name="LOC" form="unqualified" type="xs:long" />
+                        <xs:attribute name="Comm" form="unqualified" type="xs:long" />
+                        <xs:attribute name="Blank" form="unqualified" type="xs:long" />
+                        <xs:attribute name="CP" form="unqualified" type="xs:decimal" />
+                        <xs:attribute name="Statements" form="unqualified" type="xs:long" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="project">
+                    <xs:complexType>
+                        <xs:attribute name="name" form="unqualified" type="xs:string" />
+                        <xs:attribute name="id" form="unqualified" type="xs:long" />
+                        <xs:attribute name="parentId" form="unqualified" type="xs:long" />
+                        <xs:attribute name="Files" form="unqualified" type="xs:long" />
+                        <xs:attribute name="Classes" form="unqualified" type="xs:long" />
+                        <xs:attribute name="NTLC" form="unqualified" type="xs:long" />
+                        <xs:attribute name="NOM" form="unqualified" type="xs:long" />
+                        <xs:attribute name="TCC" form="unqualified" type="xs:long" />
+                        <xs:attribute name="LOCM" form="unqualified" type="xs:decimal" />
+                        <xs:attribute name="LOCC" form="unqualified" type="xs:decimal" />
+                        <xs:attribute name="LOC" form="unqualified" type="xs:long" />
+                        <xs:attribute name="Comm" form="unqualified" type="xs:long" />
+                        <xs:attribute name="Blank" form="unqualified" type="xs:long" />
+                        <xs:attribute name="CP" form="unqualified" type="xs:decimal" />
+                        <xs:attribute name="Statements" form="unqualified" type="xs:long" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="folder">
+                    <xs:complexType>
+                        <xs:attribute name="name" form="unqualified" type="xs:string" />
+                        <xs:attribute name="id" form="unqualified" type="xs:long" />
+                        <xs:attribute name="parentId" form="unqualified" type="xs:long" />
+                        <xs:attribute name="Files" form="unqualified" type="xs:long" />
+                        <xs:attribute name="Classes" form="unqualified" type="xs:long" />
+                        <xs:attribute name="NTLC" form="unqualified" type="xs:long" />
+                        <xs:attribute name="NOM" form="unqualified" type="xs:long" />
+                        <xs:attribute name="TCC" form="unqualified" type="xs:long" />
+                        <xs:attribute name="LOCM" form="unqualified" type="xs:decimal" />
+                        <xs:attribute name="LOCC" form="unqualified" type="xs:decimal" />
+                        <xs:attribute name="LOC" form="unqualified" type="xs:long" />
+                        <xs:attribute name="Comm" form="unqualified" type="xs:long" />
+                        <xs:attribute name="Blank" form="unqualified" type="xs:long" />
+                        <xs:attribute name="CP" form="unqualified" type="xs:decimal" />
+                        <xs:attribute name="Statements" form="unqualified" type="xs:long" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="file">
+                    <xs:complexType>
+                        <xs:attribute name="name" form="unqualified" type="xs:string" />
+                        <xs:attribute name="id" form="unqualified" type="xs:long" />
+                        <xs:attribute name="parentId" form="unqualified" type="xs:long" />
+                        <xs:attribute name="Classes" form="unqualified" type="xs:long" />
+                        <xs:attribute name="NTLC" form="unqualified" type="xs:long" />
+                        <xs:attribute name="NOM" form="unqualified" type="xs:long" />
+                        <xs:attribute name="TCC" form="unqualified" type="xs:long" />
+                        <xs:attribute name="LOCM" form="unqualified" type="xs:decimal" />
+                        <xs:attribute name="LOCC" form="unqualified" type="xs:decimal" />
+                        <xs:attribute name="LOC" form="unqualified" type="xs:long" />
+                        <xs:attribute name="Comm" form="unqualified" type="xs:long" />
+                        <xs:attribute name="Blank" form="unqualified" type="xs:long" />
+                        <xs:attribute name="CP" form="unqualified" type="xs:decimal" />
+                        <xs:attribute name="Statements" form="unqualified" type="xs:long" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="type">
+                    <xs:complexType>
+                        <xs:attribute name="name" form="unqualified" type="xs:string" />
+                        <xs:attribute name="id" form="unqualified" type="xs:long" />
+                        <xs:attribute name="parentId" form="unqualified" type="xs:long" />
+                        <xs:attribute name="Classes" form="unqualified" type="xs:long" />
+                        <xs:attribute name="NOM" form="unqualified" type="xs:long" />
+                        <xs:attribute name="TCC" form="unqualified" type="xs:long" />
+                        <xs:attribute name="LOCM" form="unqualified" type="xs:decimal" />
+                        <xs:attribute name="LOC" form="unqualified" type="xs:long" />
+                        <xs:attribute name="Comm" form="unqualified" type="xs:long" />
+                        <xs:attribute name="Blank" form="unqualified" type="xs:long" />
+                        <xs:attribute name="CP" form="unqualified" type="xs:string" />
+                        <xs:attribute name="Statements" form="unqualified" type="xs:long" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="method">
+                    <xs:complexType>
+                        <xs:attribute name="name" form="unqualified" type="xs:string" />
+                        <xs:attribute name="id" form="unqualified" type="xs:long" />
+                        <xs:attribute name="parentId" form="unqualified" type="xs:long" />
+                        <xs:attribute name="CC" form="unqualified" type="xs:long" />
+                        <xs:attribute name="LOC" form="unqualified" type="xs:long" />
+                        <xs:attribute name="Comm" form="unqualified" type="xs:long" />
+                        <xs:attribute name="Blank" form="unqualified" type="xs:long" />
+                        <xs:attribute name="CP" form="unqualified" type="xs:string" />
+                        <xs:attribute name="Statements" form="unqualified" type="xs:long" />
+                    </xs:complexType>
+                </xs:element>
+            </xs:choice>
+        </xs:complexType>
+        <xs:key name="metricsSolutionId">
+            <xs:selector xpath=".//NS:solution" />
+            <xs:field xpath="@id" />
+        </xs:key>
+        <xs:key name="metricsProjectId">
+            <xs:selector xpath=".//NS:project" />
+            <xs:field xpath="@id" />
+        </xs:key>
+        <xs:key name="metricsFolderId">
+            <xs:selector xpath=".//NS:folder" />
+            <xs:field xpath="@id" />
+        </xs:key>
+        <xs:key name="metricsFileId">
+            <xs:selector xpath=".//NS:file" />
+            <xs:field xpath="@id" />
+        </xs:key>
+        <xs:key name="metricsTypeId">
+            <xs:selector xpath=".//type" />
+            <xs:field xpath="@id" />
+        </xs:key>
+        <xs:key name="metricsMethodId">
+            <xs:selector xpath=".//NS:method" />
+            <xs:field xpath="@id" />
+        </xs:key>
+        <xs:keyref name="classmethod" refer="NS:metricsTypeId">
+            <xs:selector xpath=".//NS:method" />
+            <xs:field xpath="@parentId" />
+        </xs:keyref>
+        <xs:keyref name="fileclass" refer="NS:metricsFileId">
+            <xs:selector xpath=".//type" />
+            <xs:field xpath="@parentId" />
+        </xs:keyref>
+        <xs:keyref name="classclass" refer="NS:metricsTypeId">
+            <xs:selector xpath=".//type" />
+            <xs:field xpath="@parentId" />
+        </xs:keyref>
+        <xs:keyref name="folderfile" refer="NS:metricsFolderId">
+            <xs:selector xpath=".//NS:file" />
+            <xs:field xpath="@parentId" />
+        </xs:keyref>
+        <xs:keyref name="projectfolder" refer="NS:metricsProjectId">
+            <xs:selector xpath=".//NS:folder" />
+            <xs:field xpath="@parentId" />
+        </xs:keyref>
+        <xs:keyref name="solutionproject" refer="NS:metricsSolutionId">
+            <xs:selector xpath=".//NS:project" />
+            <xs:field xpath="@parentId" />
+        </xs:keyref>
+        <xs:keyref name="folderfolder" refer="NS:metricsFolderId">
+            <xs:selector xpath=".//NS:folder" />
+            <xs:field xpath="@parentId" />
+        </xs:keyref>
+        <xs:keyref name="projectfile" refer="metricsProjectId">
+            <xs:selector xpath=".//NS:file" />
+            <xs:field xpath="@parentId" />
+        </xs:keyref>
+    </xs:element>
+</xs:schema>

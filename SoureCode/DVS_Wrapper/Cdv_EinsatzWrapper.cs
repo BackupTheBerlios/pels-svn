@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using pELS.DV.Server.Interfaces;
 using pELS.DV;
 using pELS.Server;
@@ -53,38 +54,37 @@ namespace pELS.DV.Server.Wrapper
 			// Objekt umcasten nach Cdv_Einsatz
 			Cdv_Einsatz ceEinsatz = pin_ob as Cdv_Einsatz;
 			// Insertanfrage
-			String str_INSERTAnfrage = "insert into \"Einsaetze\"("
-				+ "\"Bezeichnung\", "
-				+ "\"Einsatzort\", "
-				+ "\"EinsatzVon\", "
-				+ "\"EinsatzBis\", "
-				+ "\"ArtDerHilfeleistung\", "
-				+ "\"Einsatzbericht\", "
-				+ "\"Kostenabrechnung\", "
-				+ "\"Erfahrungsbericht\", "
-				+ "\"Pressemitteilung\", "
-				+ "\"Kostenerstattung\", "
-				+ "\"Haftungsfreistellung\", "
-				+ "\"IhkBescheinigung\", "
-				+ "\"Kommentar_Text\", "
-				+ "\"Kommentar_Autor\""
-				+ ") values("
-				+ "'" + CMethoden.KonvertiereStringFuerDB(ceEinsatz.Bezeichnung) + "', "
-				+ "'" + CMethoden.KonvertiereStringFuerDB(ceEinsatz.Einsatzort) + "', "
-				+ "'" + CMethoden.KonvertiereDatumFuerDB(ceEinsatz.VonDatum) + "', "
-				+ "'" + CMethoden.KonvertiereDatumFuerDB(ceEinsatz.BisDatum) + "',"
-				+ "'" + CMethoden.KonvertiereStringFuerDB(ceEinsatz.ArtDerHilfeleistung) + "', "
-				+ "'" + ceEinsatz.EinsatzberichtGefertigt + "', "
-				+ "'" + ceEinsatz.KostenabrechnungGefertigt + "', "
-				+ "'" + ceEinsatz.ErfahrungsberichtGeschrieben + "', "
-				+ "'" + ceEinsatz.PressemitteilungGeschrieben + "', "
-				+ "'" + ceEinsatz.KostenerstattungKontrolliert + "', "
-				+ "'" + ceEinsatz.HaftungsfreistellungVorhanden + "', "
-				+ "'" + ceEinsatz.IhkBescheinigungVorhanden + "', "
-				+ "'" + ceEinsatz.Beschreibung.Text + "', "
-				+ "'" + ceEinsatz.Beschreibung.Autor + "')";
-
-			 return db.AusfuehrenInsertAnfrage(str_INSERTAnfrage);
+			StringBuilder strQuery = new StringBuilder("insert into \"Einsaetze\"(", 300);
+			strQuery.Append( "\"Bezeichnung\", \"Einsatzort\", \"EinsatzVon\", \"EinsatzBis\", \"ArtDerHilfeleistung\", \"Einsatzbericht\", \"Kostenabrechnung\", \"Erfahrungsbericht\", \"Pressemitteilung\", \"Kostenerstattung\", \"Haftungsfreistellung\", \"IhkBescheinigung\", \"Kommentar_Text\", \"Kommentar_Autor\") values('" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(ceEinsatz.Bezeichnung) );
+			strQuery.Append( "', '" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(ceEinsatz.Einsatzort) );
+			strQuery.Append( "', '" );
+			strQuery.Append( CMethoden.KonvertiereDatumFuerDB(ceEinsatz.VonDatum) );
+			strQuery.Append( "', '" );
+			strQuery.Append( CMethoden.KonvertiereDatumFuerDB(ceEinsatz.BisDatum) );
+			strQuery.Append( "','" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(ceEinsatz.ArtDerHilfeleistung) );
+			strQuery.Append( "', '" );
+			strQuery.Append( ceEinsatz.EinsatzberichtGefertigt );
+			strQuery.Append( "', '" );
+			strQuery.Append( ceEinsatz.KostenabrechnungGefertigt );
+			strQuery.Append( "', '" );
+			strQuery.Append( ceEinsatz.ErfahrungsberichtGeschrieben );
+			strQuery.Append( "', '" );
+			strQuery.Append( ceEinsatz.PressemitteilungGeschrieben );
+			strQuery.Append( "', '" );
+			strQuery.Append( ceEinsatz.KostenerstattungKontrolliert );
+			strQuery.Append( "', '" );
+			strQuery.Append( ceEinsatz.HaftungsfreistellungVorhanden );
+			strQuery.Append( "', '" );
+			strQuery.Append( ceEinsatz.IhkBescheinigungVorhanden );
+			strQuery.Append( "', '" );
+			strQuery.Append( ceEinsatz.Beschreibung.Text );
+			strQuery.Append( "', '" );
+			strQuery.Append( ceEinsatz.Beschreibung.Autor );
+			strQuery.Append( "')");
+			return db.AusfuehrenInsertAnfrage(strQuery.ToString());
 		}
 
 		public override bool AktualisiereEintrag(IPelsObject pin_ob)
@@ -94,24 +94,38 @@ namespace pELS.DV.Server.Wrapper
 			// Objekt umcasten nach Cdv_Einsatz
 			Cdv_Einsatz ceEinsatz = pin_ob as Cdv_Einsatz;
 			// Anfrage
-			string myQ = "update \"Einsaetze\" set"
-				+ "\"Bezeichnung\"='" + CMethoden.KonvertiereStringFuerDB(ceEinsatz.Bezeichnung) + "', "
-				+ "\"Einsatzort\"='" + CMethoden.KonvertiereStringFuerDB(ceEinsatz.Einsatzort) + "', "
-				+ "\"EinsatzVon\"='" + CMethoden.KonvertiereDatumFuerDB(ceEinsatz.VonDatum) + "', "
-				+ "\"EinsatzBis\"='" + CMethoden.KonvertiereDatumFuerDB(ceEinsatz.BisDatum) + "', "
-				+ "\"ArtDerHilfeleistung\"='" + CMethoden.KonvertiereStringFuerDB(ceEinsatz.ArtDerHilfeleistung) + "', "
-				+ "\"Kostenabrechnung\"='" + ceEinsatz.KostenabrechnungGefertigt + "', "
-				+ "\"Erfahrungsbericht\"='" + ceEinsatz.ErfahrungsberichtGeschrieben + "', "
-				+ "\"Pressemitteilung\"='" + ceEinsatz.PressemitteilungGeschrieben + "', "
-				+ "\"Kostenerstattung\"='" + ceEinsatz.KostenerstattungKontrolliert + "', "
-				+ "\"Einsatzbericht\"='" + ceEinsatz.EinsatzberichtGefertigt + "', "
-				+ "\"Haftungsfreistellung\"='" + ceEinsatz.HaftungsfreistellungVorhanden + "', "
-				+ "\"Kommentar_Text\"='" + ceEinsatz.Beschreibung.Text + "', "
-				+ "\"Kommentar_Autor\"='" + ceEinsatz.Beschreibung.Autor + "', "
-				+ "\"IhkBescheinigung\"='" + ceEinsatz.IhkBescheinigungVorhanden + "' "
-				+ "where \"ID\"=" + ceEinsatz.ID;
-
-			return db.AusfuehrenUpdateAnfrage(myQ);
+			StringBuilder strQuery = new StringBuilder("update \"Einsaetze\" set", 300);
+			strQuery.Append( "\"Bezeichnung\"='" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(ceEinsatz.Bezeichnung) );
+			strQuery.Append( "', \"Einsatzort\"='" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(ceEinsatz.Einsatzort) );
+			strQuery.Append( "', \"EinsatzVon\"='" );
+			strQuery.Append( CMethoden.KonvertiereDatumFuerDB(ceEinsatz.VonDatum) );
+			strQuery.Append( "', \"EinsatzBis\"='" );
+			strQuery.Append( CMethoden.KonvertiereDatumFuerDB(ceEinsatz.BisDatum) );
+			strQuery.Append( "', \"ArtDerHilfeleistung\"='" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(ceEinsatz.ArtDerHilfeleistung) );
+			strQuery.Append( "', \"Kostenabrechnung\"='" );
+			strQuery.Append( ceEinsatz.KostenabrechnungGefertigt );
+			strQuery.Append( "', \"Erfahrungsbericht\"='" );
+			strQuery.Append( ceEinsatz.ErfahrungsberichtGeschrieben );
+			strQuery.Append( "', \"Pressemitteilung\"='" );
+			strQuery.Append( ceEinsatz.PressemitteilungGeschrieben );
+			strQuery.Append( "', \"Kostenerstattung\"='" );
+			strQuery.Append( ceEinsatz.KostenerstattungKontrolliert );
+			strQuery.Append( "', \"Einsatzbericht\"='" );
+			strQuery.Append( ceEinsatz.EinsatzberichtGefertigt );
+			strQuery.Append( "', \"Haftungsfreistellung\"='" );
+			strQuery.Append( ceEinsatz.HaftungsfreistellungVorhanden );
+			strQuery.Append( "', \"Kommentar_Text\"='" );
+			strQuery.Append( ceEinsatz.Beschreibung.Text );
+			strQuery.Append( "', \"Kommentar_Autor\"='" );
+			strQuery.Append( ceEinsatz.Beschreibung.Autor );
+			strQuery.Append( "', \"IhkBescheinigung\"='" );
+			strQuery.Append( ceEinsatz.IhkBescheinigungVorhanden );
+			strQuery.Append( "' where \"ID\"=" );
+			strQuery.Append( ceEinsatz.ID);
+			return db.AusfuehrenUpdateAnfrage(strQuery.ToString());
 		}
 
 		

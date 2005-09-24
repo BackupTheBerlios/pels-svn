@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using pELS.DV.Server.Interfaces;
 using pELS.DV;
 using pELS.Server;
@@ -49,34 +50,31 @@ namespace pELS.DV.Server.Wrapper
 			// Objekt umcasten nach Cdv_Einsatz
 			Cdv_KFZ myKFZ = pin_ob as Cdv_KFZ;
 			// Insertanfrage
-			String str_INSERTAnfrage = "insert into \"Kfz\"("
-				+ "\"Kennzeichen\", "
-				+ "\"Funkrufname\", "
-				+ "\"Typ\", "
-				+ "\"FahrerID\", "
-				+ "\"Einsatzbetriebsstunden\", "
-				+ "\"Einsatzkm\", "
-				//Ab hier werden von Cdv_Kraft eingeerbte Eigenschaften abgebildet
-				+ "\"Kraeftestatus\", "
-				+ "\"EinsatzschwerpunktID\", "
-				+ "\"Kommentar_Autor\", "
-				+ "\"Kommentar_Text\", "
-				+ "\"ModulID\") values("
-				//Inhalte
-				+ "'" + CMethoden.KonvertiereStringFuerDB(myKFZ.Kennzeichen) + "', "
-				+ "'" + CMethoden.KonvertiereStringFuerDB(myKFZ.Funkrufname) + "', "
-				+ "'" + CMethoden.KonvertiereStringFuerDB(myKFZ.KfzTyp) + "', "
-				+ "'" + myKFZ.FahrerHelferID+ "', "
-				+ "'" + CMethoden.KonvertiereRealFuerDB(myKFZ.Einsatzbetriebsstunden) + "', "
-				+ "'" + CMethoden.KonvertiereRealFuerDB(myKFZ.EinsatzKm) + "', "
-				//Ab hier werden von Cdv_Kraft eingeerbte Inhalte abgebildet
-				+ "'" + (int) myKFZ.Kraeftestatus + "', "
-				+ "'" + myKFZ.EinsatzschwerpunktID+ "', "
-				+ "'" + CMethoden.KonvertiereStringFuerDB(myKFZ.Kommentar.Autor) + "', "
-				+ "'" + CMethoden.KonvertiereStringFuerDB(myKFZ.Kommentar.Text) + "', "
-				+ "'" + myKFZ.ModulID + "')";
-			
-			return db.AusfuehrenInsertAnfrage(str_INSERTAnfrage);
+			StringBuilder strQuery = new StringBuilder("insert into \"Kfz\"(", 300);
+			strQuery.Append( "\"Kennzeichen\", \"Funkrufname\", \"Typ\", \"FahrerID\", \"Einsatzbetriebsstunden\", \"Einsatzkm\", \"Kraeftestatus\", \"EinsatzschwerpunktID\", \"Kommentar_Autor\", \"Kommentar_Text\", \"ModulID\") values('" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(myKFZ.Kennzeichen) );
+			strQuery.Append( "', '" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(myKFZ.Funkrufname) );
+			strQuery.Append( "', '" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(myKFZ.KfzTyp) );
+			strQuery.Append( "', '" );
+			strQuery.Append( myKFZ.FahrerHelferID);
+			strQuery.Append( "', '" );
+			strQuery.Append( CMethoden.KonvertiereRealFuerDB(myKFZ.Einsatzbetriebsstunden) );
+			strQuery.Append( "', '" );
+			strQuery.Append( CMethoden.KonvertiereRealFuerDB(myKFZ.EinsatzKm) );
+			strQuery.Append( "', '" );
+			strQuery.Append( (int) myKFZ.Kraeftestatus );
+			strQuery.Append( "', '" );
+			strQuery.Append( myKFZ.EinsatzschwerpunktID);
+			strQuery.Append( "', '" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(myKFZ.Kommentar.Autor) );
+			strQuery.Append( "', '" );
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(myKFZ.Kommentar.Text) );
+			strQuery.Append( "', '" );
+			strQuery.Append( myKFZ.ModulID );
+			strQuery.Append( "')");
+			return db.AusfuehrenInsertAnfrage(strQuery.ToString());
 		}
 
 		public override bool AktualisiereEintrag(IPelsObject pin_ob)
@@ -86,22 +84,33 @@ namespace pELS.DV.Server.Wrapper
 			// Objekt umcasten nach Cdv_KFZ
 			Cdv_KFZ myKfz = pin_ob as Cdv_KFZ;
 			// Anfrage
-			string myQ = "update \"Kfz\" set"
-				+ "\"Kennzeichen\"='" + CMethoden.KonvertiereStringFuerDB(myKfz.Kennzeichen) + "', "
-				+ "\"Funkrufname\"='" + CMethoden.KonvertiereStringFuerDB(myKfz.Funkrufname) + "', "
-				+ "\"Typ\"='" + CMethoden.KonvertiereStringFuerDB(myKfz.KfzTyp) + "', "
-				+ "\"FahrerID\"='" + myKfz.FahrerHelferID + "', "
-				+ "\"Einsatzbetriebsstunden\"='" + CMethoden.KonvertiereRealFuerDB(myKfz.Einsatzbetriebsstunden) + "', "
-				+ "\"Einsatzkm\"='" + CMethoden.KonvertiereRealFuerDB(myKfz.EinsatzKm) + "', "
-				//Ab hier werden von Cdv_Kraft eingeerbte Eigenschaften abgebildet
-				+ "\"Kraeftestatus\"='" + (int) myKfz.Kraeftestatus + "', "
-				+ "\"EinsatzschwerpunktID\"='" +myKfz.EinsatzschwerpunktID + "', "
-				+ "\"Kommentar_Autor\"='" + CMethoden.KonvertiereStringFuerDB(myKfz.Kommentar.Autor) + "', "
-				+ "\"Kommentar_Text\"='" + CMethoden.KonvertiereStringFuerDB(myKfz.Kommentar.Text) + "', "
-				+ "\"ModulID\"='" + myKfz.ModulID + "' "
-				+ "where \"ID\"=" + myKfz.ID;
+			StringBuilder strQuery = new StringBuilder("update \"Kfz\" set", 300);
+				strQuery.Append( "\"Kennzeichen\"='" );
+					strQuery.Append( CMethoden.KonvertiereStringFuerDB(myKfz.Kennzeichen) );
+					strQuery.Append( "', \"Funkrufname\"='" );
+					strQuery.Append( CMethoden.KonvertiereStringFuerDB(myKfz.Funkrufname) );
+					strQuery.Append( "', \"Typ\"='" );
+					strQuery.Append( CMethoden.KonvertiereStringFuerDB(myKfz.KfzTyp) );
+					strQuery.Append( "', \"FahrerID\"='" );
+					strQuery.Append( myKfz.FahrerHelferID );
+					strQuery.Append( "', \"Einsatzbetriebsstunden\"='" );
+					strQuery.Append( CMethoden.KonvertiereRealFuerDB(myKfz.Einsatzbetriebsstunden) );
+					strQuery.Append( "', \"Einsatzkm\"='" );
+					strQuery.Append( CMethoden.KonvertiereRealFuerDB(myKfz.EinsatzKm) );
+					strQuery.Append( "', \"Kraeftestatus\"='" );
+					strQuery.Append( (int) myKfz.Kraeftestatus );
+					strQuery.Append( "', \"EinsatzschwerpunktID\"='" );
+					strQuery.Append(myKfz.EinsatzschwerpunktID );
+					strQuery.Append( "', \"Kommentar_Autor\"='" );
+					strQuery.Append( CMethoden.KonvertiereStringFuerDB(myKfz.Kommentar.Autor) );
+					strQuery.Append( "', \"Kommentar_Text\"='" );
+					strQuery.Append( CMethoden.KonvertiereStringFuerDB(myKfz.Kommentar.Text) );
+					strQuery.Append( "', \"ModulID\"='" );
+					strQuery.Append( myKfz.ModulID );
+					strQuery.Append( "' where \"ID\"="); 
+					strQuery.Append( myKfz.ID);
 
-			return db.AusfuehrenUpdateAnfrage(myQ);
+			return db.AusfuehrenUpdateAnfrage(strQuery.ToString());
 		}
 
 		public override IPelsObject[] LadeAusDerDB()

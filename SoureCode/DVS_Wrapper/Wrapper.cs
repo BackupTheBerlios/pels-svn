@@ -15,13 +15,11 @@ namespace pELS.DV.Server.Wrapper
 	/// schon vorher durchgeführt, ein cast ist dann auch sicher (z.B. für die Klasse Cdv_TerminWrapper
 	/// kann man das pin_ob Objekt auf Cdv_Termin ohne weiteres casten)
 	/// </summary>
-	public abstract class Cdv_WrapperBase: object
+	public abstract class Cdv_WrapperBase
 	{
 		private Cdv_DB _db = null;
 
-		//private pELS.DV.Server.Wrapper 
-
-		public Cdv_DB db
+		protected Cdv_DB db
 		{
 			get{return _db;}
 			set{_db = value;}

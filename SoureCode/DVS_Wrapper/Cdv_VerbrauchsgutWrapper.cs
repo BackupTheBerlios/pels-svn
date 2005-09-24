@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using pELS.DV.Server.Interfaces;
 using pELS.DV;
 using pELS.Server;
@@ -51,26 +52,24 @@ namespace pELS.DV.Server.Wrapper
 			if(!(pin_ob is Cdv_Verbrauchsgut))
 				throw new ArgumentNullException("Falsches Objekt an Cdv_VerbrauchsgutWrapper übergeben. Cdv_Verbrauchsgut wurde erwartet! Methode:Cdv_VerbrauchsgutWrapper.NeuerEintrag");
 			Cdv_Verbrauchsgut material = pin_ob as Cdv_Verbrauchsgut;
-			String str_INSERTAnfrage;
-			
-			//das entsprechende Query wird zusammengebaut:
-			str_INSERTAnfrage = "insert into \"Gueter\"("
-				+ "\"Bezeichnung\", "
-				+ "\"Menge\", "
-				+ "\"Lagerort\", "
-				+ "\"Art\", "
-				+ "\"IstMaterial\", "
-				+ "\"SpaetesterWbzpkt\""
-				+") values("
-				+"'"+ CMethoden.KonvertiereStringFuerDB(material.Bezeichnung) +"',"
-				+"'"+ CMethoden.KonvertiereRealFuerDB(material.Menge) +"',"
-				+"'"+ CMethoden.KonvertiereStringFuerDB(material.Lagerort) +"',"
-				+"'"+ CMethoden.KonvertiereStringFuerDB(material.Art) +"',"
-				+"'"+ false +"',"
-				+"'"+ CMethoden.KonvertiereDatumFuerDB(material.SpaetesterWiederbeschaffungszeitpunkt)+"'"
-				+");";
+			StringBuilder strQuery;
 
-			return(db.AusfuehrenInsertAnfrage(str_INSERTAnfrage));
+			//das entsprechende Query wird zusammengebaut:
+			strQuery = new StringBuilder("insert into \"Gueter\"(", 300);
+			strQuery.Append( "\"Bezeichnung\", \"Menge\", \"Lagerort\", \"Art\", \"IstMaterial\", \"SpaetesterWbzpkt\") values('");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(material.Bezeichnung) );
+			strQuery.Append("', '");
+			strQuery.Append( CMethoden.KonvertiereRealFuerDB(material.Menge) );
+			strQuery.Append("', '");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(material.Lagerort) );
+			strQuery.Append("', '");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(material.Art) );
+			strQuery.Append("', '");
+			strQuery.Append( false );
+			strQuery.Append( "', '");
+			strQuery.Append( CMethoden.KonvertiereDatumFuerDB(material.SpaetesterWiederbeschaffungszeitpunkt));
+			strQuery.Append( "');");
+			return(db.AusfuehrenInsertAnfrage(strQuery.ToString()));
 		}
 
 		public override bool AktualisiereEintrag(IPelsObject pin_ob)
@@ -78,25 +77,24 @@ namespace pELS.DV.Server.Wrapper
 			if(!(pin_ob is Cdv_Verbrauchsgut))
 				throw new ArgumentNullException("Falsches Objekt an Cdv_VerbrauchsgutWrapper übergeben. Cdv_Verbrauchsgut wurde erwartet! Methode:Cdv_VerbrauchsgutWrapper.AktualisiereEintrag");
 			Cdv_Verbrauchsgut material = pin_ob as Cdv_Verbrauchsgut;
-			string myQ;
+			StringBuilder strQuery;
 			
 			//das entsprechende Query wird zusammengebaut:
-			myQ = "update \"Gueter\" set "
-				+ "\"Bezeichnung\"="
-				+"'"+ material.Bezeichnung +"', "
-				+ "\"Menge\"="
-				+""+ CMethoden.KonvertiereRealFuerDB(material.Menge) +", "
-				+ "\"Lagerort\"="
-				+"'"+CMethoden.KonvertiereStringFuerDB(material.Lagerort) +"', "
-				+ "\"Art\"="
-				+"'"+ CMethoden.KonvertiereStringFuerDB(material.Art) +"', "
-				+ "\"SpaetesterWbzpkt\"="
-				+"'"+ CMethoden.KonvertiereDatumFuerDB(material.SpaetesterWiederbeschaffungszeitpunkt) +"' "
-				+"where \"ID\"="
-				+"'"+ material.ID +"' "
-				+";";
-			
-			return db.AusfuehrenUpdateAnfrage(myQ);
+			strQuery = new StringBuilder("update \"Gueter\" set ", 300);
+			strQuery.Append( "\"Bezeichnung\"='");
+			strQuery.Append( material.Bezeichnung );
+			strQuery.Append("', \"Menge\"=");
+			strQuery.Append( CMethoden.KonvertiereRealFuerDB(material.Menge) );
+			strQuery.Append(", \"Lagerort\"='");
+			strQuery.Append(CMethoden.KonvertiereStringFuerDB(material.Lagerort) );
+			strQuery.Append("', \"Art\"='");
+			strQuery.Append( CMethoden.KonvertiereStringFuerDB(material.Art) );
+			strQuery.Append("', \"SpaetesterWbzpkt\"='");
+			strQuery.Append( CMethoden.KonvertiereDatumFuerDB(material.SpaetesterWiederbeschaffungszeitpunkt) );
+			strQuery.Append("' where \"ID\"='");
+			strQuery.Append( material.ID );
+			strQuery.Append("' ;");
+			return db.AusfuehrenUpdateAnfrage(strQuery.ToString());
 		}
 
 		public override IPelsObject[] LadeAusDerDB()

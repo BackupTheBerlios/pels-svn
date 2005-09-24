@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using pELS.DV.Server.Interfaces;
 using pELS.DV;
 using pELS.Server;
@@ -50,14 +51,14 @@ namespace pELS.DV.Server.Wrapper
 			// Ist korrekter Objekttyp.
 			if (pin_ob is Cdv_Modul)
 			{
-				String str_INSERTAnfrage= "insert into \"Module\"("
-					+ "\"Modulname\""
-					+ ", \"EinsatzschwerpunktID\") values("
-					+ "'" + CMethoden.KonvertiereStringFuerDB (((Cdv_Modul)pin_ob).Modulname) + "'" 
-					+ ", '" + ((Cdv_Modul)pin_ob).EinsatzschwerpunktID + "'" + ")";				
+				StringBuilder strQuery = new StringBuilder("insert into \"Module\"(\"Modulname\" , \"EinsatzschwerpunktID\") values('", 200);
+				strQuery.Append( CMethoden.KonvertiereStringFuerDB (((Cdv_Modul)pin_ob).Modulname) );
+				strQuery.Append( "', '" );
+				strQuery.Append( ((Cdv_Modul)pin_ob).EinsatzschwerpunktID );
+				strQuery.Append( "')");
 				
 				// Anfrage an Cdv_DB übermitteln
-				return(db.AusfuehrenInsertAnfrage(str_INSERTAnfrage));	
+				return(db.AusfuehrenInsertAnfrage(strQuery.ToString()));	
 			}
 			else
 			{
@@ -70,13 +71,15 @@ namespace pELS.DV.Server.Wrapper
 		{
 			if(!(pin_ob is Cdv_Modul))
 				throw new ArgumentNullException("Falsches Objekt an Cdv_ModulWrapper übergeben. Modul wurde erwartet!");
-			String str_UPDATEAnfrage = "update \"Module\" set "
-				+ "\"Modulname\"= " + "'" + CMethoden.KonvertiereStringFuerDB(((Cdv_Modul) pin_ob).Modulname) + "'" + " ,"
-				+ "\"EinsatzschwerpunktID\"= " + "'" + ((Cdv_Modul) pin_ob).EinsatzschwerpunktID+ "'" + ""
-				+ "where \"ID\"=" + ((Cdv_Modul) pin_ob).ID;
+			StringBuilder strQuery = new StringBuilder("update \"Module\" set \"Modulname\"= '", 200);
+				strQuery.Append( CMethoden.KonvertiereStringFuerDB(((Cdv_Modul) pin_ob).Modulname) );
+				strQuery.Append( "' ,\"EinsatzschwerpunktID\"= '" );
+					strQuery.Append( ((Cdv_Modul) pin_ob).EinsatzschwerpunktID);
+					strQuery.Append( "'where \"ID\"=" );
+					strQuery.Append( ((Cdv_Modul) pin_ob).ID);
 
 			// Anfrage an Cdv_DB weiterleiten
-			return(db.AusfuehrenUpdateAnfrage(str_UPDATEAnfrage));
+			return(db.AusfuehrenUpdateAnfrage(strQuery.ToString()));
 		}
 
 		public override IPelsObject[] LadeAusDerDB()

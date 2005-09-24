@@ -138,6 +138,11 @@
                     Project = "{2097E0D2-E63D-4C25-A2DC-5D869CD16C71}"
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
+                <Reference
+                    Name = "System.Windows.Forms"
+                    AssemblyName = "System.Windows.Forms"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.dll"
+                />
             </References>
         </Build>
         <Files>
@@ -245,34 +250,6 @@
                     RelPath = "ETB1.cs"
                     DependentUpon = "ETB.rpt"
                     SubType = "Code"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "Funkplan.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "Funkplan.cs"
-                />
-                <File
-                    RelPath = "Funkplan.cs"
-                    DependentUpon = "Funkplan.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "Gueteranforderungsliste.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "Gueteranforderungsliste.cs"
-                />
-                <File
-                    RelPath = "Gueteranforderungsliste.cs"
-                    DependentUpon = "Gueteranforderungsliste.rpt"
-                    SubType = "Component"
                     BuildAction = "Compile"
                     DesignTime = "True"
                     AutoGen = "True"

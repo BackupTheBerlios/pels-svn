@@ -293,7 +293,7 @@ namespace pELS.Client.Report
 				output.Close();
 				return true;
 			}
-			catch(Exception)
+			catch(Exception e)
 			{
 				System.Windows.Forms.MessageBox.Show("Fehler auf dem Server: Es konnte keine ODBC Verbindung zur Datenbank hergestellt werden.");
 				return false;
